@@ -83,19 +83,21 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 	  
 			//then verify the signature, implement later
 
+			iFromAmount, _ := strconv.Atoi( fromAmount )
+			iToAmount, _ := strconv.Atoi( toAmount )
 
-			if fromAmount < amount {
+			if iFromAmount < amount {
 				return nil, fmt.Errorf("the amount not enough!")
 			}
 
-			fromAmount = fromAmount - amount
-			toAmount = toAmount + amount
+			iFromAmount = iFromAmount - amount
+			iToAmount = iToAmount + amount
 
-			err = stub.PutState(fromAddress, []byte(strconv.Itoa(fromAmount)))
+			err = stub.PutState(fromAddress, []byte(strconv.Itoa(iFromAmount)))
 			if err != nil{
 				return nil, err
 			}
-			err = stub.PutState(toAddress, []byte(strconv.Itoa(toAmount)))
+			err = stub.PutState(toAddress, []byte(strconv.Itoa(iToAmount)))
 			if err != nil{
 				return nil, err
 			}
@@ -112,11 +114,13 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 				return nil, fmt.Errorf("the user (to: %s) not exists!", fromAddress)
 			}
 
-			if fromAmount <= 0 {
+			iFromAmount , _ := strconv.Atoi( fromAmount )
+
+			if iFromAmount <= 0 {
 				return nil, fmt.Errorf("the amount not enough!")
 			}
-			fromAmount = fromAmount - 1
-			err = stub.PutState(fromAddress, []byte(strconv.Itoa(fromAmount)))
+			iFromAmount = iFromAmount - 1
+			err = stub.PutState(fromAddress, []byte(strconv.Itoa(iFromAmount)))
 			if err != nil {
 				return nil, err
 			}
@@ -127,13 +131,14 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			}
 			
 			//save the commitment
-			err = stub.PutState("commitment"+strconv.Itoa(counter), []byte(commitment))
+			iCounter, _ := strconv.Atoi( counter )
+			err = stub.PutState("commitment"+strconv.Itoa(iCounter), []byte(commitment))
 			if err != nil {
 				return nil, err
 			}
 
-			counter = counter + 1
-			err = stub.PutState("counter", []byte(strconv.Itoa(counter)))
+			iCounter = iCounter + 1
+			err = stub.PutState("counter", []byte(strconv.Itoa(iCounter)))
 			if err != nil {
 				return nil, err
 			}
@@ -223,7 +228,6 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 		if amount == nil {
 			return nil, fmt.Errorf("the user (from: %s) not existes!", address)
 		}
-		//iAmount, _ := strconv.Atoi(string(amount))
 		return amount, nil
 	case "params":
 		params, err := stub.GetState("params")
@@ -242,7 +246,6 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 		if err != nil {
 			return nil, fmt.Errorf("get opeartion failed. Error accessing state: %s", err)
 		}
-		//iCounter, _ := strconv.Atoi(string(counter))
 		return counter, nil
 	case "commitment":
 		return t.Commitment(stub, "commitment", args)

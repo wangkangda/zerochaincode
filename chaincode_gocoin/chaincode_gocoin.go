@@ -1,14 +1,17 @@
 package main
 
-import(
-  "errors"
-  "fmt"
-  "strconv"
-  "C"
-  "safe"
+/*
+#cgo CFLAGS: -l./lib
+#cgo LDFLAGS: -L./lib -lzerocoin -Wl,-rpath,./lib/
+#include "Goapi.h"
+*/
+import "C"
+import "fmt"
+import "os"
+import "errors"
+import "strconv"
 
-  "github.com/hyperledger/fabric/core/chaincode/shim"
-)
+import "github.com/hyperledger/fabric/core/chaincode/shim"
 
 type SimpleChaincode struct{
 }

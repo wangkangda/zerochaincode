@@ -83,8 +83,8 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 	  
 			//then verify the signature, implement later
 
-			iFromAmount, _ := strconv.Atoi( fromAmount )
-			iToAmount, _ := strconv.Atoi( toAmount )
+			iFromAmount, _ := strconv.Atoi( string(fromAmount) )
+			iToAmount, _ := strconv.Atoi( string(toAmount) )
 
 			if iFromAmount < amount {
 				return nil, fmt.Errorf("the amount not enough!")
@@ -114,7 +114,7 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 				return nil, fmt.Errorf("the user (to: %s) not exists!", fromAddress)
 			}
 
-			iFromAmount , _ := strconv.Atoi( fromAmount )
+			iFromAmount , _ := strconv.Atoi( string(fromAmount) )
 
 			if iFromAmount <= 0 {
 				return nil, fmt.Errorf("the amount not enough!")
@@ -131,7 +131,7 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			}
 			
 			//save the commitment
-			iCounter, _ := strconv.Atoi( counter )
+			iCounter, _ := strconv.Atoi( string(counter) )
 			err = stub.PutState("commitment"+strconv.Itoa(iCounter), []byte(commitment))
 			if err != nil {
 				return nil, err
@@ -144,8 +144,10 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			}
 
 			//process the accumulator
-			accum := string( stub.GetState("accumulator") )
-			params := string( stub.GetState("params") )
+			bAccum, _ := stub.GetState("accumulator")
+			bParams, _ := stub.GetState("params")
+			accum := string( bAccum )
+			params := string( bParams )
 			oParams := C.CCParamsLoad( C.CString(params) )
 			oAccum := C.CCAccumLoad( oParams, C.CString(accum) )
 			accum = C.CCAccumCal( oParams, oAccum, C.CString(commitment) )
@@ -166,8 +168,10 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			toAddress := args[2]
 			metadata := args[3]
 
-			accum := string( stub.GetState("accumulator") )
-			params := string( stub.GetState("params") )
+			bAccum, _ := stub.GetState("accumulator")
+			bParams, _ := stub.GetState("params")
+            accum := string( bAccum )
+			params := string( bParams )
 			oParams := C.CCParamsLoad( C.CString(params) )
 			oAccum := C.CCAccumLoad( oParams, C.CString(accum) )
 

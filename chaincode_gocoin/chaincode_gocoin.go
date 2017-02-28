@@ -65,6 +65,8 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			amount, err := strconv.Atoi( args[3] )
 			signature := args[4]
 
+			fmt.Println("get signature: %s", signature)
+
 			fromAmount, err := stub.GetState( fromAddress )
 			if err != nil {
 				return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
@@ -167,6 +169,8 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			coinspend := args[1]
 			toAddress := args[2]
 			metadata := args[3]
+
+			fmt.Println( "get metadata: %s", metadata )
 
 			bAccum, _ := stub.GetState("accumulator")
 			bParams, _ := stub.GetState("params")

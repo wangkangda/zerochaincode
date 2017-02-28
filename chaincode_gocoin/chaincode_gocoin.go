@@ -179,12 +179,12 @@ func (t *SimpleChaincode) Transaction(stub shim.chaincodeStubInterface, function
 }
 
 func (t *SimpleChaincode) Commitment(stub shim.chaincodeStubInterface, function string, args []string) ([]byte, error){
-	num := strconv.Atoi( string( args[0] ) )
+	num,_ := strconv.Atoi( string( args[0] ) )
 	counter, err := stub.GetState( "counter" )
 	if err != nil {
 		return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
 	}
-	iCounter = strconv.Atoi( string(counter) )
+	iCounter,_ := strconv.Atoi( string(counter) )
 
 	if num >= iCounter {
 		return nil, fmt.Errorf("there is not No.%s commitment", args[0] )

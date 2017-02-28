@@ -225,27 +225,27 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 		if amount == nil {
 			return nil, fmt.Errorf("the user (from: %s) not existes!", address)
 		}
-		iAmount, _ := strconv.Atoi(string(amount))
-		return iAmount, nil
+		//iAmount, _ := strconv.Atoi(string(amount))
+		return amount, nil
 	case "params":
 		params, err := stub.GetState("params")
 		if err != nil {
 			return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
 		}
-		return string(params), nil
+		return params, nil
 	case "accumulator":
 		accum, err := stub.GetState("accumulator")
 		if err != nil {
 			return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
 		}
-		return string(accum), nil
+		return accum, nil
 	case "counter":
 		counter, err := stub.GetState("counter")
 		if err != nil {
 			return nil, fmt.Errorf("get opeartion failed. Error accessing state: %s", err)
 		}
-		iCounter, _ := strconv.Atoi(string(counter))
-		return iCounter, nil
+		//iCounter, _ := strconv.Atoi(string(counter))
+		return counter, nil
 	case "commitment":
 		return t.Commitment(stub, "commitment", args)
 	}

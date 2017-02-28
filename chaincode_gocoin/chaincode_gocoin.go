@@ -1,8 +1,8 @@
 package main
 
 /*
-#cgo CFLAGS: -l./lib
-#cgo LDFLAGS: -L./lib -lzerocoin -Wl,-rpath,./lib/
+#cgo CFLAGS: -l/opt/gopath/src/github.com/wangkangda/zerochaincode/chaincode_gocoin/lib
+#cgo LDFLAGS: -L/opt/gopath/src/github.com/wangkangda/zerochaincode/chaincode_gocoin/lib -lzerocoin -Wl,-rpath,/opt/gopath/src/github.com/wangkangda/zerochaincode/chaincode_gocoin/lib/
 #include "Goapi.h"
 */
 import "C"

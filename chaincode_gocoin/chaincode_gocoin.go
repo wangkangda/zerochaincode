@@ -50,8 +50,8 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 }
 
 func (t *SimpleChaincode) Transaction(stub shim.chaincodeStubInterface, function string, args []string) ([]byte, error){
-	var type = args[0]
-	switch type{
+	var transtype = args[0]
+	switch transtype{
 		case "coinbase":
 			address := args[1]
 			amount, err := strconv.Atoi( args[2] )

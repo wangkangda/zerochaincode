@@ -2,7 +2,7 @@ package main
 
 /*
 #cgo CFLAGS: -l/opt/gopath/src/github.com/wangkangda/zerochaincode/chaincode_gocoin/lib
-#cgo LDFLAGS: -L/opt/gopath/src/github.com/wangkangda/zerochaincode/chaincode_gocoin/lib -lzerocoin -Wl,-rpath,/opt/gopath/src/github.com/wangkangda/zerochaincode/chaincode_gocoin/lib/
+#cgo LDFLAGS: -L/opt/gopath/src/github.com/wangkangda/zerochaincode/chaincode_gocoin/lib -lzerocoin -lboost_system -Wl,-rpath,/opt/gopath/src/github.com/wangkangda/zerochaincode/chaincode_gocoin/lib/
 #include "Goapi.h"
 */
 import "C"

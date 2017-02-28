@@ -6,19 +6,17 @@ package main
 #include "Goapi.h"
 */
 import "C"
-import (
-	"fmt"
-	"errors"
-	"strconv"
+import "fmt"
+import "errors"
+import "strconv"
 
-	"github.com/hyperledger/fabric/core/chaincode/shim"
-)
+import "github.com/hyperledger/fabric/core/chaincode/shim"
 
 type SimpleChaincode struct{
 }
 
 func main(){
-  err := shim.start( new(SimpleChaincode) )
+  err := shim.Start( new(SimpleChaincode) )
   if err != nil{
     fmt.Printf("Error starting Simple chaincodes", err)
   }
@@ -50,7 +48,7 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 	return nil, nil
 }
 
-func (t *SimpleChaincode) Transaction(stub shim.chaincodeStubInterface, function string, args []string) ([]byte, error){
+func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error){
 	var transtype = args[0]
 	switch transtype{
 		case "coinbase":
@@ -178,7 +176,7 @@ func (t *SimpleChaincode) Transaction(stub shim.chaincodeStubInterface, function
 	return nil, nil
 }
 
-func (t *SimpleChaincode) Commitment(stub shim.chaincodeStubInterface, function string, args []string) ([]byte, error){
+func (t *SimpleChaincode) Commitment(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error){
 	num,_ := strconv.Atoi( string( args[0] ) )
 	counter, err := stub.GetState( "counter" )
 	if err != nil {

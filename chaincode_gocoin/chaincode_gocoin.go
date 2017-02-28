@@ -5,13 +5,14 @@ package main
 #cgo LDFLAGS: -L/opt/gopath/src/github.com/wangkangda/zerochaincode/chaincode_gocoin/lib -lzerocoin -Wl,-rpath,/opt/gopath/src/github.com/wangkangda/zerochaincode/chaincode_gocoin/lib/
 #include "Goapi.h"
 */
-import "C"
-import "fmt"
-import "os"
-import "errors"
-import "strconv"
+import (
+	"C"
+	"fmt"
+	"errors"
+	"strconv"
 
-import "github.com/hyperledger/fabric/core/chaincode/shim"
+	"github.com/hyperledger/fabric/core/chaincode/shim"
+)
 
 type SimpleChaincode struct{
 }
@@ -31,7 +32,7 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 
 	//get params obj
 	oParams := C.CCParamsLoad( params )
-	C.CCStrDel(param)
+	C.CCStrDel(params)
 
 	//init commit counter
 	counter := 0
@@ -124,7 +125,7 @@ func (t *SimpleChaincode) Transaction(stub shim.chaincodeStubInterface, function
 
 			counter, err := stub.GetState( "counter" )
 			if err != nil {
-				return nil, fmt.Errorf("get operation failed. Error accessing state: %s", state)
+				return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
 			}
 			
 			//save the commitment
@@ -144,7 +145,7 @@ func (t *SimpleChaincode) Transaction(stub shim.chaincodeStubInterface, function
 			params := string( stub.GetState("params") )
 			oParams := C.CCParamsLoad( C.CString(params) )
 			oAccum := C.CCAccumLoad( oParams, C.CString(accum) )
-			accum = C.CCAccumCal( oAccum, C.CString(commitment) )
+			accum = C.CCAccumCal( oParams, oAccum, C.CString(commitment) )
 			err = stub.PutState("accumulator", []byte(C.GoString(accum)))
 			if err != nil {
 				return nil, err

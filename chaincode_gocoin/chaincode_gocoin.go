@@ -8,7 +8,7 @@ import(
   "safe"
 
   "github.com/hyperledger/fabric/core/chaincode/shim"
-}
+)
 
 type SimpleChaincode struct{
 }

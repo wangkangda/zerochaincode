@@ -150,8 +150,8 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			params := string( bParams )
 			oParams := C.CCParamsLoad( C.CString(params) )
 			oAccum := C.CCAccumLoad( oParams, C.CString(accum) )
-			accum = C.CCAccumCal( oParams, oAccum, C.CString(commitment) )
-			err = stub.PutState("accumulator", []byte(C.GoString(accum)))
+			csAccum := C.CCAccumCal( oParams, oAccum, C.CString(commitment) )
+			err = stub.PutState("accumulator", []byte(C.GoString(csAccum)))
 			if err != nil {
 				return nil, err
 			}
@@ -159,7 +159,7 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			//release object
 			C.CCParamsDel( oParams )
 			C.CCAccumDel( oAccum )
-			C.CCStrDel( accum )
+			C.CCStrDel( csAccum )
 
 			return nil, nil
 

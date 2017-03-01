@@ -1,34 +1,17 @@
-/*
-Copyright IBM Corp. 2016 All Rights Reserved.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-		 http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package main
 
-//WARNING - this chaincode's ID is hard-coded in chaincode_example04 to illustrate one way of
-//calling chaincode from a chaincode. If this example is modified, chaincode_example04.go has
-//to be modified as well with the new ID of chaincode_example02.
-//chaincode_example05 show's how chaincode ID can be passed in as a parameter instead of
-//hard-coding.
+/*
+#cgo CFLAGS: -l/opt/gopath/src/github.com/wangkangda/zerochaincode/example/lib
+#cgo LDFLAGS: -L/opt/gopath/src/github.com/wangkangda/zerochaincode/example/lib -lzerocoin -lboost_system -Wl,-rpath,/opt/gopath/src/github.com/wangkangda/zerochaincode/example/lib/
+#include "Goapi.h"
+*/
+import "C"
+import "fmt"
+import "errors"
+import "strconv"
 
-import (
-	"errors"
-	"fmt"
-	"strconv"
+import "github.com/hyperledger/fabric/core/chaincode/shim"
 
-	"github.com/hyperledger/fabric/core/chaincode/shim"
-)
 
 // SimpleChaincode example simple Chaincode implementation
 type SimpleChaincode struct {
@@ -122,7 +105,51 @@ func (t *SimpleChaincode) delete(stub shim.ChaincodeStubInterface, args []string
 	return nil, nil
 }
 
+//Query
+func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error){
+	fmt.Println("query is running"+function)
+
+	queryvalue := args[0]
+	switch queryvalue {
+	case "amount":
+		address := args[1]
+		amount, err := stub.GetState(address)
+		if err != nil { 
+			return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
+		}
+		if amount == nil {
+			return nil, fmt.Errorf("the user (from: %s) not existes!", address)
+		}
+		return amount, nil
+	case "params":
+		params, err := stub.GetState("params")
+		if err != nil {
+			return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
+		}
+		return params, nil
+	case "accumulator":
+		accum, err := stub.GetState("accumulator")
+		if err != nil {
+			return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
+		}
+		return accum, nil
+	case "counter":
+		counter, err := stub.GetState("counter")
+		if err != nil {
+			return nil, fmt.Errorf("get opeartion failed. Error accessing state: %s", err)
+		}
+		return counter, nil
+	case "commitment":
+		return t.Commitment(stub, "commitment", args)
+	}
+
+	fmt.Println("query did not find func: " + function)
+	return nil, errors.New("Received unknown function query: "+function)
+}
+
+
 // Query callback representing the query of a chaincode
+/*
 func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	if function != "query" {
 		return nil, errors.New("Invalid query function name. Expecting \"query\"")
@@ -151,7 +178,7 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 	jsonResp := "{\"Name\":\"" + A + "\",\"Amount\":\"" + string(Avalbytes) + "\"}"
 	fmt.Printf("Query Response:%s\n", jsonResp)
 	return Avalbytes, nil
-}
+}*/
 
 func main() {
 	err := shim.Start(new(SimpleChaincode))

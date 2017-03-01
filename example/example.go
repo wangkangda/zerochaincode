@@ -140,7 +140,7 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 		}
 		return counter, nil
 	case "commitment":
-		return t.Commitment(stub, "commitment", args)
+		//return t.Commitment(stub, "commitment", args)
 	}
 
 	fmt.Println("query did not find func: " + function)

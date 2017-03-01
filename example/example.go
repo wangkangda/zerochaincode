@@ -23,6 +23,22 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 	counter := 0
 	stub.PutState( "counter", []byte( strconv.Itoa(counter) ) )
 
+	//generate params
+	var params = C.CCParamsGen()
+	stub.PutState( "params", []byte( C.GoString(params) ) )
+
+	//get params obj
+	oParams := C.CCParamsLoad( params )
+	C.CCStrDel(params)
+
+	//generate accumulator
+	//accum := C.CCAccumGen( oParams )
+	//stub.PutState( "accumlator", []byte( C.GoString(accum) ) )
+	//C.CCStrDel(accum)
+
+	//release object params
+	C.CCParamsDel( oParams )
+
 	return nil, nil
 }
 

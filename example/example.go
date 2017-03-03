@@ -32,9 +32,9 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 	C.CCStrDel(params)
 
 	//generate accumulator
-	//accum := C.CCAccumGen( oParams )
-	//stub.PutState( "accumlator", []byte( C.GoString(accum) ) )
-	//C.CCStrDel(accum)
+	accum := C.CCAccumGen( oParams )
+	stub.PutState( "accumlator", []byte( C.GoString(accum) ) )
+	C.CCStrDel(accum)
 
 	//release object params
 	C.CCParamsDel( oParams )
@@ -42,84 +42,177 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 	return nil, nil
 }
 
+func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error){
+	var transtype = args[0]
+	switch transtype{
+		case "coinbase":
+			address := args[1]
+			amount, err := strconv.Atoi( args[2] )
+			err = stub.PutState(address, []byte(strconv.Itoa(amount)))
+			if err != nil{
+				return nil, err
+			}
+
+		case "transfer":
+			fromAddress := args[1]
+			toAddress := args[2]
+			amount, err := strconv.Atoi( args[3] )
+			signature := args[4]
+
+			fmt.Println("get signature: %s", signature)
+
+			fromAmount, err := stub.GetState( fromAddress )
+			if err != nil {
+				return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
+			}
+			if fromAmount == nil {
+				return nil, fmt.Errorf("the user (from: %s) not exists!", fromAddress)
+			}
+
+			toAmount, err := stub.GetState( toAddress )
+			if err != nil {
+				return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
+			}
+			if toAmount == nil {
+				return nil, fmt.Errorf("the user (to: %s) not exists!", toAddress)
+			}
+
+			//then verify the signature, implement later
+
+			iFromAmount, _ := strconv.Atoi( string(fromAmount) )
+			iToAmount, _ := strconv.Atoi( string(toAmount) )
+
+			if iFromAmount < amount {
+				return nil, fmt.Errorf("the amount not enough!")
+			}
+
+			iFromAmount = iFromAmount - amount
+			iToAmount = iToAmount + amount
+
+			err = stub.PutState(fromAddress, []byte(strconv.Itoa(iFromAmount)))
+			if err != nil{
+				return nil, err
+			}
+			err = stub.PutState(toAddress, []byte(strconv.Itoa(iToAmount)))
+			if err != nil{
+				return nil, err
+			}
+
+		case "mint":
+			fromAddress := args[1]
+			commitment := args[2]
+
+			fromAmount, err := stub.GetState( fromAddress )
+			if err != nil {
+				return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
+			}
+			if fromAmount == nil {
+				return nil, fmt.Errorf("the user (to: %s) not exists!", fromAddress)
+			}
+
+			iFromAmount , _ := strconv.Atoi( string(fromAmount) )
+
+			if iFromAmount <= 0 {
+				return nil, fmt.Errorf("the amount not enough!")
+			}
+			iFromAmount = iFromAmount - 1
+			err = stub.PutState(fromAddress, []byte(strconv.Itoa(iFromAmount)))
+			if err != nil {
+				return nil, err
+			}
+
+			counter, err := stub.GetState( "counter" )
+			if err != nil {
+				return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
+			}
+			
+			//save the commitment
+			iCounter, _ := strconv.Atoi( string(counter) )
+			err = stub.PutState("commitment"+strconv.Itoa(iCounter), []byte(commitment))
+			if err != nil {
+				return nil, err
+			}
+
+			iCounter = iCounter + 1
+			err = stub.PutState("counter", []byte(strconv.Itoa(iCounter)))
+			if err != nil {
+				return nil, err
+			}
+
+			//process the accumulator
+			bAccum, _ := stub.GetState("accumulator")
+			bParams, _ := stub.GetState("params")
+			accum := string( bAccum )
+			params := string( bParams )
+			oParams := C.CCParamsLoad( C.CString(params) )
+			oAccum := C.CCAccumLoad( oParams, C.CString(accum) )
+			csAccum := C.CCAccumCal( oParams, oAccum, C.CString(commitment) )
+			err = stub.PutState("accumulator", []byte(C.GoString(csAccum)))
+			if err != nil {
+				return nil, err
+			}
+
+			//release object
+			C.CCParamsDel( oParams )
+			C.CCAccumDel( oAccum )
+			C.CCStrDel( csAccum )
+
+			return nil, nil
+
+		case "spend":
+			coinspend := args[1]
+			toAddress := args[2]
+			metadata := args[3]
+
+			fmt.Println( "get metadata: %s", metadata )
+
+			bAccum, _ := stub.GetState("accumulator")
+			bParams, _ := stub.GetState("params")
+            accum := string( bAccum )
+			params := string( bParams )
+			oParams := C.CCParamsLoad( C.CString(params) )
+			oAccum := C.CCAccumLoad( oParams, C.CString(accum) )
+
+			serialNum := C.CCSpendVerify( oParams, C.CString(coinspend), C.CString(toAddress), oAccum)
+			if serialNum == nil {
+				return nil, fmt.Errorf("The CoinSpend transaction did not verify!")
+			}
+
+			return nil, nil
+	}
+	return nil, nil
+}
+
+func (t *SimpleChaincode) Commitment(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error){
+	num,_ := strconv.Atoi( string( args[0] ) )
+	counter, err := stub.GetState( "counter" )
+	if err != nil {
+		return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
+	}
+	iCounter,_ := strconv.Atoi( string(counter) )
+
+	if num >= iCounter {
+		return nil, fmt.Errorf("there is not No.%s commitment", args[0] )
+	}
+	commit, err := stub.GetState("commitment"+strconv.Itoa(num))
+	if err != nil{
+		return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
+	}
+
+	return commit, nil
+}
+
 // Transaction makes payment of X units from A to B
 func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
-	if function == "delete" {
-		// Deletes an entity from its state
-		return t.delete(stub, args)
-	}
+    fmt.Println("invoke is running" + function)
+    if function == "transaction" {
+        return t.Transaction(stub, "transaction", args)
+    }
+    fmt.Println("invoke did not find func: "+function)
 
-	var A, B string    // Entities
-	var Aval, Bval int // Asset holdings
-	var X int          // Transaction value
-	var err error
-
-	if len(args) != 3 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 3")
-	}
-
-	A = args[0]
-	B = args[1]
-
-	// Get the state from the ledger
-	// TODO: will be nice to have a GetAllState call to ledger
-	Avalbytes, err := stub.GetState(A)
-	if err != nil {
-		return nil, errors.New("Failed to get state")
-	}
-	if Avalbytes == nil {
-		return nil, errors.New("Entity not found")
-	}
-	Aval, _ = strconv.Atoi(string(Avalbytes))
-
-	Bvalbytes, err := stub.GetState(B)
-	if err != nil {
-		return nil, errors.New("Failed to get state")
-	}
-	if Bvalbytes == nil {
-		return nil, errors.New("Entity not found")
-	}
-	Bval, _ = strconv.Atoi(string(Bvalbytes))
-
-	// Perform the execution
-	X, err = strconv.Atoi(args[2])
-	if err != nil {
-		return nil, errors.New("Invalid transaction amount, expecting a integer value")
-	}
-	Aval = Aval - X
-	Bval = Bval + X
-	fmt.Printf("Aval = %d, Bval = %d\n", Aval, Bval)
-
-	// Write the state back to the ledger
-	err = stub.PutState(A, []byte(strconv.Itoa(Aval)))
-	if err != nil {
-		return nil, err
-	}
-
-	err = stub.PutState(B, []byte(strconv.Itoa(Bval)))
-	if err != nil {
-		return nil, err
-	}
-
-	return nil, nil
+    return nil, errors.New("Received unknown function invocation: "+function)
 }
 
-// Deletes an entity from state
-func (t *SimpleChaincode) delete(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
-	if len(args) != 1 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 1")
-	}
-
-	A := args[0]
-
-	// Delete the key from the state in ledger
-	err := stub.DelState(A)
-	if err != nil {
-		return nil, errors.New("Failed to delete state")
-	}
-
-	return nil, nil
-}
 
 //Query
 func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error){
@@ -159,42 +252,8 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 		//return t.Commitment(stub, "commitment", args)
 	}
 
-	fmt.Println("query did not find func: " + function)
 	return nil, errors.New("Received unknown function query: "+function)
 }
-
-
-// Query callback representing the query of a chaincode
-/*
-func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
-	if function != "query" {
-		return nil, errors.New("Invalid query function name. Expecting \"query\"")
-	}
-	var A string // Entities
-	var err error
-
-	if len(args) != 1 {
-		return nil, errors.New("Incorrect number of arguments. Expecting name of the person to query")
-	}
-
-	A = args[0]
-
-	// Get the state from the ledger
-	Avalbytes, err := stub.GetState(A)
-	if err != nil {
-		jsonResp := "{\"Error\":\"Failed to get state for " + A + "\"}"
-		return nil, errors.New(jsonResp)
-	}
-
-	if Avalbytes == nil {
-		jsonResp := "{\"Error\":\"Nil amount for " + A + "\"}"
-		return nil, errors.New(jsonResp)
-	}
-
-	jsonResp := "{\"Name\":\"" + A + "\",\"Amount\":\"" + string(Avalbytes) + "\"}"
-	fmt.Printf("Query Response:%s\n", jsonResp)
-	return Avalbytes, nil
-}*/
 
 func main() {
 	err := shim.Start(new(SimpleChaincode))

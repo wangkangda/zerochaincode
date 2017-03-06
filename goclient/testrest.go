@@ -24,19 +24,9 @@ func httpGet() {
 	fmt.Println(string(body))
 }
 func httpPostForm() {
-	resp, err := http.PostForm("http://localhost:7050/chaincode",
-		url.Values{"jsonrpc":"2.0","method":"deploy","params": {"type": 1,"chaincodeID":{"path":"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"},"ctorMsg": {"args":{"init", "a", "1000", "b", "2000"}},"id": 1}}
-/*
-			"jsonrpc":"2.0",
-			"method":"deploy",
-			"params": {
-				"type": 1,
-				"chaincodeID":{
-					"path":"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"},
-				"ctorMsg": {
-					"args":{"init", "a", "1000", "b", "2000"}},
-		"id": 1}}*/
+    metadata := url.Values{"jsonrpc":"2.0","method":"deploy","params": {"type": 1,"chaincodeID":{"path":"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"},"ctorMsg": {"args":{"init", "a", "1000", "b", "2000"}},"id": 1}}
 
+	resp, err := http.PostForm("http://localhost:7050/chaincode",metadata)
 	if err != nil {
 		// handle error
 		fmt.Println("Error")

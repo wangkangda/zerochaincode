@@ -1,18 +1,20 @@
-package goclient
+package main
 
-import {
+import (
 	"bufio"
 	"io"
 	"os"
+	"fmt"
 	"strings"
-}
+)
 
 func checkerr( err error ) {
 	if err != nil{
-		panic err
+		fmt.Println(err)
+		panic( err )
 	}
 }
-func getData(filepath string) ([]string, err){
+func getData(filepath string) ([]string, error){
 	f, err := os.Open(filepath)
 	checkerr(err)
 	defer f.Close()
@@ -20,22 +22,25 @@ func getData(filepath string) ([]string, err){
 	params := make([]string, 0, 100)
 	for {
 		line, err := buf.ReadString('\n')
-		params = append(params, line )
 		if err == io.EOF{
 			break;
 		}
 		checkerr( err )
+		line = strings.TrimSpace(line)
+		fmt.Println("line:", line)
+		params = append(params, line ) 
 	}
 	return params, nil
 }
 
 func saveData(filepath string, params []string) error{
-	f, err := os.OpenFile(filepath, os.O_WRONLY, 0666)
+	f, err := os.Create(filepath)
 	check(err)
 	defer f.Close()
+	fmt.Println("write %s lines", len(params))
 	for i:=0; i<len(params); i++{
 		f.WriteString( params[i] )
-		f.WriteString( '\n' )
+		f.WriteString( "\n" )
 	}
 	return nil
 }

@@ -23,6 +23,10 @@ func getData(filepath string) ([]string, error){
 	for {
 		line, err := buf.ReadString('\n')
 		if err == io.EOF{
+			if len(line)>0 {
+				fmt.Println("line:", line)
+				params = append(params, line)
+			}
 			break;
 		}
 		checkerr( err )

@@ -1,0 +1,11 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/zerocoin
+
+Name: zerocoin
+Description: Zerocoin cryptographic routines library
+Requires:
+Version: 
+Libs: -L${libdir} -lzerocoin -lcrypto
+Cflags: -I${includedir}

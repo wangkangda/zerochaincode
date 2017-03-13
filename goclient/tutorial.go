@@ -1,7 +1,6 @@
 package main
 
 /*
-*/
 import "C"
 import "fmt"
 import "errors"
@@ -11,17 +10,17 @@ func Init( params []string ){
     depReq := ReqDeploy()
     resp, err := httpPostForm( depReq )
     check( err )
-    params = append( params, string(resp[ 'result' ][ 'message' ]) )
+    //params = append( params, string(resp[ 'result' ][ 'message' ]) )
 
-    queReq := ReqQuery( params[0], 'params' )
+    //queReq := ReqQuery( params[0], 'params' )
     resp, err = httpPostForm( depReq )
     check( err )
-    params = append( params, string(resp[ 'result' ][ 'message' ] ) )
+    //params = append( params, string(resp[ 'result' ][ 'message' ] ) )
 
-    acuReq := ReqQuery( params[0], 'accumlator' )
+    //acuReq := ReqQuery( params[0], 'accumlator' )
     resp, err = httpPostForm( acuReq )
     check( err )
-    params = append( params, string(resp[ 'result' ][ 'message' ] ) )
+    //params = append( params, string(resp[ 'result' ][ 'message' ] ) )
 
     return params
 }
@@ -49,4 +48,4 @@ func Mint( params []string, ){
     resp, err := httpPostForm( mintReq )
 
     check( err )
-}
+}*/

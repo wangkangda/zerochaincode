@@ -17,7 +17,7 @@ func checkerr( err error ) {
 func getData(filepath string) ([]string, error){
 	f, err := os.Open(filepath)
     if err != nil {
-        f, err := os.Create(filepath)
+        f, err = os.Create(filepath)
     }
 	checkerr(err)
 	defer f.Close()

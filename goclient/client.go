@@ -57,7 +57,7 @@ func ReqSpend(chaincodeid string, coinspend string, recvUsr string)([]byte){
 func ReqQuery(chaincodeid string, reqvalue string)[]byte{
     args := fmt.Sprintf(`"%s"`, reqvalue)
     chaincode := fmt.Sprintf(`"name": "%s"`, chaincodeid)
-    jsonreq := fmt.Sprintf(json_temp, "query", chaincodeid, "query", args)
+    jsonreq := fmt.Sprintf(json_temp, "query", chaincode, "query", args)
     return []byte(jsonreq)
 }
 func httpGet() {

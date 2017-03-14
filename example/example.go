@@ -71,10 +71,11 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 
 			toAmount, err := stub.GetState( toAddress )
 			if err != nil {
-				return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
+                return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
 			}
 			if toAmount == nil {
-				return nil, fmt.Errorf("the user (to: %s) not exists!", toAddress)
+                toAmount = []byte("0")
+				//return nil, fmt.Errorf("the user (to: %s) not exists!", toAddress)
 			}
 
 			//then verify the signature, implement later
@@ -177,6 +178,20 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			if serialNum == nil {
 				return nil, fmt.Errorf("The CoinSpend transaction did not verify!")
 			}
+
+            toAmount, err := stub.GetState( toAddress )
+            if err != nil {
+                return nil, fmt.Errorf("get operation failed.ERROR %s", err)
+            }
+            if toAmount == nil {
+                toAmount = []byte("0")
+            }
+            iToAmount, _ := strconv.Atoi( string(toAmount) )
+            iToAmount = iToAmount + 1
+            err = stub.PutState(toAddress, []byte(strconv.Itoa(iToAmount)))
+            if err != nil{
+                return nil, err
+            }
 
 			return nil, nil
 	}

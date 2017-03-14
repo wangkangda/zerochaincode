@@ -61,7 +61,7 @@ func Tutorial( params []string ){
     mintReq := ReqMint( params[0], C.GoString(commint), "No implement")
     resp := httpPostForm( mintReq )
     fmt.Println(resp)
-    ccid = getResp( resp )
+    ccid := getResp( resp )
 
     //make accumlator
     a1 := C.CString( params[1] )
@@ -78,10 +78,10 @@ func Tutorial( params []string ){
 
         a2 := C.CCAccumCal( oParams, oAccum1, newpubcoin )
         C.CCAccumDel( oAccum1 )
-        oAccum1 = C.CCAccumLoad( oParam1, accum2 )
+        oAccum1 = C.CCAccumLoad( oParams, a2 )
         C.CCPricoinDel( newcoin )
         C.CCStrDel(newpubcoin)
-        C.CCStrDel(accum2)
+        C.CCStrDel(a2)
     }
 
 
@@ -89,9 +89,10 @@ func Tutorial( params []string ){
     toaddress := "testuser2"
     coinspend := C.CCSpendGen( oParams, oPricoin, oAccum1, C.CString(toaddress) )
     defer C.CCStrDel( coinspend )
-    spendReq := ReqSpend( ccid, coinspend, "testuser2" )
-    resp := httpPostForm( sendReq )
+    spendReq := ReqSpend( ccid, C.GoString(coinspend), "testuser2" )
+    resp = httpPostForm( spendReq )
     fmt.Println(resp)
     sn := getResp(resp)
+    fmt.Println("SN: ", sn )
 }
 

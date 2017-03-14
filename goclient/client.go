@@ -92,9 +92,9 @@ func httpPostForm(jsonStr []byte) []byte{
     defer resp.Body.Close()
 
     fmt.Println("response Status:", resp.Status)
-    fmt.Println("response Body:", resp.Body)
+    //fmt.Println("response Body:", resp.Body)
     body, _ := ioutil.ReadAll(resp.Body)
-    fmt.Println("response Body:", string(body))
+    fmt.Println("response Body:", body)
     return body
 }
 

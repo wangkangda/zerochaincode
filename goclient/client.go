@@ -121,7 +121,8 @@ func testPost() {
                 "path":"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"
             },
 			"ctorMsg": {
-                "args":{"init", "a", "1000", "b", "2000"}
+                "function":"init",
+                "args":{"a", "1000", "b", "2000"}
             },
             "id": 1
         }

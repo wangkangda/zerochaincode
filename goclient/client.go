@@ -15,7 +15,7 @@ var json_temp = `{
     "params":{
         "type": 1,
         "chaincodeID": {
-            "%s"
+            %s
         },
         "ctorMsg":{
             "function": "%s",
@@ -27,6 +27,7 @@ var json_temp = `{
 func ReqDeploy()([]byte){
     chaincode := `"path":"github.com/wangkangda/zerochaincode/example"`
     jsonreq := fmt.Sprintf(json_temp, "deploy", chaincode, "init", "")
+    fmt.Println("deploy req:", jsonreq)
     return []byte(jsonreq)
 }
 func ReqCoinbase(chaincodeid string, recvUsr string, amount int)[]byte{
@@ -55,7 +56,8 @@ func ReqSpend(chaincodeid string, coinspend string, recvUsr string)([]byte){
 }
 func ReqQuery(chaincodeid string, reqvalue string)[]byte{
     args := fmt.Sprintf(`"%s"`, reqvalue)
-    jsonreq := fmt.Sprintf(json_temp, "query", chaincodeid, "query", args)
+    chaincode := fmt.Sprintf(`"name": "%s"`, chaincodeid)
+    jsonreq := fmt.Sprintf(json_temp, "query", chaincode, "query", args)
     return []byte(jsonreq)
 }
 func httpGet() {
@@ -91,10 +93,55 @@ func httpPostForm(jsonStr []byte) []byte{
     defer resp.Body.Close()
 
     fmt.Println("response Status:", resp.Status)
-    fmt.Println("response Headers:", resp.Header)
+    //fmt.Println("response Body:", resp.Body)
     body, _ := ioutil.ReadAll(resp.Body)
-    fmt.Println("response Body:", string(body))
+    fmt.Println("response Body:", body)
     return body
+}
+
+func testPost() {
+/*
+			"jsonrpc":"2.0",
+			"method":"deploy",
+			"params": {
+				"type": 1,
+				"chaincodeID":{
+					"path":"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"},
+				"ctorMsg": {
+					"args":{"init", "a", "1000", "b", "2000"}},
+		"id": 1}}*/
+    url := "http://localhost:7050/chaincode"
+    fmt.Println("URL:>", url)
+    jsonStr := []byte(`{
+        "jsonrpc":"2.0",
+		"method":"deploy",
+		"params": {
+            "type": 1,
+			"chaincodeID":{
+                "path":"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"
+            },
+			"ctorMsg": {
+                "function":"init",
+                "args":{"a", "1000", "b", "2000"}
+            },
+            "id": 1
+        }
+    }`)
+    req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+    req.Header.Set("X-Custom-Header", "myvalue")
+    req.Header.Set("Content-Type", "application/json")
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    if err != nil {
+        panic(err)
+    }
+    defer resp.Body.Close()
+
+    fmt.Println("response Status:", resp.Status)
+    //fmt.Println("response Body:", resp.Body)
+    body, _ := ioutil.ReadAll(resp.Body)
+    fmt.Println("response Body:", body)
 }
 
 func check(e error){
@@ -104,20 +151,23 @@ func check(e error){
     }
 }
 func main(){
+    testPost()
+    /*
     pathfile := `chaincode.dat`
     params, err := getData(pathfile)
     check(err)
     if len(params)==0 {
         fmt.Println("empty storage")
+        params = Init(params)
         return
     }
 	fmt.Println(len(params))
-    params = append(params, "test test")
-	fmt.Println(len(params))
+    //params = append(params, "test test")
+	fmt.Println(params)
 
     err = saveData(pathfile, params)
     check(err)
-
+*/
     //httpGet()
 	//httpPostForm()
 }

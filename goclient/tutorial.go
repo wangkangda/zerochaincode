@@ -47,9 +47,10 @@ func Coinbase( params []string ){
     fmt.Println( data )
 }
 
-func Mint( params []string, ){
-    p1 := C.CString( params[1] )
-    //defer C.free( unsafe.Pointer(p1) )
+func Tutorial( params []string ){
+    //mint
+    p1 := C.CString( params[0] )
+    defer C.free( unsafe.Pointer(p1) )
     oParams := C.CCParamsLoad( p1 )
     defer C.CCParamsDel( oParams )
     oPricoin := C.CCPricoinGen( oParams )
@@ -60,6 +61,37 @@ func Mint( params []string, ){
     mintReq := ReqMint( params[0], C.GoString(commint), "No implement")
     resp := httpPostForm( mintReq )
     fmt.Println(resp)
+    ccid = getResp( resp )
 
-    defer C.free( unsafe.Pointer(p1) )
+    //make accumlator
+    a1 := C.CString( params[1] )
+    defer C.free( unsafe.Pointer(a1) )
+    oAccum1 := C.CCAccumLoad( oParams, a1 )
+    defer C.CCAccumDel( oAccum1 )
+    for i:=0; i<5; i++ {
+        newcoin := C.CCPricoinGen( oParams )
+        newpubcoin := C.CCPubcoinGen( oParams, newcoin )
+
+        mintReq := ReqMint( params[0], C.GoString(newpubcoin), "No implement")
+        resp := httpPostForm( mintReq )
+        fmt.Println( resp )
+
+        a2 := C.CCAccumCal( oParams, oAccum1, newpubcoin )
+        C.CCAccumDel( oAccum1 )
+        oAccum1 = C.CCAccumLoad( oParam1, accum2 )
+        C.CCPricoinDel( newcoin )
+        C.CCStrDel(newpubcoin)
+        C.CCStrDel(accum2)
+    }
+
+
+    //spend
+    toaddress := "testuser2"
+    coinspend := C.CCSpendGen( oParams, oPricoin, oAccum1, C.CString(toaddress) )
+    defer C.CCStrDel( coinspend )
+    spendReq := ReqSpend( ccid, coinspend, "testuser2" )
+    resp := httpPostForm( sendReq )
+    fmt.Println(resp)
+    sn := getResp(resp)
 }
+

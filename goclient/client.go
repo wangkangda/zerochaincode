@@ -109,11 +109,12 @@ func main(){
     check(err)
     if len(params)==0 {
         fmt.Println("empty storage")
+        Init()
         return
     }
 	fmt.Println(len(params))
-    params = append(params, "test test")
-	fmt.Println(len(params))
+    //params = append(params, "test test")
+	fmt.Println(string(params))
 
     err = saveData(pathfile, params)
     check(err)

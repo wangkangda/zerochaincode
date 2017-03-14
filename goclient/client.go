@@ -5,7 +5,7 @@ import(
     "io/ioutil"
     "net/http"
 	"bytes"
-    "net/url"
+    //"net/url"
     //"strings"
 
 )
@@ -112,7 +112,7 @@ func testPost() {
 		"id": 1}}*/
     url := "http://localhost:7050/chaincode"
     fmt.Println("URL:>", url)
-    jsonStr = `{"jsonrpc":"2.0",
+    jsonStr := `{"jsonrpc":"2.0",
 			"method":"deploy",
 			"params": {
 				"type": 1,
@@ -136,7 +136,6 @@ func testPost() {
     //fmt.Println("response Body:", resp.Body)
     body, _ := ioutil.ReadAll(resp.Body)
     fmt.Println("response Body:", body)
-    return body
 }
 
 func check(e error){

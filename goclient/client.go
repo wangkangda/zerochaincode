@@ -56,6 +56,7 @@ func ReqSpend(chaincodeid string, coinspend string, recvUsr string)([]byte){
 }
 func ReqQuery(chaincodeid string, reqvalue string)[]byte{
     args := fmt.Sprintf(`"%s"`, reqvalue)
+    chaincode := fmt.Sprintf(`"name": "%s"`, chaincodeid)
     jsonreq := fmt.Sprintf(json_temp, "query", chaincodeid, "query", args)
     return []byte(jsonreq)
 }
@@ -98,6 +99,37 @@ func httpPostForm(jsonStr []byte) []byte{
     return body
 }
 
+func testPost() {
+	resp, err := http.PostForm("http://localhost:7050/chaincode",
+		url.Values{"jsonrpc":"2.0","method":"deploy","params": {"type": 1,"chaincodeID":{"path":"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"},"ctorMsg": {"args":{"init", "a", "1000", "b", "2000"}},"id": 1}}
+/*
+			"jsonrpc":"2.0",
+			"method":"deploy",
+			"params": {
+				"type": 1,
+				"chaincodeID":{
+					"path":"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"},
+				"ctorMsg": {
+					"args":{"init", "a", "1000", "b", "2000"}},
+		"id": 1}}*/
+
+	if err != nil {
+		// handle error
+		fmt.Println("Error")
+		fmt.Println(err)
+		return
+	}
+
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		// handle error
+	}
+
+	fmt.Println(string(body))
+
+}
+
 func check(e error){
     if e != nil {
 		fmt.Println(e)
@@ -105,6 +137,7 @@ func check(e error){
     }
 }
 func main(){
+    testPost()
     pathfile := `chaincode.dat`
     params, err := getData(pathfile)
     check(err)

@@ -15,7 +15,7 @@ var json_temp = `{
     "params":{
         "type": 1,
         "chaincodeID": {
-            "%s"
+            %s
         },
         "ctorMsg":{
             "function": "%s",
@@ -27,6 +27,7 @@ var json_temp = `{
 func ReqDeploy()([]byte){
     chaincode := `"path":"github.com/wangkangda/zerochaincode/example"`
     jsonreq := fmt.Sprintf(json_temp, "deploy", chaincode, "init", "")
+    fmt.Println("deploy req:", jsonreq)
     return []byte(jsonreq)
 }
 func ReqCoinbase(chaincodeid string, recvUsr string, amount int)[]byte{
@@ -91,7 +92,7 @@ func httpPostForm(jsonStr []byte) []byte{
     defer resp.Body.Close()
 
     fmt.Println("response Status:", resp.Status)
-    fmt.Println("response Headers:", resp.Header)
+    fmt.Println("response Body:", resp.Body)
     body, _ := ioutil.ReadAll(resp.Body)
     fmt.Println("response Body:", string(body))
     return body

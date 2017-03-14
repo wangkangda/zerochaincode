@@ -1,0 +1,6 @@
+/home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/benchmark.dir
+/home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/paramgen.dir
+/home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/test.dir
+/home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/tutorial.dir
+/home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/uninstall.dir
+/home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/zerocoin.dir

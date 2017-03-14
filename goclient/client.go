@@ -112,15 +112,20 @@ func testPost() {
 		"id": 1}}*/
     url := "http://localhost:7050/chaincode"
     fmt.Println("URL:>", url)
-    jsonStr := []byte(`{"jsonrpc":"2.0",
-			"method":"deploy",
-			"params": {
-				"type": 1,
-				"chaincodeID":{
-					"path":"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"},
-				"ctorMsg": {
-					"args":{"init", "a", "1000", "b", "2000"}},
-		"id": 1}}`)
+    jsonStr := []byte(`{
+        "jsonrpc":"2.0",
+		"method":"deploy",
+		"params": {
+            "type": 1,
+			"chaincodeID":{
+                "path":"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"
+            },
+			"ctorMsg": {
+                "args":{"init", "a", "1000", "b", "2000"}
+            },
+            "id": 1
+        }
+    }`)
     req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
     req.Header.Set("X-Custom-Header", "myvalue")
     req.Header.Set("Content-Type", "application/json")

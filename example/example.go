@@ -18,6 +18,9 @@ type SimpleChaincode struct {
 }
 
 func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
+    if len(args) != 0 {
+        return nil, fmt.Errorf("Number of parameter error!!!")
+    }
 
 	//init commit counter
 	counter := 0
@@ -43,6 +46,9 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 }
 
 func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error){
+    if len(args)<1 {
+        return nil, fmt.Errorf("Number of Parameter not enough!")
+    }
 	var transtype = args[0]
 	switch transtype{
 		case "coinbase":
@@ -59,8 +65,10 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			amount, err := strconv.Atoi( args[3] )
 			signature := args[4]
 
+            if len(args)!=5 {
+                return nil, fmt.Errorf("Number of Parameter Error!")
+            }
 			fmt.Println("get signature: %s", signature)
-
 			fromAmount, err := stub.GetState( fromAddress )
 			if err != nil {
 				return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
@@ -102,6 +110,9 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 		case "mint":
 			fromAddress := args[1]
 			commitment := args[2]
+            if len(args)<3 {
+                return nil, fmt.Errorf("Number of Parameter not enough!")
+            }
 
 			fromAmount, err := stub.GetState( fromAddress )
 			if err != nil {
@@ -193,7 +204,7 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
                 return nil, err
             }
 
-			return nil, nil
+			return []byte(serialNum), nil
 	}
 	return nil, nil
 }
@@ -264,7 +275,7 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 		}
 		return counter, nil
 	case "commitment":
-		//return t.Commitment(stub, "commitment", args)
+		return t.Commitment(stub, "commitment", args)
 	}
 
 	return nil, errors.New("Received unknown function query: "+function)

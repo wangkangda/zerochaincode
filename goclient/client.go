@@ -67,7 +67,8 @@ func httpGet() {
 		fmt.Println("Error\n")
 		return
 	}
-
+    fmt.Println( resp.Header, resp.ContentLength, resp.Close )
+    fmt.Println("transfer", resp.TransferEncoding)
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -100,18 +101,12 @@ func httpPostForm(jsonStr []byte) []byte{
 }
 
 func testPost() {
-/*
-			"jsonrpc":"2.0",
-			"method":"deploy",
-			"params": {
-				"type": 1,
-				"chaincodeID":{
-					"path":"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"},
-				"ctorMsg": {
-					"args":{"init", "a", "1000", "b", "2000"}},
-		"id": 1}}*/
     url := "http://localhost:7050/chaincode"
     fmt.Println("URL:>", url)
+    chaincode := `"path":"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"`
+    jsonStr := fmt.Sprintf(json_temp, `deploy`, chaincode, `init`, `"a", "1000", "b", "2000"`)
+    fmt.Println("deploy req:", jsonStr)
+    /*
     jsonStr := []byte(`{
         "jsonrpc":"2.0",
 		"method":"deploy",
@@ -126,13 +121,15 @@ func testPost() {
             },
             "id": 1
         }
-    }`)
-    req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
-    req.Header.Set("X-Custom-Header", "myvalue")
+    }`)*/
+    req, err := http.NewRequest("POST", url, bytes.NewBuffer( []byte(jsonStr) ))
+    //req.Header.Set("X-Custom-Header", "myvalue")
     req.Header.Set("Content-Type", "application/json")
 
     client := &http.Client{}
     resp, err := client.Do(req)
+    fmt.Println( resp.Header, resp.ContentLength, resp.Close )
+    fmt.Println("transfer", resp.TransferEncoding)
     if err != nil {
         panic(err)
     }
@@ -168,6 +165,6 @@ func main(){
     err = saveData(pathfile, params)
     check(err)
 */
-    //httpGet()
+    httpGet()
 	//httpPostForm()
 }

@@ -20,9 +20,9 @@ var json_temp = `{
         "ctorMsg":{
             "function": "%s",
             "args": [%s]
-        },
-        "id": 1
+        },   
     }
+    "id": 1
 }`
 func ReqDeploy()([]byte){
     chaincode := `"path":"github.com/wangkangda/zerochaincode/example"`
@@ -123,7 +123,7 @@ func testPost() {
         }
     }`)*/
     req, err := http.NewRequest("POST", url, bytes.NewBuffer( []byte(jsonStr) ))
-    //req.Header.Set("X-Custom-Header", "myvalue")
+    req.Header.Set("X-Custom-Header", "myvalue")
     req.Header.Set("Content-Type", "application/json")
 
     client := &http.Client{}

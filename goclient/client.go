@@ -104,7 +104,7 @@ func testPost() {
     fmt.Println("URL:>", url)
     chaincode := `"path":"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"`
     jsonStr := fmt.Sprintf(json_temp, `deploy`, chaincode, `init`, `"a", "1000", "b", "2000"`)
-    fmt.Println("deploy req:", jsonreq)
+    fmt.Println("deploy req:", jsonStr)
     /*
     jsonStr := []byte(`{
         "jsonrpc":"2.0",

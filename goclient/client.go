@@ -20,14 +20,13 @@ var json_temp = `{
         "ctorMsg":{
             "function": "%s",
             "args": [%s]
-        },   
-    }
+        }   
+    },
     "id": 1
 }`
 func ReqDeploy()([]byte){
     chaincode := `"path":"github.com/wangkangda/zerochaincode/example"`
     jsonreq := fmt.Sprintf(json_temp, "deploy", chaincode, "init", "")
-    fmt.Println("deploy req:", jsonreq)
     return []byte(jsonreq)
 }
 func ReqCoinbase(chaincodeid string, recvUsr string, amount int)[]byte{
@@ -81,6 +80,7 @@ func httpGet() {
 func httpPostForm(jsonStr []byte) []byte{
     url := "http://localhost:7050/chaincode"
     fmt.Println("URL:>", url)
+    fmt.Println("REQUEST:>", string(jsonStr))
 
     req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
     req.Header.Set("X-Custom-Header", "myvalue")
@@ -94,9 +94,8 @@ func httpPostForm(jsonStr []byte) []byte{
     defer resp.Body.Close()
 
     fmt.Println("response Status:", resp.Status)
-    //fmt.Println("response Body:", resp.Body)
     body, _ := ioutil.ReadAll(resp.Body)
-    fmt.Println("response Body:", body)
+    fmt.Println("response Body:", string(body) )
     return body
 }
 
@@ -149,7 +148,8 @@ func check(e error){
 }
 func main(){
     testPost()
-    /*
+    httpGet()
+    
     pathfile := `chaincode.dat`
     params, err := getData(pathfile)
     check(err)
@@ -164,7 +164,7 @@ func main(){
 
     err = saveData(pathfile, params)
     check(err)
-*/
-    httpGet()
+
+
 	//httpPostForm()
 }

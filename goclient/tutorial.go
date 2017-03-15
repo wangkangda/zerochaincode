@@ -15,7 +15,7 @@ func getResp( resp []byte ) string {
     if err:=json.Unmarshal( resp, &data ); err!=nil{
         check(err)
     }
-    fmt.Println(data)
+    //fmt.Println(data)
     result := data[ "result" ].(map[string]interface{})
     message := result[ "message" ].(string)
     return message

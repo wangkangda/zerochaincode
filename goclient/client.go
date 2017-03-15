@@ -103,7 +103,7 @@ func testPost() {
     url := "http://localhost:7050/chaincode"
     fmt.Println("URL:>", url)
     chaincode := `"path":"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02"`
-    jsonreq := fmt.Sprintf(json_temp, `deploy`, chaincode, `init`, `"a", "1000", "b", "2000"`)
+    jsonStr := fmt.Sprintf(json_temp, `deploy`, chaincode, `init`, `"a", "1000", "b", "2000"`)
     fmt.Println("deploy req:", jsonreq)
     /*
     jsonStr := []byte(`{
@@ -127,6 +127,8 @@ func testPost() {
 
     client := &http.Client{}
     resp, err := client.Do(req)
+    fmt.Println( resp.Header, resp.ContentLength, resp.Close )
+    fmt.Println("transfer", resp.TransferEncoding)
     if err != nil {
         panic(err)
     }

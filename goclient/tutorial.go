@@ -32,7 +32,7 @@ func Init( params []string )[]string{
     dat1 := getResp( resp )
     params = append( params, string(dat1) )
 
-    acuReq := ReqQuery( params[0], "accumlator" )
+    acuReq := ReqQuery( params[0], "accumulator" )
     resp = httpPostForm( acuReq )
     dat2 := getResp(resp)
     params = append( params, string(dat2 ) )

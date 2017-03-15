@@ -67,7 +67,8 @@ func httpGet() {
 		fmt.Println("Error\n")
 		return
 	}
-
+    fmt.Println( resp.Header, resp.ContentLength, resp.Close )
+    fmt.Println("transfer", resp.TransferEncoding)
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {

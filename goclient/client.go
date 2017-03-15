@@ -147,20 +147,21 @@ func check(e error){
     }
 }
 func main(){
-    testPost()
-    httpGet()
-    
+    //testPost()
+    //httpGet()
+
     pathfile := `chaincode.dat`
     params, err := getData(pathfile)
     check(err)
     if len(params)==0 {
         fmt.Println("empty storage")
-        params = Init(params)
-        return
+        //params = Init(params)
     }
 	fmt.Println(len(params))
-    //params = append(params, "test test")
-	fmt.Println(params)
+
+    Tutorial( params )
+
+    fmt.Println(params)
 
     err = saveData(pathfile, params)
     check(err)

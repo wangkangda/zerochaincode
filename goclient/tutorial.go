@@ -49,9 +49,11 @@ func Coinbase( params []string ){
 
 func Tutorial( params []string ){
     //mint
-    p1 := C.CString( params[0] )
-    defer C.free( unsafe.Pointer(p1) )
+    p1 := C.CString( params[1] )
+    //defer C.CCStrDel(p1)
+    fmt.Println("Get params", C.GoString(p1) )
     oParams := C.CCParamsLoad( p1 )
+    C.CCStrDel
     defer C.CCParamsDel( oParams )
     oPricoin := C.CCPricoinGen( oParams )
     defer C.CCPricoinDel( oPricoin )
@@ -64,7 +66,7 @@ func Tutorial( params []string ){
     ccid := getResp( resp )
 
     //make accumlator
-    a1 := C.CString( params[1] )
+    a1 := C.CString( params[2] )
     defer C.free( unsafe.Pointer(a1) )
     oAccum1 := C.CCAccumLoad( oParams, a1 )
     defer C.CCAccumDel( oAccum1 )

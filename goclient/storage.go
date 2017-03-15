@@ -37,6 +37,7 @@ func getData(filepath string) ([]string, error){
 		fmt.Println("line:", line)
 		params = append(params, line ) 
 	}
+    fmt.Println("after read file: ", params)
 	return params, nil
 }
 

@@ -33,7 +33,7 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 
 	//generate accumulator
 	accum := C.CCAccumGen( oParams )
-	stub.PutState( "accumlator", []byte( C.GoString(accum) ) )
+	stub.PutState( "accumulator", []byte( C.GoString(accum) ) )
 	C.CCStrDel(accum)
 
 	//release object params

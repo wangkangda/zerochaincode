@@ -267,7 +267,7 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 			return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
 		}
 		return params, nil
-	case "orgigin_accum":
+	case "origin_accum":
 		accum, err := stub.GetState("origin_accum")
 		if err != nil {
 			return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)

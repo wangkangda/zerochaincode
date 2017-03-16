@@ -124,7 +124,7 @@ func Init( params []string )[]string{
     dat1 := getResp( resp )
     params = append( params, string(dat1) )
 
-    acuReq := ReqQuery( params[0], "orgin_accum", nil )
+    acuReq := ReqQuery( params[0], "origin_accum", nil )
     resp = httpPostForm( acuReq )
     dat2 := getResp(resp)
     params = append( params, string(dat2 ) )

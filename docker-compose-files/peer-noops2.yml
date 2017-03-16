@@ -11,7 +11,7 @@ version: '2'
 
 services:
   vp:
-    image: zerochaincode/fabric-peer:latest
+    image: zerochaincode/fabric-peer:0.6.2
     restart: unless-stopped
     environment:
       - CORE_PEER_ADDRESSAUTODETECT=true

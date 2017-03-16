@@ -202,7 +202,7 @@ void CCAccumDel( void *p ){
 	delete (libzerocoin::Accumulator*)p;
 }
 
-void* CCSpendVerify( void* p, char* cs, char* metadata, void* a){
+char* CCSpendVerify( void* p, char* cs, char* metadata, void* a){
 	libzerocoin::Params *params = (libzerocoin::Params*)p;
 	libzerocoin::Accumulator *accum = (libzerocoin::Accumulator*)a;
 	CDataStream sCoinspend = cstr2data( cs );
@@ -217,7 +217,9 @@ void* CCSpendVerify( void* p, char* cs, char* metadata, void* a){
 	Bignum *serialNum = new Bignum( newSpend.getCoinSerialNumber() );
 	std::cout <<"Successfully verified a coin spend transaction." <<endl;
 	std::cout <<"Coin serial number is:" <<(*serialNum) <<endl;
-	return (void*)serialNum;
+    CDataStream sBn(SER_NETWORK, PROTOCOL_VERSION);
+    sBn << (*serialNum)
+    return data2cstr(sBn);
 }
 void CCBignumDel( void* p ){
 	delete (Bignum*)p;

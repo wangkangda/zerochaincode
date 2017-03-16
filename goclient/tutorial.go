@@ -69,7 +69,7 @@ func mint( params[]string, fromuser string )int{
     return res
 }
 func getWitness( params []string, mintid int )string{
-    p := C.CString( params[0] )
+    p := C.CString( params[1] )
     defer C.CCStrDel( p )
     oParams := C.CCParamsLoad( p )
     mintnum := getCounter( params )
@@ -83,9 +83,11 @@ func getWitness( params []string, mintid int )string{
             continue
         }
         C.CCStrDel( sAccum )
-        sAccum = C.CCAccumCal( oParams, oAccum, sAccum )
+        ptmp := C.CString( params[3+i] )
+        sAccum = C.CCAccumCal( oParams, oAccum, ptmp )
         C.CCAccumDel( oAccum )
         oAccum = C.CCAccumLoad( oParams, sAccum )
+        C.CCStrDel( ptmp )
     }
     C.CCAccumDel( oAccum )
     res := C.GoString( sAccum )

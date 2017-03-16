@@ -32,7 +32,7 @@ func ReqDeploy()([]byte){
     return []byte(jsonreq)
 }
 func ReqCoinbase(chaincodeid string, recvUsr string, amount int)[]byte{
-    args := fmt.Sprintf(`"coinbase", "%s", "%s"`, recvUsr, amount)
+    args := fmt.Sprintf(`"coinbase", "%s", "%d"`, recvUsr, amount)
     chaincode := fmt.Sprintf(`"name": "%s"`, chaincodeid)
     jsonreq := fmt.Sprintf(json_temp, "invoke", chaincode, "transaction", args)
     return []byte(jsonreq)
@@ -156,22 +156,26 @@ func main(){
     if arg_num <= 1 {
         testPost()
         httpGet()
+        return
     }
 
     pathfile := `chaincode.dat`
     pricoinfile := `pricoinfile.dat`
     params, err := getData(pathfile)
     check(err)
-    defer saveData(pathfile, params)
     pricoins, err := getCommit(pricoinfile)
-    fmt.Println(err)
-    defer saveCommit(pricoinfile, pricoins)
-
+    if err != nil {
+        fmt.Println(err)
+    }
+    
     if len(params)==0 {
         fmt.Println("empty storage")
         params = Init(params)
     }
 	fmt.Println(len(params))
+
+    defer saveData(pathfile, params)
+    defer saveCommit(pricoinfile, pricoins)
 
     //Tutorial( params )
     if os.Args[1] == `coinbase` {
@@ -182,12 +186,12 @@ func main(){
         fmt.Println( Coinbase(params, os.Args[2]) )
         return
     }else if os.Args[1] == `transfer` {
-        if arg_num != 4{
+        if arg_num < 5{
             fmt.Println("argument not enough")
             return
         }
-        amount, _ := strconv.Atoi( os.Args[3] )
-        fmt.Println( transfer(params, os.Args[1], os.Args[2], amount) )
+        amount, _ := strconv.Atoi( os.Args[4] )
+        fmt.Println( transfer(params, os.Args[2], os.Args[3], amount) )
         return
     }else if os.Args[1] == `query` {
         if arg_num != 3{
@@ -223,4 +227,7 @@ func main(){
     //fmt.Println(params)
 
 	//httpPostForm()
+
+    //saveData(pathfile, params)
+    //saveCommit(pricoinfile, pricoins)
 }

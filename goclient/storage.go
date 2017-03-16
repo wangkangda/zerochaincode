@@ -57,7 +57,7 @@ func getData(filepath string) ([]string, error){
 		line, err := buf.ReadString('\n')
 		if err == io.EOF{
 			if len(line)>0 {
-				fmt.Println("line:", line)
+				//fmt.Println("line:", line)
 				params = append(params, line)
 			}
 			break
@@ -67,7 +67,7 @@ func getData(filepath string) ([]string, error){
 		fmt.Println("line:", line)
 		params = append(params, line )
 	}
-    fmt.Println("after read file: ", params)
+    //fmt.Println("after read file: ", params)
 	return params, nil
 }
 

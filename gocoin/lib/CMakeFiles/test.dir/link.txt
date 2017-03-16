@@ -1,1 +1,0 @@
-/usr/bin/c++   -O3 -DNDEBUG    CMakeFiles/test.dir/Tests.cpp.o  -o test -rdynamic libzerocoin.so -lboost_system -lcrypto -Wl,-rpath,/home/wkdisee/golang/work/src/test/gocoin/lib 

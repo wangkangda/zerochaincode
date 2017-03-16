@@ -29,7 +29,7 @@ extern void* CCAccumLoad( void*, char* );
 extern char* CCAccumCal( void*, void*, char* );
 extern void CCAccumDel( void* );
 
-extern void* CCSpendVerify( void*, char*, char*, void* );
+extern char* CCSpendVerify( void*, char*, char*, void* );
 extern void CCBignumDel( void* );
 
 extern void* CCPricoinGen( void* );

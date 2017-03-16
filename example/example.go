@@ -112,6 +112,8 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			fromAddress := args[1]
 			commitment := args[2]
             signature := args[3]
+
+            fmt.Println("signature: ", signature)
             if len(args)<4 {
                 return nil, fmt.Errorf("Number of Parameter not enough!")
             }

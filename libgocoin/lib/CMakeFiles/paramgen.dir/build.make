@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wkdisee/golang/work/src/test/gocoin/libzerocoin
+CMAKE_SOURCE_DIR = /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wkdisee/golang/work/src/test/gocoin/lib
+CMAKE_BINARY_DIR = /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib
 
 # Include any dependencies generated for this target.
 include CMakeFiles/paramgen.dir/depend.make
@@ -50,18 +50,18 @@ include CMakeFiles/paramgen.dir/progress.make
 include CMakeFiles/paramgen.dir/flags.make
 
 CMakeFiles/paramgen.dir/paramgen.cpp.o: CMakeFiles/paramgen.dir/flags.make
-CMakeFiles/paramgen.dir/paramgen.cpp.o: /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/paramgen.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles $(CMAKE_PROGRESS_1)
+CMakeFiles/paramgen.dir/paramgen.cpp.o: /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/paramgen.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/paramgen.dir/paramgen.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/paramgen.dir/paramgen.cpp.o -c /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/paramgen.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/paramgen.dir/paramgen.cpp.o -c /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/paramgen.cpp
 
 CMakeFiles/paramgen.dir/paramgen.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/paramgen.dir/paramgen.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/paramgen.cpp > CMakeFiles/paramgen.dir/paramgen.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/paramgen.cpp > CMakeFiles/paramgen.dir/paramgen.cpp.i
 
 CMakeFiles/paramgen.dir/paramgen.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/paramgen.dir/paramgen.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/paramgen.cpp -o CMakeFiles/paramgen.dir/paramgen.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/paramgen.cpp -o CMakeFiles/paramgen.dir/paramgen.cpp.s
 
 CMakeFiles/paramgen.dir/paramgen.cpp.o.requires:
 .PHONY : CMakeFiles/paramgen.dir/paramgen.cpp.o.requires
@@ -100,6 +100,6 @@ CMakeFiles/paramgen.dir/clean:
 .PHONY : CMakeFiles/paramgen.dir/clean
 
 CMakeFiles/paramgen.dir/depend:
-	cd /home/wkdisee/golang/work/src/test/gocoin/lib && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wkdisee/golang/work/src/test/gocoin/libzerocoin /home/wkdisee/golang/work/src/test/gocoin/libzerocoin /home/wkdisee/golang/work/src/test/gocoin/lib /home/wkdisee/golang/work/src/test/gocoin/lib /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/paramgen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles/paramgen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/paramgen.dir/depend
 

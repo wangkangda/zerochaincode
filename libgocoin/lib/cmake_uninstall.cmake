@@ -2,11 +2,11 @@
 # http://www.vtk.org/Wiki/CMake_FAQ#Can_I_do_.22make_uninstall.22_with_CMake.3F
 # http://creativecommons.org/licenses/by/2.5/
 
-IF(NOT EXISTS "/home/wkdisee/golang/work/src/test/gocoin/lib/install_manifest.txt")
-  MESSAGE(FATAL_ERROR "Cannot find install manifest: \"/home/wkdisee/golang/work/src/test/gocoin/lib/install_manifest.txt\"")
-ENDIF(NOT EXISTS "/home/wkdisee/golang/work/src/test/gocoin/lib/install_manifest.txt")
+IF(NOT EXISTS "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/install_manifest.txt")
+  MESSAGE(FATAL_ERROR "Cannot find install manifest: \"/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/install_manifest.txt\"")
+ENDIF(NOT EXISTS "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/install_manifest.txt")
 
-FILE(READ "/home/wkdisee/golang/work/src/test/gocoin/lib/install_manifest.txt" files)
+FILE(READ "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/install_manifest.txt" files)
 STRING(REGEX REPLACE "\n" ";" files "${files}")
 FOREACH(file ${files})
   MESSAGE(STATUS "Uninstalling \"$ENV{DESTDIR}${file}\"")

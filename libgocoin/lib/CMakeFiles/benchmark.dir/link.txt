@@ -1,1 +1,1 @@
-/usr/bin/c++   -O3 -DNDEBUG    CMakeFiles/benchmark.dir/Benchmark.cpp.o  -o benchmark -rdynamic libzerocoin.so -lboost_system -lcrypto -Wl,-rpath,/home/wkdisee/golang/work/src/test/gocoin/lib 
+/usr/bin/c++   -O3 -DNDEBUG    CMakeFiles/benchmark.dir/Benchmark.cpp.o  -o benchmark -rdynamic libzerocoin.so -lboost_system -lcrypto -Wl,-rpath,/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib 

@@ -1,7 +1,7 @@
 package main
 /*
 #cgo CFLAGS: -l./lib
-#cgo LDFLAGS: -L./lib -lhello -lzerocoin -Wl,-rpath,./lib/
+#cgo LDFLAGS: -L./lib -lzerocoin -Wl,-rpath,./lib/
 #include "Goapi.h"
 #include "hello.h"
 */
@@ -14,7 +14,6 @@ const TUTORIAL_TEST_MODULUS ="a8852ebf7c49f01cd196e35394f3b74dd86283a07f57e0a262
 
 func ZerocoinTutorial(){
     C.TestGoapi();
-    C.hello();
     var p = C.GoCoinGeneration( C.CString(TUTORIAL_TEST_MODULUS) )
     fmt.Printf( C.GoString(p) )
     //C.GoCoinDestroy( p )
@@ -60,7 +59,9 @@ func tutorial(){
 		fmt.Printf("Verify failed!!!")
 	}else{
 		fmt.Printf("Verify succeed!!!\n")
-		C.CCBignumDel(sn)
+		//C.CCBignumDel(sn)
+        fmt.Println("Serialized Bignum: ", C.GoString(sn) )
+        C.CCStrDel( sn )
 	}
 
 	//defer C.free(unsafe.Pointer(param1))

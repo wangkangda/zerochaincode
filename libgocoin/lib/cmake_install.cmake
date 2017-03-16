@@ -1,4 +1,4 @@
-# Install script for directory: /home/wkdisee/golang/work/src/test/gocoin/libzerocoin
+# Install script for directory: /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libzerocoin.so"
          RPATH "")
   ENDIF()
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/wkdisee/golang/work/src/test/gocoin/lib/libzerocoin.so")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/libzerocoin.so")
   IF(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libzerocoin.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libzerocoin.so")
     IF(CMAKE_INSTALL_DO_STRIP)
@@ -50,36 +50,36 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unsp
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/zerocoin/bitcoin_bignum" TYPE FILE FILES
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/bitcoin_bignum/allocators.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/bitcoin_bignum/bignum.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/bitcoin_bignum/clientversion.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/bitcoin_bignum/compat.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/bitcoin_bignum/hash.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/bitcoin_bignum/netbase.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/bitcoin_bignum/serialize.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/bitcoin_bignum/uint256.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/bitcoin_bignum/version.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/bitcoin_bignum/allocators.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/bitcoin_bignum/bignum.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/bitcoin_bignum/clientversion.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/bitcoin_bignum/compat.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/bitcoin_bignum/hash.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/bitcoin_bignum/netbase.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/bitcoin_bignum/serialize.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/bitcoin_bignum/uint256.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/bitcoin_bignum/version.h"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/zerocoin" TYPE FILE FILES
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Accumulator.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/AccumulatorProofOfKnowledge.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Coin.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/CoinSpend.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Commitment.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/ParamGeneration.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Params.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/SerialNumberSignatureOfKnowledge.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/SpendMetaData.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Goapi.h"
-    "/home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Zerocoin.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Accumulator.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/AccumulatorProofOfKnowledge.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Coin.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/CoinSpend.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Commitment.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/ParamGeneration.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Params.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/SerialNumberSignatureOfKnowledge.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/SpendMetaData.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Goapi.h"
+    "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Zerocoin.h"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/wkdisee/golang/work/src/test/gocoin/lib/zerocoin.pc")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/zerocoin.pc")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(CMAKE_INSTALL_COMPONENT)
@@ -88,7 +88,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/wkdisee/golang/work/src/test/gocoin/lib/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/wkdisee/golang/work/src/test/gocoin/lib/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

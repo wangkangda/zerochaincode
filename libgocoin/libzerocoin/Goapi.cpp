@@ -218,7 +218,7 @@ char* CCSpendVerify( void* p, char* cs, char* metadata, void* a){
 	std::cout <<"Successfully verified a coin spend transaction." <<endl;
 	std::cout <<"Coin serial number is:" <<(*serialNum) <<endl;
     CDataStream sBn(SER_NETWORK, PROTOCOL_VERSION);
-    sBn << (*serialNum)
+    sBn << (*serialNum);
     return data2cstr(sBn);
 }
 void CCBignumDel( void* p ){

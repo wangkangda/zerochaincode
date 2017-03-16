@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wkdisee/golang/work/src/test/gocoin/libzerocoin
+CMAKE_SOURCE_DIR = /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wkdisee/golang/work/src/test/gocoin/lib
+CMAKE_BINARY_DIR = /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib
 
 # Include any dependencies generated for this target.
 include CMakeFiles/tutorial.dir/depend.make
@@ -50,18 +50,18 @@ include CMakeFiles/tutorial.dir/progress.make
 include CMakeFiles/tutorial.dir/flags.make
 
 CMakeFiles/tutorial.dir/Tutorial.cpp.o: CMakeFiles/tutorial.dir/flags.make
-CMakeFiles/tutorial.dir/Tutorial.cpp.o: /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Tutorial.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles $(CMAKE_PROGRESS_1)
+CMakeFiles/tutorial.dir/Tutorial.cpp.o: /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Tutorial.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/tutorial.dir/Tutorial.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/tutorial.dir/Tutorial.cpp.o -c /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Tutorial.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/tutorial.dir/Tutorial.cpp.o -c /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Tutorial.cpp
 
 CMakeFiles/tutorial.dir/Tutorial.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/tutorial.dir/Tutorial.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Tutorial.cpp > CMakeFiles/tutorial.dir/Tutorial.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Tutorial.cpp > CMakeFiles/tutorial.dir/Tutorial.cpp.i
 
 CMakeFiles/tutorial.dir/Tutorial.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/tutorial.dir/Tutorial.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Tutorial.cpp -o CMakeFiles/tutorial.dir/Tutorial.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Tutorial.cpp -o CMakeFiles/tutorial.dir/Tutorial.cpp.s
 
 CMakeFiles/tutorial.dir/Tutorial.cpp.o.requires:
 .PHONY : CMakeFiles/tutorial.dir/Tutorial.cpp.o.requires
@@ -100,6 +100,6 @@ CMakeFiles/tutorial.dir/clean:
 .PHONY : CMakeFiles/tutorial.dir/clean
 
 CMakeFiles/tutorial.dir/depend:
-	cd /home/wkdisee/golang/work/src/test/gocoin/lib && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wkdisee/golang/work/src/test/gocoin/libzerocoin /home/wkdisee/golang/work/src/test/gocoin/libzerocoin /home/wkdisee/golang/work/src/test/gocoin/lib /home/wkdisee/golang/work/src/test/gocoin/lib /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/tutorial.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles/tutorial.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/tutorial.dir/depend
 

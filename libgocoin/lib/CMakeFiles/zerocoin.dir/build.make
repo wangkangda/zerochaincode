@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wkdisee/golang/work/src/test/gocoin/libzerocoin
+CMAKE_SOURCE_DIR = /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wkdisee/golang/work/src/test/gocoin/lib
+CMAKE_BINARY_DIR = /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib
 
 # Include any dependencies generated for this target.
 include CMakeFiles/zerocoin.dir/depend.make
@@ -50,18 +50,18 @@ include CMakeFiles/zerocoin.dir/progress.make
 include CMakeFiles/zerocoin.dir/flags.make
 
 CMakeFiles/zerocoin.dir/Accumulator.cpp.o: CMakeFiles/zerocoin.dir/flags.make
-CMakeFiles/zerocoin.dir/Accumulator.cpp.o: /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Accumulator.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles $(CMAKE_PROGRESS_1)
+CMakeFiles/zerocoin.dir/Accumulator.cpp.o: /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Accumulator.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/zerocoin.dir/Accumulator.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/Accumulator.cpp.o -c /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Accumulator.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/Accumulator.cpp.o -c /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Accumulator.cpp
 
 CMakeFiles/zerocoin.dir/Accumulator.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/zerocoin.dir/Accumulator.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Accumulator.cpp > CMakeFiles/zerocoin.dir/Accumulator.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Accumulator.cpp > CMakeFiles/zerocoin.dir/Accumulator.cpp.i
 
 CMakeFiles/zerocoin.dir/Accumulator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/zerocoin.dir/Accumulator.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Accumulator.cpp -o CMakeFiles/zerocoin.dir/Accumulator.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Accumulator.cpp -o CMakeFiles/zerocoin.dir/Accumulator.cpp.s
 
 CMakeFiles/zerocoin.dir/Accumulator.cpp.o.requires:
 .PHONY : CMakeFiles/zerocoin.dir/Accumulator.cpp.o.requires
@@ -73,18 +73,18 @@ CMakeFiles/zerocoin.dir/Accumulator.cpp.o.provides: CMakeFiles/zerocoin.dir/Accu
 CMakeFiles/zerocoin.dir/Accumulator.cpp.o.provides.build: CMakeFiles/zerocoin.dir/Accumulator.cpp.o
 
 CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.o: CMakeFiles/zerocoin.dir/flags.make
-CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.o: /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/AccumulatorProofOfKnowledge.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles $(CMAKE_PROGRESS_2)
+CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.o: /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/AccumulatorProofOfKnowledge.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.o -c /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/AccumulatorProofOfKnowledge.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.o -c /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/AccumulatorProofOfKnowledge.cpp
 
 CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/AccumulatorProofOfKnowledge.cpp > CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/AccumulatorProofOfKnowledge.cpp > CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.i
 
 CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/AccumulatorProofOfKnowledge.cpp -o CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/AccumulatorProofOfKnowledge.cpp -o CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.s
 
 CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.o.requires:
 .PHONY : CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.o.requires
@@ -96,18 +96,18 @@ CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.o.provides: CMakeFiles/z
 CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.o.provides.build: CMakeFiles/zerocoin.dir/AccumulatorProofOfKnowledge.cpp.o
 
 CMakeFiles/zerocoin.dir/Coin.cpp.o: CMakeFiles/zerocoin.dir/flags.make
-CMakeFiles/zerocoin.dir/Coin.cpp.o: /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Coin.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles $(CMAKE_PROGRESS_3)
+CMakeFiles/zerocoin.dir/Coin.cpp.o: /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Coin.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/zerocoin.dir/Coin.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/Coin.cpp.o -c /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Coin.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/Coin.cpp.o -c /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Coin.cpp
 
 CMakeFiles/zerocoin.dir/Coin.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/zerocoin.dir/Coin.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Coin.cpp > CMakeFiles/zerocoin.dir/Coin.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Coin.cpp > CMakeFiles/zerocoin.dir/Coin.cpp.i
 
 CMakeFiles/zerocoin.dir/Coin.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/zerocoin.dir/Coin.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Coin.cpp -o CMakeFiles/zerocoin.dir/Coin.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Coin.cpp -o CMakeFiles/zerocoin.dir/Coin.cpp.s
 
 CMakeFiles/zerocoin.dir/Coin.cpp.o.requires:
 .PHONY : CMakeFiles/zerocoin.dir/Coin.cpp.o.requires
@@ -119,18 +119,18 @@ CMakeFiles/zerocoin.dir/Coin.cpp.o.provides: CMakeFiles/zerocoin.dir/Coin.cpp.o.
 CMakeFiles/zerocoin.dir/Coin.cpp.o.provides.build: CMakeFiles/zerocoin.dir/Coin.cpp.o
 
 CMakeFiles/zerocoin.dir/CoinSpend.cpp.o: CMakeFiles/zerocoin.dir/flags.make
-CMakeFiles/zerocoin.dir/CoinSpend.cpp.o: /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/CoinSpend.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles $(CMAKE_PROGRESS_4)
+CMakeFiles/zerocoin.dir/CoinSpend.cpp.o: /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/CoinSpend.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/zerocoin.dir/CoinSpend.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/CoinSpend.cpp.o -c /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/CoinSpend.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/CoinSpend.cpp.o -c /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/CoinSpend.cpp
 
 CMakeFiles/zerocoin.dir/CoinSpend.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/zerocoin.dir/CoinSpend.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/CoinSpend.cpp > CMakeFiles/zerocoin.dir/CoinSpend.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/CoinSpend.cpp > CMakeFiles/zerocoin.dir/CoinSpend.cpp.i
 
 CMakeFiles/zerocoin.dir/CoinSpend.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/zerocoin.dir/CoinSpend.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/CoinSpend.cpp -o CMakeFiles/zerocoin.dir/CoinSpend.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/CoinSpend.cpp -o CMakeFiles/zerocoin.dir/CoinSpend.cpp.s
 
 CMakeFiles/zerocoin.dir/CoinSpend.cpp.o.requires:
 .PHONY : CMakeFiles/zerocoin.dir/CoinSpend.cpp.o.requires
@@ -142,18 +142,18 @@ CMakeFiles/zerocoin.dir/CoinSpend.cpp.o.provides: CMakeFiles/zerocoin.dir/CoinSp
 CMakeFiles/zerocoin.dir/CoinSpend.cpp.o.provides.build: CMakeFiles/zerocoin.dir/CoinSpend.cpp.o
 
 CMakeFiles/zerocoin.dir/Commitment.cpp.o: CMakeFiles/zerocoin.dir/flags.make
-CMakeFiles/zerocoin.dir/Commitment.cpp.o: /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Commitment.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles $(CMAKE_PROGRESS_5)
+CMakeFiles/zerocoin.dir/Commitment.cpp.o: /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Commitment.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/zerocoin.dir/Commitment.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/Commitment.cpp.o -c /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Commitment.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/Commitment.cpp.o -c /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Commitment.cpp
 
 CMakeFiles/zerocoin.dir/Commitment.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/zerocoin.dir/Commitment.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Commitment.cpp > CMakeFiles/zerocoin.dir/Commitment.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Commitment.cpp > CMakeFiles/zerocoin.dir/Commitment.cpp.i
 
 CMakeFiles/zerocoin.dir/Commitment.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/zerocoin.dir/Commitment.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Commitment.cpp -o CMakeFiles/zerocoin.dir/Commitment.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Commitment.cpp -o CMakeFiles/zerocoin.dir/Commitment.cpp.s
 
 CMakeFiles/zerocoin.dir/Commitment.cpp.o.requires:
 .PHONY : CMakeFiles/zerocoin.dir/Commitment.cpp.o.requires
@@ -165,18 +165,18 @@ CMakeFiles/zerocoin.dir/Commitment.cpp.o.provides: CMakeFiles/zerocoin.dir/Commi
 CMakeFiles/zerocoin.dir/Commitment.cpp.o.provides.build: CMakeFiles/zerocoin.dir/Commitment.cpp.o
 
 CMakeFiles/zerocoin.dir/ParamGeneration.cpp.o: CMakeFiles/zerocoin.dir/flags.make
-CMakeFiles/zerocoin.dir/ParamGeneration.cpp.o: /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/ParamGeneration.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles $(CMAKE_PROGRESS_6)
+CMakeFiles/zerocoin.dir/ParamGeneration.cpp.o: /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/ParamGeneration.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/zerocoin.dir/ParamGeneration.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/ParamGeneration.cpp.o -c /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/ParamGeneration.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/ParamGeneration.cpp.o -c /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/ParamGeneration.cpp
 
 CMakeFiles/zerocoin.dir/ParamGeneration.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/zerocoin.dir/ParamGeneration.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/ParamGeneration.cpp > CMakeFiles/zerocoin.dir/ParamGeneration.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/ParamGeneration.cpp > CMakeFiles/zerocoin.dir/ParamGeneration.cpp.i
 
 CMakeFiles/zerocoin.dir/ParamGeneration.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/zerocoin.dir/ParamGeneration.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/ParamGeneration.cpp -o CMakeFiles/zerocoin.dir/ParamGeneration.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/ParamGeneration.cpp -o CMakeFiles/zerocoin.dir/ParamGeneration.cpp.s
 
 CMakeFiles/zerocoin.dir/ParamGeneration.cpp.o.requires:
 .PHONY : CMakeFiles/zerocoin.dir/ParamGeneration.cpp.o.requires
@@ -188,18 +188,18 @@ CMakeFiles/zerocoin.dir/ParamGeneration.cpp.o.provides: CMakeFiles/zerocoin.dir/
 CMakeFiles/zerocoin.dir/ParamGeneration.cpp.o.provides.build: CMakeFiles/zerocoin.dir/ParamGeneration.cpp.o
 
 CMakeFiles/zerocoin.dir/Params.cpp.o: CMakeFiles/zerocoin.dir/flags.make
-CMakeFiles/zerocoin.dir/Params.cpp.o: /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Params.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles $(CMAKE_PROGRESS_7)
+CMakeFiles/zerocoin.dir/Params.cpp.o: /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Params.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/zerocoin.dir/Params.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/Params.cpp.o -c /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Params.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/Params.cpp.o -c /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Params.cpp
 
 CMakeFiles/zerocoin.dir/Params.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/zerocoin.dir/Params.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Params.cpp > CMakeFiles/zerocoin.dir/Params.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Params.cpp > CMakeFiles/zerocoin.dir/Params.cpp.i
 
 CMakeFiles/zerocoin.dir/Params.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/zerocoin.dir/Params.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Params.cpp -o CMakeFiles/zerocoin.dir/Params.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Params.cpp -o CMakeFiles/zerocoin.dir/Params.cpp.s
 
 CMakeFiles/zerocoin.dir/Params.cpp.o.requires:
 .PHONY : CMakeFiles/zerocoin.dir/Params.cpp.o.requires
@@ -211,18 +211,18 @@ CMakeFiles/zerocoin.dir/Params.cpp.o.provides: CMakeFiles/zerocoin.dir/Params.cp
 CMakeFiles/zerocoin.dir/Params.cpp.o.provides.build: CMakeFiles/zerocoin.dir/Params.cpp.o
 
 CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.o: CMakeFiles/zerocoin.dir/flags.make
-CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.o: /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/SerialNumberSignatureOfKnowledge.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles $(CMAKE_PROGRESS_8)
+CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.o: /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/SerialNumberSignatureOfKnowledge.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.o -c /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/SerialNumberSignatureOfKnowledge.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.o -c /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/SerialNumberSignatureOfKnowledge.cpp
 
 CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/SerialNumberSignatureOfKnowledge.cpp > CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/SerialNumberSignatureOfKnowledge.cpp > CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.i
 
 CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/SerialNumberSignatureOfKnowledge.cpp -o CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/SerialNumberSignatureOfKnowledge.cpp -o CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.s
 
 CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.o.requires:
 .PHONY : CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.o.requires
@@ -234,18 +234,18 @@ CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.o.provides: CMakeFi
 CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.o.provides.build: CMakeFiles/zerocoin.dir/SerialNumberSignatureOfKnowledge.cpp.o
 
 CMakeFiles/zerocoin.dir/SpendMetaData.cpp.o: CMakeFiles/zerocoin.dir/flags.make
-CMakeFiles/zerocoin.dir/SpendMetaData.cpp.o: /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/SpendMetaData.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles $(CMAKE_PROGRESS_9)
+CMakeFiles/zerocoin.dir/SpendMetaData.cpp.o: /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/SpendMetaData.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/zerocoin.dir/SpendMetaData.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/SpendMetaData.cpp.o -c /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/SpendMetaData.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/SpendMetaData.cpp.o -c /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/SpendMetaData.cpp
 
 CMakeFiles/zerocoin.dir/SpendMetaData.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/zerocoin.dir/SpendMetaData.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/SpendMetaData.cpp > CMakeFiles/zerocoin.dir/SpendMetaData.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/SpendMetaData.cpp > CMakeFiles/zerocoin.dir/SpendMetaData.cpp.i
 
 CMakeFiles/zerocoin.dir/SpendMetaData.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/zerocoin.dir/SpendMetaData.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/SpendMetaData.cpp -o CMakeFiles/zerocoin.dir/SpendMetaData.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/SpendMetaData.cpp -o CMakeFiles/zerocoin.dir/SpendMetaData.cpp.s
 
 CMakeFiles/zerocoin.dir/SpendMetaData.cpp.o.requires:
 .PHONY : CMakeFiles/zerocoin.dir/SpendMetaData.cpp.o.requires
@@ -257,18 +257,18 @@ CMakeFiles/zerocoin.dir/SpendMetaData.cpp.o.provides: CMakeFiles/zerocoin.dir/Sp
 CMakeFiles/zerocoin.dir/SpendMetaData.cpp.o.provides.build: CMakeFiles/zerocoin.dir/SpendMetaData.cpp.o
 
 CMakeFiles/zerocoin.dir/Goapi.cpp.o: CMakeFiles/zerocoin.dir/flags.make
-CMakeFiles/zerocoin.dir/Goapi.cpp.o: /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Goapi.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles $(CMAKE_PROGRESS_10)
+CMakeFiles/zerocoin.dir/Goapi.cpp.o: /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Goapi.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/zerocoin.dir/Goapi.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/Goapi.cpp.o -c /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Goapi.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/zerocoin.dir/Goapi.cpp.o -c /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Goapi.cpp
 
 CMakeFiles/zerocoin.dir/Goapi.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/zerocoin.dir/Goapi.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Goapi.cpp > CMakeFiles/zerocoin.dir/Goapi.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Goapi.cpp > CMakeFiles/zerocoin.dir/Goapi.cpp.i
 
 CMakeFiles/zerocoin.dir/Goapi.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/zerocoin.dir/Goapi.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Goapi.cpp -o CMakeFiles/zerocoin.dir/Goapi.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Goapi.cpp -o CMakeFiles/zerocoin.dir/Goapi.cpp.s
 
 CMakeFiles/zerocoin.dir/Goapi.cpp.o.requires:
 .PHONY : CMakeFiles/zerocoin.dir/Goapi.cpp.o.requires
@@ -334,6 +334,6 @@ CMakeFiles/zerocoin.dir/clean:
 .PHONY : CMakeFiles/zerocoin.dir/clean
 
 CMakeFiles/zerocoin.dir/depend:
-	cd /home/wkdisee/golang/work/src/test/gocoin/lib && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wkdisee/golang/work/src/test/gocoin/libzerocoin /home/wkdisee/golang/work/src/test/gocoin/libzerocoin /home/wkdisee/golang/work/src/test/gocoin/lib /home/wkdisee/golang/work/src/test/gocoin/lib /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/zerocoin.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles/zerocoin.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/zerocoin.dir/depend
 

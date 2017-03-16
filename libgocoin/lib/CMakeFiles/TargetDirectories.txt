@@ -1,6 +1,6 @@
-/home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/benchmark.dir
-/home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/paramgen.dir
-/home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/test.dir
-/home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/tutorial.dir
-/home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/uninstall.dir
-/home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/zerocoin.dir
+/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles/benchmark.dir
+/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles/paramgen.dir
+/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles/test.dir
+/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles/tutorial.dir
+/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles/uninstall.dir
+/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles/zerocoin.dir

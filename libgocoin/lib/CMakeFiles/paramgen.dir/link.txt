@@ -1,1 +1,1 @@
-/usr/bin/c++   -O3 -DNDEBUG    CMakeFiles/paramgen.dir/paramgen.cpp.o  -o paramgen -rdynamic libzerocoin.so -lboost_system -lcrypto -Wl,-rpath,/home/wkdisee/golang/work/src/test/gocoin/lib 
+/usr/bin/c++   -O3 -DNDEBUG    CMakeFiles/paramgen.dir/paramgen.cpp.o  -o paramgen -rdynamic libzerocoin.so -lboost_system -lcrypto -Wl,-rpath,/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib 

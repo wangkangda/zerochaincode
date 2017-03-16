@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wkdisee/golang/work/src/test/gocoin/libzerocoin
+CMAKE_SOURCE_DIR = /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wkdisee/golang/work/src/test/gocoin/lib
+CMAKE_BINARY_DIR = /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib
 
 # Utility rule file for uninstall.
 
@@ -46,7 +46,7 @@ CMAKE_BINARY_DIR = /home/wkdisee/golang/work/src/test/gocoin/lib
 include CMakeFiles/uninstall.dir/progress.make
 
 CMakeFiles/uninstall:
-	/usr/bin/cmake -P /home/wkdisee/golang/work/src/test/gocoin/lib/cmake_uninstall.cmake
+	/usr/bin/cmake -P /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/cmake_uninstall.cmake
 
 uninstall: CMakeFiles/uninstall
 uninstall: CMakeFiles/uninstall.dir/build.make
@@ -61,6 +61,6 @@ CMakeFiles/uninstall.dir/clean:
 .PHONY : CMakeFiles/uninstall.dir/clean
 
 CMakeFiles/uninstall.dir/depend:
-	cd /home/wkdisee/golang/work/src/test/gocoin/lib && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wkdisee/golang/work/src/test/gocoin/libzerocoin /home/wkdisee/golang/work/src/test/gocoin/libzerocoin /home/wkdisee/golang/work/src/test/gocoin/lib /home/wkdisee/golang/work/src/test/gocoin/lib /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/uninstall.dir/depend
 

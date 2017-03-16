@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wkdisee/golang/work/src/test/gocoin/libzerocoin
+CMAKE_SOURCE_DIR = /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wkdisee/golang/work/src/test/gocoin/lib
+CMAKE_BINARY_DIR = /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib
 
 # Include any dependencies generated for this target.
 include CMakeFiles/benchmark.dir/depend.make
@@ -50,18 +50,18 @@ include CMakeFiles/benchmark.dir/progress.make
 include CMakeFiles/benchmark.dir/flags.make
 
 CMakeFiles/benchmark.dir/Benchmark.cpp.o: CMakeFiles/benchmark.dir/flags.make
-CMakeFiles/benchmark.dir/Benchmark.cpp.o: /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Benchmark.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles $(CMAKE_PROGRESS_1)
+CMakeFiles/benchmark.dir/Benchmark.cpp.o: /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Benchmark.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/benchmark.dir/Benchmark.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/benchmark.dir/Benchmark.cpp.o -c /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Benchmark.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/benchmark.dir/Benchmark.cpp.o -c /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Benchmark.cpp
 
 CMakeFiles/benchmark.dir/Benchmark.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/benchmark.dir/Benchmark.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Benchmark.cpp > CMakeFiles/benchmark.dir/Benchmark.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Benchmark.cpp > CMakeFiles/benchmark.dir/Benchmark.cpp.i
 
 CMakeFiles/benchmark.dir/Benchmark.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/benchmark.dir/Benchmark.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/test/gocoin/libzerocoin/Benchmark.cpp -o CMakeFiles/benchmark.dir/Benchmark.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin/Benchmark.cpp -o CMakeFiles/benchmark.dir/Benchmark.cpp.s
 
 CMakeFiles/benchmark.dir/Benchmark.cpp.o.requires:
 .PHONY : CMakeFiles/benchmark.dir/Benchmark.cpp.o.requires
@@ -100,6 +100,6 @@ CMakeFiles/benchmark.dir/clean:
 .PHONY : CMakeFiles/benchmark.dir/clean
 
 CMakeFiles/benchmark.dir/depend:
-	cd /home/wkdisee/golang/work/src/test/gocoin/lib && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wkdisee/golang/work/src/test/gocoin/libzerocoin /home/wkdisee/golang/work/src/test/gocoin/libzerocoin /home/wkdisee/golang/work/src/test/gocoin/lib /home/wkdisee/golang/work/src/test/gocoin/lib /home/wkdisee/golang/work/src/test/gocoin/lib/CMakeFiles/benchmark.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/libzerocoin /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/libgocoin/lib/CMakeFiles/benchmark.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/benchmark.dir/depend
 

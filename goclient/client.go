@@ -6,6 +6,7 @@ import(
     "net/http"
 	"bytes"
     "os"
+    "strconv"
     //"net/url"
     //"strings"
 
@@ -56,7 +57,7 @@ func ReqSpend(chaincodeid string, coinspend string, recvUsr string)([]byte){
 }
 func ReqQuery(chaincodeid string, reqvalue string, otherargs []string)[]byte{
     args := fmt.Sprintf(`"%s"`, reqvalue)
-    for i=0; i<len(otherargs); i++ {
+    for i:=0; i<len(otherargs); i++ {
         args = fmt.Sprintf(`%s, "%s"`, args, otherargs[i] )
     }
     chaincode := fmt.Sprintf(`"name": "%s"`, chaincodeid)
@@ -164,7 +165,7 @@ func main(){
     defer saveData(pathfile, params)
     pricoins, err := getCommit(pricoinfile)
     check(err)
-    defer saveCommit(pricoinfile, params)
+    defer saveCommit(pricoinfile, pricoins)
 
     if len(params)==0 {
         fmt.Println("empty storage")
@@ -185,7 +186,8 @@ func main(){
             fmt.Println("argument not enough")
             return
         }
-        fmt.Println( transfer(params, os.Args[1], os.Args[2], os.Args[3]) )
+        amount, _ := strconv.Atoi( os.Args[3] )
+        fmt.Println( transfer(params, os.Args[1], os.Args[2], amount) )
         return
     }else if os.Args[1] == `query` {
         if arg_num != 3{
@@ -193,7 +195,7 @@ func main(){
             return
         }
         fmt.Print("User ", os.Args[2])
-        fmt.Println(": ", getAmount(params, os.Args[2])
+        fmt.Println(": ", getAmount(params, os.Args[2]) )
     }else if os.Args[1] == `mint` {
         if arg_num != 3{
             fmt.Println("argument not enough")
@@ -207,7 +209,7 @@ func main(){
             return
         }
         mintid, _ := strconv.Atoi( os.Args[2] )
-        recvuser, _ := strconv.Atoi( os.Args[3] )
+        recvuser := os.Args[3]
         fmt.Println("Get witness for Commitment ", mintid)
         witness := getWitness( params, mintid )
         pricoin, exist := pricoins[ mintid ]

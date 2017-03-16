@@ -6,7 +6,8 @@ import (
 	"os"
 	"fmt"
 	"strings"
-    "errors"
+    "strconv"
+    //"errors"
 )
 
 func checkerr( err error ) {
@@ -15,7 +16,7 @@ func checkerr( err error ) {
 		panic( err )
 	}
 }
-func getCommit(filepath string) ([]string, error){
+func getCommit(filepath string) (map[int]string, error){
     f, err := os.Open(filepath)
     var commitList map[int]string
     commitList = make(map[int]string)
@@ -28,17 +29,19 @@ func getCommit(filepath string) ([]string, error){
         id, err := buf.ReadString('\n')
         id = strings.TrimSpace(id)
         if err == io.EOF{
-            return nil, errors.new("Commitment File not fix")
+            //return nil, errors.new("Commitment File not fix")
+            break
         }
         comm, cerr := buf.ReadString('\n')
         comm = strings.TrimSpace(id)
-        commitList[ id ] = comm
+        index, _ := strconv.Atoi( id )
+        commitList[ index ] = comm
         if cerr == io.EOF{
             break
         }
         checkerr( cerr )
     }
-    fmt.Println( "get commitment: " commitList )
+    fmt.Println( "get commitment: ", commitList )
     return commitList, nil
 }
 func getData(filepath string) ([]string, error){
@@ -78,4 +81,17 @@ func saveData(filepath string, params []string) error{
 		f.WriteString( "\n" )
 	}
 	return nil
+}
+func saveCommit(filepath string, cl map[int]string ) error{
+    f, err := os.Create(filepath)
+    check(err)
+    defer f.Close()
+    for index := range cl {
+        f.WriteString(string(index))
+        f.WriteString("\n")
+        val, _ := cl[index]
+        f.WriteString(val)
+        f.WriteString("\n")
+    }
+    return nil
 }

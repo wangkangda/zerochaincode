@@ -30,9 +30,8 @@ func getCounter( params []string )int{
     check(err)
     return res
 }
-func getCommitment( params []string , index int )[]string{
-    si, err := strconv.Itoa( index )
-    check(err)
+func getCommitment( params []string , index int )string{
+    si := strconv.Itoa( index )
     queReq := ReqQuery( params[0], "commitment", []string{si} )
     resp := httpPostForm( queReq )
     return getResp( resp )
@@ -42,6 +41,7 @@ func getAmount( params []string, address string ) int{
     resp := httpPostForm( queReq )
     data := getResp( resp )
     res, err := strconv.Atoi( string(data) )
+    check(err)
     return res
 }
 func transfer( params[]string, fromuser string, touser string, amount int ) string{
@@ -65,7 +65,8 @@ func mint( params[]string, fromuser string )int{
     resp := httpPostForm( mintReq )
     fmt.Println(resp)
     mintid := getResp( resp )
-    return strconv.Atoi(string(mintid))
+    res, _ := strconv.Atoi(string(mintid))
+    return res
 }
 func getWitness( params []string, mintid int )string{
     p := C.CString( params[0] )
@@ -76,7 +77,7 @@ func getWitness( params []string, mintid int )string{
         params = append(params, getCommitment(params, index))
     }
     sAccum := C.CString( params[2] )
-    oAccum := C.CCAccumLoad( params[0], sAccum )
+    oAccum := C.CCAccumLoad( oParams, sAccum )
     for i:=0; i<mintnum; i++{
         if( i==mintid ){
             continue
@@ -87,7 +88,7 @@ func getWitness( params []string, mintid int )string{
         oAccum = C.CCAccumLoad( oParams, sAccum )
     }
     C.CCAccumDel( oAccum )
-    res = C.GoString( sAccum )
+    res := C.GoString( sAccum )
     C.CCStrDel( sAccum )
     return res
 }
@@ -105,8 +106,8 @@ func spend( params []string, accum string, pricoin string, recvUser string)strin
 
     coinspend := C.CCSpendGen( oParams, oPricoin, oAccum, C.CString(recvUser) )
     defer C.CCStrDel( coinspend )
-    spendReq := ReqSpend( ccid, C.GoString(coinspend), "testuser2" )
-    resp = httpPostForm( spendReq )
+    spendReq := ReqSpend( params[0], C.GoString(coinspend), "testuser2" )
+    resp := httpPostForm( spendReq )
     sn := getResp(resp)
     fmt.Println( "Spend pricoin sucess! SerialNum: ", sn )
     return sn

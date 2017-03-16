@@ -37,6 +37,7 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 	//generate accumulator
 	accum := C.CCAccumGen( oParams )
 	stub.PutState( "accumulator", []byte( C.GoString(accum) ) )
+    stub.PutState( "origin_accum", []byte( C.GoString(accum) )
 	C.CCStrDel(accum)
 
 	//release object params
@@ -110,7 +111,8 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 		case "mint":
 			fromAddress := args[1]
 			commitment := args[2]
-            if len(args)<3 {
+            signature := args[3]
+            if len(args)<4 {
                 return nil, fmt.Errorf("Number of Parameter not enough!")
             }
 
@@ -137,7 +139,7 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			if err != nil {
 				return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
 			}
-			
+
 			//save the commitment
 			iCounter, _ := strconv.Atoi( string(counter) )
 			err = stub.PutState("commitment"+strconv.Itoa(iCounter), []byte(commitment))
@@ -145,8 +147,7 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 				return nil, err
 			}
 
-			iCounter = iCounter + 1
-			err = stub.PutState("counter", []byte(strconv.Itoa(iCounter)))
+			err = stub.PutState("counter", []byte(strconv.Itoa(iCounter+1)))
 			if err != nil {
 				return nil, err
 			}
@@ -169,7 +170,7 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			C.CCAccumDel( oAccum )
 			C.CCStrDel( csAccum )
 
-			return nil, nil
+			return []byte(strconv.Itoa(iCounter)), nil
 
 		case "spend":
 			coinspend := args[1]
@@ -262,8 +263,14 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 			return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
 		}
 		return params, nil
-	case "accumulator":
-		accum, err := stub.GetState("accumulator")
+	case "orgigin_accum":
+		accum, err := stub.GetState("origin_accum")
+		if err != nil {
+			return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
+		}
+		return accum, nil
+    case "accumulator":
+        accum, err := stub.GetState("accumulator")
 		if err != nil {
 			return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)
 		}

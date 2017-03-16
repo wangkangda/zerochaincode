@@ -6,6 +6,7 @@ import (
 	"os"
 	"fmt"
 	"strings"
+    "errors"
 )
 
 func checkerr( err error ) {
@@ -13,6 +14,32 @@ func checkerr( err error ) {
 		fmt.Println(err)
 		panic( err )
 	}
+}
+func getCommit(filepath string) ([]string, error){
+    f, err := os.Open(filepath)
+    var commitList map[int]string
+    commitList = make(map[int]string)
+    if err != nil{
+        return commitList, err
+    }
+    defer f.Close()
+    buf := bufio.NewReader(f)
+    for{
+        id, err := buf.ReadString('\n')
+        id = strings.TrimSpace(id)
+        if err == io.EOF{
+            return nil, errors.new("Commitment File not fix")
+        }
+        comm, cerr := buf.ReadString('\n')
+        comm = strings.TrimSpace(id)
+        commitList[ id ] = comm
+        if cerr == io.EOF{
+            break
+        }
+        checkerr( cerr )
+    }
+    fmt.Println( "get commitment: " commitList )
+    return commitList, nil
 }
 func getData(filepath string) ([]string, error){
 	f, err := os.Open(filepath)
@@ -30,12 +57,12 @@ func getData(filepath string) ([]string, error){
 				fmt.Println("line:", line)
 				params = append(params, line)
 			}
-			break;
+			break
 		}
 		checkerr( err )
 		line = strings.TrimSpace(line)
 		fmt.Println("line:", line)
-		params = append(params, line ) 
+		params = append(params, line )
 	}
     fmt.Println("after read file: ", params)
 	return params, nil

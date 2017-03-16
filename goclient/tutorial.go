@@ -9,6 +9,7 @@ import "C"
 import "fmt"
 import "encoding/json"
 import "unsafe"
+import "strconv"
 
 func getResp( resp []byte ) string {
     var data map[string]interface{}
@@ -21,18 +22,108 @@ func getResp( resp []byte ) string {
     return message
 }
 
+func getCounter( params []string )int{
+    queReq := ReqQuery( params[0], "counter", nil )
+    resp := httpPostForm( queReq )
+    data := getResp( resp )
+    res, err := strconv.Atoi( string(data) )
+    check(err)
+    return res
+}
+func getCommitment( params []string , index int )[]string{
+    si, err := strconv.Itoa( index )
+    check(err)
+    queReq := ReqQuery( params[0], "commitment", []string{si} )
+    resp := httpPostForm( queReq )
+    return getResp( resp )
+}
+func getAmount( params []string, address string ) int{
+    queReq := ReqQuery( params[0], "amount", []string{address} )
+    resp := httpPostForm( queReq )
+    data := getResp( resp )
+    res, err := strconv.Atoi( string(data) )
+    return res
+}
+func transfer( params[]string, fromuser string, touser string, amount int ) string{
+    traReq := ReqTransfer( params[0], fromuser, touser, amount )
+    resp := httpPostForm( traReq )
+    return getResp( resp )
+}
+func mint( params[]string, fromuser string )int{
+    //mint
+    p1 := C.CString( params[1] )
+    defer C.CCStrDel( p1 )
+    fmt.Println("Get params", C.GoString(p1) )
+    oParams := C.CCParamsLoad( p1 )
+    defer C.CCParamsDel( oParams )
+    oPricoin := C.CCPricoinGen( oParams )
+    defer C.CCPricoinDel( oPricoin )
+    commint := C.CCPubcoinGen( oParams, oPricoin )
+    defer C.CCStrDel( commint )
+
+    mintReq := ReqMint( params[0], fromuser, C.GoString(commint) )
+    resp := httpPostForm( mintReq )
+    fmt.Println(resp)
+    mintid := getResp( resp )
+    return strconv.Atoi(string(mintid))
+}
+func getWitness( params []string, mintid int )string{
+    p := C.CString( params[0] )
+    defer C.CCStrDel( p )
+    oParams := C.CCParamsLoad( p )
+    mintnum := getCounter( params )
+    for index := len(params)-3; index<mintnum; index++{
+        params = append(params, getCommitment(params, index))
+    }
+    sAccum := C.CString( params[2] )
+    oAccum := C.CCAccumLoad( params[0], sAccum )
+    for i:=0; i<mintnum; i++{
+        if( i==mintid ){
+            continue
+        }
+        C.CCStrDel( sAccum )
+        sAccum = C.CCAccumCal( oParams, oAccum, sAccum )
+        C.CCAccumDel( oAccum )
+        oAccum = C.CCAccumLoad( oParams, sAccum )
+    }
+    C.CCAccumDel( oAccum )
+    res = C.GoString( sAccum )
+    C.CCStrDel( sAccum )
+    return res
+}
+func spend( params []string, accum string, pricoin string, recvUser string)string{
+    p1 := C.CString( params[1] )
+    defer C.CCStrDel( p1 )
+    oParams := C.CCParamsLoad( p1 )
+    defer C.CCParamsDel( oParams )
+    sPricoin := C.CString( pricoin )
+    defer C.CCStrDel( sPricoin )
+    oPricoin := C.CCPricoinLoad( oParams, sPricoin )
+    defer C.CCPricoinDel( oPricoin )
+    oAccum := C.CCAccumLoad( oParams, C.CString(accum) )
+    defer C.CCAccumDel( oAccum )
+
+    coinspend := C.CCSpendGen( oParams, oPricoin, oAccum, C.CString(recvUser) )
+    defer C.CCStrDel( coinspend )
+    spendReq := ReqSpend( ccid, C.GoString(coinspend), "testuser2" )
+    resp = httpPostForm( spendReq )
+    sn := getResp(resp)
+    fmt.Println( "Spend pricoin sucess! SerialNum: ", sn )
+    return sn
+}
+
 func Init( params []string )[]string{
     depReq := ReqDeploy()
     resp := httpPostForm( depReq )
     dat := getResp( resp )
     params = append( params, string(dat) )
 
-    queReq := ReqQuery( params[0], "params" )
+    queReq := ReqQuery( params[0], "params", nil )
     resp = httpPostForm( queReq )
     dat1 := getResp( resp )
     params = append( params, string(dat1) )
 
-    acuReq := ReqQuery( params[0], "accumulator" )
+    acuReq := ReqQuery( params[0], "orgin_accum", nil )
     resp = httpPostForm( acuReq )
     dat2 := getResp(resp)
     params = append( params, string(dat2 ) )
@@ -40,11 +131,11 @@ func Init( params []string )[]string{
     return params
 }
 
-func Coinbase( params []string ){
-    baseReq := ReqCoinbase( params[0], "testuser1", 100 )
+func Coinbase( params []string, user string )string{
+    baseReq := ReqCoinbase( params[0], user, 100 )
     resp := httpPostForm( baseReq )
     data := getResp(resp)
-    fmt.Println( data )
+    return data
 }
 
 func Tutorial( params []string ){

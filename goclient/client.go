@@ -5,6 +5,7 @@ import(
     "io/ioutil"
     "net/http"
 	"bytes"
+    "os"
     //"net/url"
     //"strings"
 
@@ -42,7 +43,7 @@ func ReqTransfer(chaincodeid string, sendUsr string, recvUsr string, amount int)
     return []byte(jsonreq)
 }
 func ReqMint(chaincodeid string, sendUsr string, commint string)([]byte){
-    args := fmt.Sprintf(`"mint", "%s", "%s"`, sendUsr, commint)
+    args := fmt.Sprintf(`"mint", "%s", "%s", "not implement"`, sendUsr, commint)
     chaincode := fmt.Sprintf(`"name": "%s"`, chaincodeid)
     jsonreq := fmt.Sprintf(json_temp, "invoke", chaincode, "transaction", args)
     return []byte(jsonreq)
@@ -53,8 +54,11 @@ func ReqSpend(chaincodeid string, coinspend string, recvUsr string)([]byte){
     jsonreq := fmt.Sprintf(json_temp, "invoke", chaincode, "transaction", args)
     return []byte(jsonreq)
 }
-func ReqQuery(chaincodeid string, reqvalue string)[]byte{
+func ReqQuery(chaincodeid string, reqvalue string, otherargs []string)[]byte{
     args := fmt.Sprintf(`"%s"`, reqvalue)
+    for i=0; i<len(otherargs); i++ {
+        args = fmt.Sprintf(`%s, "%s"`, args, otherargs[i] )
+    }
     chaincode := fmt.Sprintf(`"name": "%s"`, chaincodeid)
     jsonreq := fmt.Sprintf(json_temp, "query", chaincode, "query", args)
     return []byte(jsonreq)
@@ -147,25 +151,74 @@ func check(e error){
     }
 }
 func main(){
-    //testPost()
-    //httpGet()
+    arg_num := len(os.Args)
+    if arg_num <= 1 {
+        testPost()
+        httpGet()
+    }
 
     pathfile := `chaincode.dat`
+    pricoinfile := `pricoinfile.dat`
     params, err := getData(pathfile)
     check(err)
+    defer saveData(pathfile, params)
+    pricoins, err := getCommit(pricoinfile)
+    check(err)
+    defer saveCommit(pricoinfile, params)
+
     if len(params)==0 {
         fmt.Println("empty storage")
-        //params = Init(params)
+        params = Init(params)
     }
 	fmt.Println(len(params))
 
-    Tutorial( params )
-
-    fmt.Println(params)
-
-    err = saveData(pathfile, params)
-    check(err)
-
+    //Tutorial( params )
+    if os.Args[1] == `coinbase` {
+        if arg_num <= 2{
+            fmt.Println("argument not enough")
+            return
+        }
+        fmt.Println( Coinbase(params, os.Args[2]) )
+        return
+    }else if os.Args[1] == `transfer` {
+        if arg_num != 4{
+            fmt.Println("argument not enough")
+            return
+        }
+        fmt.Println( transfer(params, os.Args[1], os.Args[2], os.Args[3]) )
+        return
+    }else if os.Args[1] == `query` {
+        if arg_num != 3{
+            fmt.Println("argument not enough")
+            return
+        }
+        fmt.Print("User ", os.Args[2])
+        fmt.Println(": ", getAmount(params, os.Args[2])
+    }else if os.Args[1] == `mint` {
+        if arg_num != 3{
+            fmt.Println("argument not enough")
+            return
+        }
+        fmt.Print("Mint by ", os.Args[2])
+        fmt.Println(": ", mint(params, os.Args[2]))
+    }else if os.Args[1] == `spend` {
+        if arg_num != 4{
+            fmt.Println("argument not enough")
+            return
+        }
+        mintid, _ := strconv.Atoi( os.Args[2] )
+        recvuser, _ := strconv.Atoi( os.Args[3] )
+        fmt.Println("Get witness for Commitment ", mintid)
+        witness := getWitness( params, mintid )
+        pricoin, exist := pricoins[ mintid ]
+        if !exist {
+            fmt.Println( "Pricoins not exist" )
+            return
+        }
+        fmt.Print("Spend to ", recvuser )
+        fmt.Println(" for coin sn:", spend(params, witness, pricoin, recvuser) )
+    }
+    //fmt.Println(params)
 
 	//httpPostForm()
 }

@@ -204,8 +204,10 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
             if err != nil{
                 return nil, err
             }
+            sn := C.GoString( serialNum )
+            C.CCStrDel( serialNum )
 
-			return []byte(serialNum), nil
+			return []byte(sn), nil
 	}
 	return nil, nil
 }

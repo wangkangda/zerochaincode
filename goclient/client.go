@@ -164,7 +164,7 @@ func main(){
     check(err)
     defer saveData(pathfile, params)
     pricoins, err := getCommit(pricoinfile)
-    check(err)
+    fmt.Println(err)
     defer saveCommit(pricoinfile, pricoins)
 
     if len(params)==0 {

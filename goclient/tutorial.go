@@ -59,7 +59,7 @@ func mint( params[]string, fromuser string )(int, string){
     pricoin := C.CCPricoinGen2( oParams )
     defer C.CCStrDel( pricoin )
     sPricoin := C.GoString( pricoin )
-    oPricoin := C.CCPricoinLoad( pricoin )
+    oPricoin := C.CCPricoinLoad( oParams, pricoin )
     commint := C.CCPubcoinGen( oParams, oPricoin )
     defer C.CCStrDel( commint )
 

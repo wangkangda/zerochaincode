@@ -206,7 +206,7 @@ func main(){
             return
         }
         fmt.Print("Mint by ", os.Args[2])
-        mintid, sPricoin = mint(params, os.Args[2])
+        mintid, sPricoin := mint(params, os.Args[2])
         fmt.Print(": ", string(mintid))
         fmt.Print("-", sPricoin)
         pricoins[ mintid ] = sPricoin

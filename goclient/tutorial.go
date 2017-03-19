@@ -67,9 +67,8 @@ func mint( params[]string, fromuser string )(int, string){
     mintReq := ReqMint( params[0], fromuser, C.GoString(commint) )
     resp := httpPostForm( mintReq )
     fmt.Println(resp)
-    mintid := getResp( resp )
-    res, _ := strconv.Atoi(string(mintid))
-    return res, sPricoin
+    mintid := getCounter( params ) - 1
+    return mintid, sPricoin
 }
 func getWitness( params []string, mintid int )string{
     p := C.CString( params[1] )

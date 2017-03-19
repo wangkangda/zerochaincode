@@ -96,7 +96,7 @@ func getWitness( params []string, mintid int )([]string, string){
     C.CCStrDel( sAccum )
     return params, res
 }
-func spend( params []string, accum string, pricoin string, recvUser string)([]string, string){
+func spend( params []string, accum string, pricoin string, recvUser string)string{
     p1 := C.CString( params[1] )
     defer C.CCStrDel( p1 )
     oParams := C.CCParamsLoad( p1 )

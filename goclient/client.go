@@ -222,7 +222,9 @@ func main(){
         mintid, _ := strconv.Atoi( os.Args[2] )
         recvuser := os.Args[3]
         fmt.Println("Get witness for Commitment ", mintid)
-        params, witness := getWitness( params, mintid )
+        var witness string
+        params, witness = getWitness( params, mintid )
+        fmt.Println("now params len: ", len(params))
         pricoin, exist := pricoins[ mintid ]
         if !exist {
             fmt.Println( "Pricoins not exist" )
@@ -231,10 +233,8 @@ func main(){
         fmt.Print("Spend to ", recvuser )
         fmt.Println(" for coin sn:", spend(params, witness, pricoin, recvuser) )
     }
-    //fmt.Println(params)
 
-	//httpPostForm()
-
+    //fmt.Println("write data ", len(params) )
     //saveData(pathfile, params)
     //saveCommit(pricoinfile, pricoins)
 }

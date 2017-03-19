@@ -167,7 +167,7 @@ func main(){
     if err != nil {
         fmt.Println(err)
     }
-    
+
     if len(params)==0 {
         fmt.Println("empty storage")
         params = Init(params)
@@ -206,7 +206,10 @@ func main(){
             return
         }
         fmt.Print("Mint by ", os.Args[2])
-        fmt.Println(": ", mint(params, os.Args[2]))
+        mintid, sPricoin = mint(params, os.Args[2])
+        fmt.Print(": ", string(mintid))
+        fmt.Print("-", sPricoin)
+        pricoins[ mintid ] = sPricoin
     }else if os.Args[1] == `spend` {
         if arg_num != 4{
             fmt.Println("argument not enough")

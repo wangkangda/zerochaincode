@@ -49,15 +49,17 @@ func transfer( params[]string, fromuser string, touser string, amount int ) stri
     resp := httpPostForm( traReq )
     return getResp( resp )
 }
-func mint( params[]string, fromuser string )int{
+func mint( params[]string, fromuser string )(int, string){
     //mint
     p1 := C.CString( params[1] )
     defer C.CCStrDel( p1 )
     fmt.Println("Get params", C.GoString(p1) )
     oParams := C.CCParamsLoad( p1 )
     defer C.CCParamsDel( oParams )
-    oPricoin := C.CCPricoinGen( oParams )
-    defer C.CCPricoinDel( oPricoin )
+    pricoin := C.CCPricoinGen2( oParams )
+    defer C.CCStrDel( pricoin )
+    sPricoin := C.GoString( pricoin )
+    oPricoin := C.CCPricoinLoad( pricoin )
     commint := C.CCPubcoinGen( oParams, oPricoin )
     defer C.CCStrDel( commint )
 
@@ -66,7 +68,7 @@ func mint( params[]string, fromuser string )int{
     fmt.Println(resp)
     mintid := getResp( resp )
     res, _ := strconv.Atoi(string(mintid))
-    return res
+    return res, sPricoin
 }
 func getWitness( params []string, mintid int )string{
     p := C.CString( params[1] )

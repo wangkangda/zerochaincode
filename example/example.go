@@ -172,7 +172,10 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			C.CCAccumDel( oAccum )
 			C.CCStrDel( csAccum )
 
-			return []byte(strconv.Itoa(iCounter)), nil
+            res := strconv.Itoa(iCounter)
+            fmt.Println("counter: ", iCounter)
+            fmt.Println("mintid: ", res)
+			return []byte(res), nil
 
 		case "spend":
 			coinspend := args[1]

@@ -33,7 +33,7 @@ func getCommit(filepath string) (map[int]string, error){
             break
         }
         comm, cerr := buf.ReadString('\n')
-        comm = strings.TrimSpace(id)
+        comm = strings.TrimSpace(comm)
         index, _ := strconv.Atoi( id )
         commitList[ index ] = comm
         if cerr == io.EOF{
@@ -86,8 +86,10 @@ func saveCommit(filepath string, cl map[int]string ) error{
     f, err := os.Create(filepath)
     check(err)
     defer f.Close()
+    var i string
     for index := range cl {
-        f.WriteString(string(index))
+        i, _ = strconv.Itoa(index)
+        f.WriteString(i)
         f.WriteString("\n")
         val, _ := cl[index]
         f.WriteString(val)

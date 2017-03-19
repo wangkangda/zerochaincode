@@ -212,7 +212,7 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
             if err != nil{
                 return nil, err
             }
-            fmt.Println("Create new User")
+            fmt.Println("Save amount")
             sn := C.GoString( serialNum )
             C.CCStrDel( serialNum )
 

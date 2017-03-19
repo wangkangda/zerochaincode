@@ -75,7 +75,7 @@ func saveData(filepath string, params []string) error{
 	f, err := os.Create(filepath)
 	check(err)
 	defer f.Close()
-	fmt.Println("write lines:", len(params))
+	//fmt.Println("write lines:", len(params))
 	for i:=0; i<len(params); i++{
 		f.WriteString( params[i] )
 		f.WriteString( "\n" )
@@ -87,13 +87,16 @@ func saveCommit(filepath string, cl map[int]string ) error{
     check(err)
     defer f.Close()
     var i string
-    for index := range cl {
+    counter := 0
+    for index, val := range cl {
+        counter++
         i = strconv.Itoa(index)
         f.WriteString(i)
         f.WriteString("\n")
-        val, _ := cl[index]
+        //val, _ := cl[index]
         f.WriteString(val)
         f.WriteString("\n")
     }
+    fmt.Println("Total Commiit Number: ", counter)
     return nil
 }

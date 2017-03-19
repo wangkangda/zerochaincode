@@ -222,7 +222,7 @@ func main(){
         mintid, _ := strconv.Atoi( os.Args[2] )
         recvuser := os.Args[3]
         fmt.Println("Get witness for Commitment ", mintid)
-        witness := getWitness( params, mintid )
+        params, witness := getWitness( params, mintid )
         pricoin, exist := pricoins[ mintid ]
         if !exist {
             fmt.Println( "Pricoins not exist" )

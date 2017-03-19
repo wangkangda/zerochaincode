@@ -190,17 +190,20 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			params := string( bParams )
 			oParams := C.CCParamsLoad( C.CString(params) )
 			oAccum := C.CCAccumLoad( oParams, C.CString(accum) )
+            fmt.Println( "start verifying..." )
 
 			serialNum := C.CCSpendVerify( oParams, C.CString(coinspend), C.CString(toAddress), oAccum)
 			if serialNum == nil {
 				return nil, fmt.Errorf("The CoinSpend transaction did not verify!")
 			}
+            fmt.Println("verify sucess !!!!")
 
             toAmount, err := stub.GetState( toAddress )
             if err != nil {
                 return nil, fmt.Errorf("get operation failed.ERROR %s", err)
             }
             if toAmount == nil {
+                fmt.Println("Get a new User")
                 toAmount = []byte("0")
             }
             iToAmount, _ := strconv.Atoi( string(toAmount) )
@@ -209,6 +212,7 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
             if err != nil{
                 return nil, err
             }
+            fmt.Println("Create new User")
             sn := C.GoString( serialNum )
             C.CCStrDel( serialNum )
 

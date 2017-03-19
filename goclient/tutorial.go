@@ -70,7 +70,7 @@ func mint( params[]string, fromuser string )(int, string){
     mintid := getCounter( params ) - 1
     return mintid, sPricoin
 }
-func getWitness( params []string, mintid int )string{
+func getWitness( params []string, mintid int )([]string, string){
     p := C.CString( params[1] )
     defer C.CCStrDel( p )
     oParams := C.CCParamsLoad( p )
@@ -94,9 +94,9 @@ func getWitness( params []string, mintid int )string{
     C.CCAccumDel( oAccum )
     res := C.GoString( sAccum )
     C.CCStrDel( sAccum )
-    return res
+    return params, res
 }
-func spend( params []string, accum string, pricoin string, recvUser string)string{
+func spend( params []string, accum string, pricoin string, recvUser string)([]string, string){
     p1 := C.CString( params[1] )
     defer C.CCStrDel( p1 )
     oParams := C.CCParamsLoad( p1 )

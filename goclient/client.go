@@ -200,6 +200,9 @@ func main(){
         }
         fmt.Print("User ", os.Args[2])
         fmt.Println(": ", getAmount(params, os.Args[2]) )
+    }else if os.Args[1] == `counter` {
+        c := getCounter(params)
+        fmt.Println("Commit Number: ", c)
     }else if os.Args[1] == `mint` {
         if arg_num != 3{
             fmt.Println("argument not enough")

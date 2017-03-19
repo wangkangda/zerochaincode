@@ -207,8 +207,9 @@ func main(){
         }
         fmt.Print("Mint by ", os.Args[2])
         mintid, sPricoin := mint(params, os.Args[2])
-        fmt.Print(": ", string(mintid))
-        fmt.Print("-", sPricoin)
+        fmt.Print("No.")
+        fmt.Print(mintid)
+        fmt.Println("-", sPricoin)
         pricoins[ mintid ] = sPricoin
     }else if os.Args[1] == `spend` {
         if arg_num != 4{

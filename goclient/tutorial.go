@@ -112,7 +112,7 @@ func spend( params []string, accum string, pricoin string, recvUser string)strin
 
     coinspend := C.CCSpendGen( oParams, oPricoin, oAccum, C.CString(recvUser) )
     defer C.CCStrDel( coinspend )
-    spendReq := ReqSpend( params[0], C.GoString(coinspend), "testuser2" )
+    spendReq := ReqSpend( params[0], C.GoString(coinspend), recvUser )
     resp := httpPostForm( spendReq )
     sn := getResp(resp)
     fmt.Println( "Spend pricoin sucess! SerialNum: ", sn )

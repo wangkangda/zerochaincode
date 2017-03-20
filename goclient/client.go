@@ -203,6 +203,10 @@ func main(){
     }else if os.Args[1] == `counter` {
         c := getCounter(params)
         fmt.Println("Commit Number: ", c)
+    }else if os.Args[1] == `commitment` {
+        mintid, _ := strconv.Atoi( os.Args[2] )
+        fmt.Print("Get Commitment NO.", mintid)
+        fmt.Println( getCommitment( params, mintid ))
     }else if os.Args[1] == `mint` {
         if arg_num != 3{
             fmt.Println("argument not enough")

@@ -67,7 +67,9 @@ func mint( params[]string, fromuser string )(int, string){
     mintReq := ReqMint( params[0], fromuser, C.GoString(commint) )
     resp := httpPostForm( mintReq )
     fmt.Println(resp)
-    mintid := getCounter( params ) - 1
+    //mintid := getCounter( params ) - 1
+    //** That's a bug, may have some problem, but now can't fix
+    mintid := getCounter( params )
     return mintid, sPricoin
 }
 func getWitness( params []string, mintid int )([]string, string){

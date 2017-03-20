@@ -222,7 +222,7 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 }
 
 func (t *SimpleChaincode) Commitment(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error){
-	num,_ := strconv.Atoi( string( args[0] ) )
+	num,_ := strconv.Atoi( string( args[1] ) )
 	counter, err := stub.GetState( "counter" )
 	if err != nil {
 		return nil, fmt.Errorf("get operation failed. Error accessing state: %s", err)

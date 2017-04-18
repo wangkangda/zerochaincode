@@ -7,6 +7,7 @@ package main
 */
 import "C"
 import "fmt"
+import "log"
 import "errors"
 import "strconv"
 
@@ -182,7 +183,7 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			toAddress := args[2]
 			metadata := args[3]
 
-			fmt.Println( "get metadata: %s", metadata )
+			log.Println( "get metadata: %s", metadata )
 
 			bAccum, _ := stub.GetState("accumulator")
 			bParams, _ := stub.GetState("params")
@@ -190,20 +191,20 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
 			params := string( bParams )
 			oParams := C.CCParamsLoad( C.CString(params) )
 			oAccum := C.CCAccumLoad( oParams, C.CString(accum) )
-            fmt.Println( "start verifying..." )
+            log.Println( "start verifying..." )
 
 			serialNum := C.CCSpendVerify( oParams, C.CString(coinspend), C.CString(toAddress), oAccum)
 			if serialNum == nil {
 				return nil, fmt.Errorf("The CoinSpend transaction did not verify!")
 			}
-            fmt.Println("verify sucess !!!!")
+            log.Println("verify sucess !!!!")
 
             toAmount, err := stub.GetState( toAddress )
             if err != nil {
                 return nil, fmt.Errorf("get operation failed.ERROR %s", err)
             }
             if toAmount == nil {
-                fmt.Println("Get a new User")
+                log.Println("Get a new User")
                 toAmount = []byte("0")
             }
             iToAmount, _ := strconv.Atoi( string(toAmount) )
@@ -212,7 +213,7 @@ func (t *SimpleChaincode) Transaction(stub shim.ChaincodeStubInterface, function
             if err != nil{
                 return nil, err
             }
-            fmt.Println("Save amount")
+            log.Println("Save amount")
             sn := C.GoString( serialNum )
             C.CCStrDel( serialNum )
 

@@ -1,21 +1,23 @@
 package method
 
 import(
+    "fmt"
     "log"
     "errors"
+    "strconv"
     "github.com/hyperledger/fabric/core/chaincode/shim"
-    "github.com/wangkangda/zerochaincode/zeroTrans/zklib/transaction"
+    //"github.com/wangkangda/zerochaincode/zeroTrans/zklib/transaction"
     "github.com/wangkangda/zerochaincode/zeroTrans/zklib/common"
 )
 
 type Query struct{
-    stub *shim.ChaincodeStubInterface,
-    object string,
+    stub shim.ChaincodeStubInterface
+    object string
     key string
-)
+}
 
-func NewQuery(stub *shim.ChaincodeStubInterface, o string, p []string)*Query{
-    q = New(Query)
+func NewQuery(stub shim.ChaincodeStubInterface, o string, p []string)*Query{
+    q := new(Query)
     q.stub = stub
     q.object = o
     if p != nil {
@@ -29,11 +31,11 @@ func (q *Query) Execute()([]byte, error){
     var err error
     switch q.object{
     case common.Amount:
-        res, err = GetAmount( q.key )
+        res, err = q.GetAmount( q.key )
     case common.Params:
-        res, err = GetData(common.Params)
+        res, err = q.GetData(common.Params)
     case common.Commit:
-        res, err = GetCommit( q.key )
+        res, err = q.GetCommit( q.key )
     default:
         err = errors.New("Not Such Query Object")
     }
@@ -41,7 +43,7 @@ func (q *Query) Execute()([]byte, error){
 }
 
 func (q *Query)GetAmount( address string )([]byte, error){
-    final_key = fmt.Sprintf("%v%v", common.Amount, address)
+    final_key := fmt.Sprintf("%v%v", common.Amount, address)
     return q.GetData( final_key )
 }
 
@@ -55,9 +57,9 @@ func (q *Query)GetCommit( idString string)([]byte, error){
 }
 
 func (q *Query)GetData( key string )([]byte, error){
-    res, err := q.stub.GetState(final_key)
+    res, err := q.stub.GetState(key)
     if err != nil{
-        log.Error(err.Error())
+        log.Println(err.Error())
     }
-    return amount, err
+    return res, err
 }

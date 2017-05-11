@@ -1,6 +1,8 @@
 package method
 
 import(
+    "log"
+    "errors"
     "github.com/hyperledger/fabric/core/chaincode/shim"
     "github.com/wangkangda/zerochaincode/zeroTrans/zklib/transaction"
 )
@@ -21,6 +23,23 @@ func NewQuery(stub *shim.ChaincodeStubInterface, o string, p []string)*Query{
     return q
 }
 
-func (t *SimpleChaincode) Execute()([]byte, error){
-    return nil, nil
+func (q *Query) Execute()([]byte, error){
+    var res []byte
+    var err error
+    switch q.object{
+    case "amount":
+        res, err = GetAmount( q.key )
+    default:
+        err = errors.New("Not Such Query Object")
+    }
+    return res, err
+}
+
+func GetAmount( address string )([]byte, error){
+    final_key = fmt.Sprintf("%v%v", amount, address)
+    amount, err := stub.GetState(address)
+    if err != nil{
+        log.Error(err.Error())
+    }
+    return amount, err
 }

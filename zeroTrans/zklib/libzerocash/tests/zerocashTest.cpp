@@ -22,6 +22,7 @@
 #include "libzerocash/MerkleTree.h"
 #include "libzerocash/MintTransaction.h"
 #include "libzerocash/PourTransaction.h"
+#include "libzerocash/Goapi.h"
 #include "libzerocash/utils/util.h"
 
 using namespace std;
@@ -597,19 +598,23 @@ int main(int argc, char **argv)
     const size_t tree_depth = 4;
 
     start_profiling();
-	bool merkleSimpleResult = MerkleTreeSimpleTest();
-    bool addressResult = AddressTest();
-    bool coinResult = CoinTest();
-    bool mintTxResult = MintTxTest();
+	//bool merkleSimpleResult = MerkleTreeSimpleTest();
+    //bool addressResult = AddressTest();
+    //bool coinResult = CoinTest();
+    //bool mintTxResult = MintTxTest();
 
-    bool pourTxResult = PourTxTest(tree_depth);
-    bool simpleTxResult = SimpleTxTest(tree_depth);
+    //bool pourTxResult = PourTxTest(tree_depth);
+    //bool simpleTxResult = SimpleTxTest(tree_depth);
+    //bool paramTxResult = ParamFilesTest(tree_depth, "newpk", "newvk");
+    //bool goapiTxResult = TutorialTest();
 
     cout << "\n" << endl;
-    std::cout << "\nAddressTest result => " << addressResult << std::endl;
-    std::cout << "\nCoinTest result => " << coinResult << std::endl;
-    std::cout << "\nMerkleTreeSimpleTest result => " << merkleSimpleResult << std::endl;
-    std::cout << "\nMintTxTest result => " << mintTxResult << std::endl;
-    std::cout << "\nPourTxTest result => " << pourTxResult << std::endl;
-    std::cout << "\nSimpleTxTest result => " << simpleTxResult << std::endl;
+    //std::cout << "\nAddressTest result => " << addressResult << std::endl;
+    //std::cout << "\nCoinTest result => " << coinResult << std::endl;
+    //std::cout << "\nMerkleTreeSimpleTest result => " << merkleSimpleResult << std::endl;
+    //std::cout << "\nMintTxTest result => " << mintTxResult << std::endl;
+    //std::cout << "\nPourTxTest result => " << pourTxResult << std::endl;
+    //std::cout << "\nSimpleTxTest result => " << simpleTxResult << std::endl;
+    //std::cout << "\nParamTxTest result => " << paramTxResult << std::endl;
+    //std::cout<<"\nGoapiTxTest result => " <<goapiTxResult <<endl;
 }

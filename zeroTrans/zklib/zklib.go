@@ -2,6 +2,8 @@ package zklib
 /*
 #cgo CFLAGS: -g -Wno-unused-parameter -fPIC -Wno-unused-variable -I libzerocash/libzerocash
 #cgo LDFLAGS: -L libzerocash -Wl,-rpath,./libzerocash -lzerocash -flto -DUSE_ASM -DCURVE_ALT_BN128 -L libzerocash/depinst/lib -Wl,-rpath,libzerocash/depinst/lib -L . -lsnark -lgmpxx -lgmp -lboost_system -lcrypto -lcryptopp -lz -ldl -pthread -lboost_program_options -lprocps
+#include <stdio.h>
+#include <stdlib.h>
 #include "Goapi.h"
 */
 import "C"
@@ -17,7 +19,7 @@ func (p *Params) DelParams(){
     C.CParamsDel( p.Ptr )
 }
 
-func Address struct{
+type Address struct{
     Ptr     unsafe.Pointer
 }
 func (a *Address) GetAddress(){
@@ -31,9 +33,7 @@ func (a *Address) String()string{
 }
 func (a *Address) FromString( s string ){
     p := C.CString( s )
-    defer func(){
-        C.free(unsafe.Pointer(cstr)) 
-    }
+    defer C.free(unsafe.Pointer(p)) 
     a.Ptr = C.CStrAddress( p )
 }
 

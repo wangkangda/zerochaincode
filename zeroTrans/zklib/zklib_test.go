@@ -13,17 +13,17 @@ func TestParams(t * testing.T){
     fmt.Println("Get a params pointer ", p.Ptr)
 }
 
-func TestAddress(t *tesint.T){
+func TestAddress(t *testing.T){
     var a Address
     var b Address
     a.GetAddress()
-    defer a.DelParams()
+    defer a.DelAddress()
     s1 := a.String()
     fmt.Println("Get a address: ", s1)
     b.FromString(s1)
-    defer b.DelParams()
+    defer b.DelAddress()
     s2 := b.String()
     fmt.Println("from string address: ", s2)
-    ok = s1==s2
+    ok := s1==s2
     fmt.Println("Is it ok? : ", ok )
 }

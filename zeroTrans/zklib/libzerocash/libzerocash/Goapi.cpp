@@ -16,6 +16,45 @@ using namespace libzerocash;
 
 #define default_tree_depth 5
 
+vector<bool> convertIntToVector(uint64_t val) {
+    vector<bool> ret;
+    
+    for(unsigned int i = 0; i < sizeof(val) * 8; ++i, val >>= 1) {
+        ret.push_back(val & 0x01);
+    }
+    
+    reverse(ret.begin(), ret.end());
+    return ret;
+}
+
+char* data2str( CDataStream &s){
+    std::string sstr = s.str();
+    char *data = new char[sstr.length()*2+1];
+    char t;
+    for(int i=0; i<sstr.length(); i++){
+        t = sstr[i];
+        data[i*2] = 'a'+( (t>>4) & 0x0f);
+        data[i*2+1] = 'a'+(t&0x0f);
+    }
+    data[sstr.length()*2]='\0';
+    return data;
+}
+
+CDataStream str2data( char *s ){
+    std::vector<char> vc;
+    char *e = s, t1, t2, t;
+    while( *e != 0 ) {
+        t1 = *e;
+        e++;
+        t2 = *e;
+        e++;
+        t = ( ((t1-'a')<<4) | (t2-'a') );
+        vc.push_back( t );
+    }
+    CDataStream stream( vc, SER_NETWORK, PROTOCOL_VERSION);
+    return stream;
+}
+
 //Params
 void*    CParamsGen(){
     ZerocashParams *p = new ZerocashParams(default_tree_depth);
@@ -193,44 +232,6 @@ bool     CPourVerify(void* params, void* pour, void* tree){
                         *(ZerocashParams*)params, pubkeyHash, rt);
 }
 
-vector<bool> convertIntToVector(uint64_t val) {
-    vector<bool> ret;
-    
-    for(unsigned int i = 0; i < sizeof(val) * 8; ++i, val >>= 1) {
-        ret.push_back(val & 0x01);
-    }
-    
-    reverse(ret.begin(), ret.end());
-    return ret;
-}
-
-char* data2str( CDataStream &s){
-    std::string sstr = s.str();
-    char *data = new char[sstr.length()*2+1];
-    char t;
-    for(int i=0; i<sstr.length(); i++){
-        t = sstr[i];
-        data[i*2] = 'a'+( (t>>4) & 0x0f);
-        data[i*2+1] = 'a'+(t&0x0f);
-    }
-    data[sstr.length()*2]='\0';
-    return data;
-}
-
-CDataStream str2data( char *s ){
-    std::vector<char> vc;
-    char *e = s, t1, t2, t;
-    while( *e != 0 ) {
-        t1 = *e;
-        e++;
-        t2 = *e;
-        e++;
-        t = ( ((t1-'a')<<4) | (t2-'a') );
-        vc.push_back( t );
-    }
-    CDataStream stream( vc, SER_NETWORK, PROTOCOL_VERSION);
-    return stream;
-}
 
 bool TutorialTest() {
     size_t tree_depth = default_tree_depth

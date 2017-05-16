@@ -2,13 +2,13 @@ package zklib
 
 import (
     "testing"
+    "fmt"
 )
 
 
 func TestParams(t * testing.T){
     var p Params
-    p.GetParams()
+    p.GetParams( 0 )
     defer p.DelParams()
     fmt.Println("Get a params pointer ", p.Ptr)
-    fmt.Println("Try to get length", len(p.Ptr)
 }

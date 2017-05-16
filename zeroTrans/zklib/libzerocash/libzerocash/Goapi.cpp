@@ -57,11 +57,15 @@ CDataStream str2data( char *s ){
 }
 
 //Params
-void*    CParamsGen(){
-    //For Client: import proving key
-    //ZerocashParams *p = new ZerocashParams(default_tree_depth, "ccproving", "ccverify");
-    //For Chaincode: only import verify key
-    ZerocashParams *p = new ZerocashParams(default_tree_depth, "", "ccverify");
+void*    CParamsGen(int type=0){
+    ZerocashParams *p;
+    if (type!=0){
+        //For Client: import proving key
+        p = new ZerocashParams(default_tree_depth, "newpk", "newvk");
+    }else{
+        //For Chaincode: only import verify key
+        p = new ZerocashParams(default_tree_depth, "", "newvk");
+    }
 
     //p->getProvingKey(1);
     return (void*)p;
@@ -140,7 +144,7 @@ void*   CStrMerkle(char* cstr){
 void    CMerkleDel(void* p){
     delete (IncrementalMerkleTree*)p;
 }
-bool    CMerkleInsert(void* p, void* coin, int nowidx){
+void*   CMerkleInsert(void* p, void* coin, int nowidx){
     IncrementalMerkleTree *merkle = (IncrementalMerkleTree*)p;
     vector<bool> temp_comVal(cm_size*8);
     convertBytesVectorToVector((*(Coin*)coin).getCoinCommitment().getCommitmentValue(), temp_comVal);
@@ -168,8 +172,8 @@ void*    CStrMint(char *cstr){
 void     CMintDel(void* mint){
     delete (MintTransaction*)mint;
 }
-bool     CMintVerify(void* mint){
-    return (*(MintTransaction*)mint).verify();
+int     CMintVerify(void* mint){
+    return (int)(*(MintTransaction*)mint).verify();
 }
 
 //Pour
@@ -216,19 +220,19 @@ void*    CStrPour(char* cstr){
 void     CPourDel(void* pour){
     delete (PourTransaction*)pour;
 }
-bool     CPourVerify(void* params, void* pour, void* tree){
+int     CPourVerify(void* params, void* pour, void* tree){
     std::vector<unsigned char> pubkeyHash(sig_pk_size, 'a');
     IncrementalMerkleTree &merkleTree = *(IncrementalMerkleTree*)tree;
     vector<bool> root_bv(root_size * 8);
     merkleTree.getRootValue(root_bv);
     vector<unsigned char> rt(root_size);
     libzerocash::convertVectorToBytesVector(root_bv, rt);
-    return ((PourTransaction*)pour)->verify(
+    return (int)((PourTransaction*)pour)->verify(
                         *(ZerocashParams*)params, pubkeyHash, rt);
 }
 
 
-bool TutorialTest() {
+int TutorialTest() {
     size_t tree_depth = default_tree_depth;
     cout << "\nSIMPLE TRANSACTION TEST\n" << endl;
     
@@ -335,5 +339,5 @@ bool TutorialTest() {
     cout << "Verifying a pour transaction...\n" << endl;
     bool pourtx_res = pourtxNew.verify(p, pubkeyHash, rt);
     
-    return (minttx_res && pourtx_res);
+    return (int)(minttx_res && pourtx_res);
 }

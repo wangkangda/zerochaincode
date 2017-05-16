@@ -3,7 +3,10 @@
 using namespace std;
 
 int main(){
-    bool t = TutorialTest();
-    cout <<"run goapi :"<<t<<endl;
+    //int t = TutorialTest();
+    //cout <<"run goapi :"<<t<<endl;
+    void *p = CParamsGen(1);
+    CParamsDel(p);
+    cout<<"seccess !"<<endl;
     return 0;
 }

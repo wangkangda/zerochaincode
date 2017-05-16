@@ -5,7 +5,7 @@
 extern "C"{
 #endif
     //Params
-    extern void*    CParamsGen();
+    extern void*    CParamsGen(int);
     extern char*    CParamsStr(void*);
     extern void*    CStrParams(char*);
     extern void     CParamsDel(void*);
@@ -27,14 +27,14 @@ extern "C"{
     extern char*    CMerkleStr(void*);
     extern void*    CStrMerkle(char*);
     extern void     CMerkleDel(void*);
-    extern bool     CMerkleInsert(void*, void*, int);
+    extern void*    CMerkleInsert(void*, void*, int);
     
     //Mint
     extern void*    CMintGen(void*);
     extern char*    CMintStr(void*);
     extern void*    CStrMint(char*);
     extern void     CMintDel(void*);
-    extern bool     CMintVerify(void*);
+    extern int     CMintVerify(void*);
     
     //Pour
     extern void*    CPourGen(void*, void*, void*,
@@ -44,10 +44,10 @@ extern "C"{
     extern char*    CPourStr(void*);
     extern void*    CStrPour(char*);
     extern void     CPourDel(void*);
-    extern bool     CPourVerify(void*, void*, void*);
+    extern int     CPourVerify(void*, void*, void*);
     
     
-    extern bool     TutorialTest();
+    extern int     TutorialTest();
     
 #ifdef __cplusplus
 }

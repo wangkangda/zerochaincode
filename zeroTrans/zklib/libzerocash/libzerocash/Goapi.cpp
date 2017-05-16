@@ -41,6 +41,20 @@ char* data2str( CDataStream &s){
     return data;
 }
 
+char* ss2str( stringstream &s ){
+    std::string sstr = s.str();
+    char *data = new char[sstr.length()*2+1];
+    char t;
+    for(int i=0; i<sstr.length(); i++){
+        t = sstr[i];
+        data[i*2] = 'a'+( (t>>4) & 0x0f);
+        data[i*2+1] = 'a'+(t&0x0f);
+    }
+    data[sstr.length()*2]='\0';
+    return data;
+}
+
+
 CDataStream str2data( char *s ){
     std::vector<char> vc;
     char *e = s, t1, t2, t;
@@ -56,6 +70,21 @@ CDataStream str2data( char *s ){
     return stream;
 }
 
+stringstream str2ss( char *s ){
+    std::vector<char> vc;
+    char *e = s, t1, t2, t;
+    while( *e != 0 ) {
+        t1 = *e;
+        e++;
+        t2 = *e;
+        e++;
+        t = ( ((t1-'a')<<4) | (t2-'a') );
+        vc.push_back( t );
+    }
+    stringstream stream( vc );
+    return stream;
+}
+
 //Params
 void*    CParamsGen(){
     ZerocashParams *p = new ZerocashParams(default_tree_depth);
@@ -63,8 +92,11 @@ void*    CParamsGen(){
     return (void*)p;
 }
 char*    CParamsStr(void *p){
-    CDataStream stream(SER_NETWORK, 7002);
-    //stream << *(ZerocashParams*)p;
+    stringstream ss;
+    ss << *(ZerocashParms*)p;
+    //CDataStream stream(SER_NETWORK, 7002);
+    stringstream stream;
+    stream << *(ZerocashParams*)p;
     return data2str( stream );
 }
 void*    CStrParams(char* cstr){

@@ -16,7 +16,7 @@ using namespace libzerocash;
 
 #define default_tree_depth 5
 
-vector<bool> convertIntToVector(uint64_t val) {
+vector<bool> ConvertIntToVector(uint64_t val) {
     vector<bool> ret;
     
     for(unsigned int i = 0; i < sizeof(val) * 8; ++i, val >>= 1) {
@@ -26,6 +26,7 @@ vector<bool> convertIntToVector(uint64_t val) {
     reverse(ret.begin(), ret.end());
     return ret;
 }
+
 
 char* data2str( CDataStream &s){
     std::string sstr = s.str();
@@ -51,7 +52,7 @@ CDataStream str2data( char *s ){
         t = ( ((t1-'a')<<4) | (t2-'a') );
         vc.push_back( t );
     }
-    CDataStream stream( vc, SER_NETWORK, PROTOCOL_VERSION);
+    CDataStream stream( vc, SER_NETWORK, 7002);
     return stream;
 }
 
@@ -63,17 +64,17 @@ void*    CParamsGen(){
 }
 char*    CParamsStr(void *p){
     CDataStream stream(SER_NETWORK, 7002);
-    stream << *(ZerocashParams*)p;
+    //stream << *(ZerocashParams*)p;
     return data2str( stream );
 }
 void*    CStrParams(char* cstr){
-    CDataStream stream = str2data( cstr )
-    ZerocashParams *p = new ZerocashParams;
-    stream >> *p;
+    CDataStream stream = str2data( cstr );
+    ZerocashParams *p = new ZerocashParams(default_tree_depth);
+    //stream >> *p;
     return (void*)p;
 }
 void     CParamsDel(void *p){
-    delete (void*)p;
+    delete (ZerocashParams*)p;
 }
 
 //Address
@@ -83,11 +84,11 @@ void*    CAddressGen(){
 }
 char*    CAddressStr(void *a){
     CDataStream stream(SER_NETWORK, 7002);
-    stream << *(Address*)p;
+    stream << *(Address*)a;
     return data2str( stream );
 }
 void*    CStrAddress(char* cstr){
-    CDataStream stream = str2data( cstr )
+    CDataStream stream = str2data( cstr );
     Address *p = new Address;
     stream >> *p;
     return (void*)p;
@@ -108,7 +109,7 @@ char*    CCoinStr(void *p){
     return data2str( stream );
 }
 void*    CStrCoin(char* cstr){
-    CDataStream stream = str2data( cstr )
+    CDataStream stream = str2data( cstr );
     Coin *p = new Coin;
     stream >> *p;
     return (void*)p;
@@ -123,7 +124,7 @@ void*   CMerkleGen(){
     Coin coins = Coin(addrs.getPublicAddress(), 0);
     vector<vector<bool>> coinValues(1);
     vector<bool> temp_comVal(cm_size * 8);
-    convertBytesVectorToVector(coins.getCoinCommitment().getCommitmentValue(), temp_comVal)
+    convertBytesVectorToVector(coins.getCoinCommitment().getCommitmentValue(), temp_comVal);
     coinValues.at(0) = temp_comVal;
     IncrementalMerkleTree *res = new IncrementalMerkleTree(coinValues, default_tree_depth);
     return (void*)res;
@@ -136,7 +137,7 @@ char*   CMerkleStr(void* p){
     return data2str( stream );
 }
 void*   CStrMerkle(char* cstr){
-    CDataStream stream = str2data( cstr )
+    CDataStream stream = str2data( cstr );
     IncrementalMerkleTreeCompact compact;
     stream >> compact;
     IncrementalMerkleTree *p = new IncrementalMerkleTree(compact);
@@ -146,11 +147,11 @@ void    CMerkleDel(void* p){
     delete (IncrementalMerkleTree*)p;
 }
 bool    CMerkleInsert(void* p, void* coin, int nowidx){
-    IncrementalMerkleTree &merkle = *(IncrementalMerkleTree*)p;
+    IncrementalMerkleTree *merkle = (IncrementalMerkleTree*)p;
     vector<bool> temp_comVal(cm_size*8);
     convertBytesVectorToVector((*(Coin*)coin).getCoinCommitment().getCommitmentValue(), temp_comVal);
-    vector<bool> index = convertIntToVector((uint64_t)nowidx);
-    merkle.insertElement(temp_comVal, index);
+    vector<bool> index = ConvertIntToVector((uint64_t)nowidx);
+    merkle->insertElement(temp_comVal, index);
     return (void*)merkle;
 }
 
@@ -165,7 +166,7 @@ char*    CMintStr(void* p){
     return data2str( stream );
 }
 void*    CStrMint(char *cstr){
-    CDataStream stream = str2data( cstr )
+    CDataStream stream = str2data( cstr );
     MintTransaction *p = new MintTransaction;
     stream >> *p;
     return (void*)p;
@@ -185,7 +186,7 @@ void*    CPourGen(void* params,
                   void* tree,
                   void* paddr1,     void* paddr2,
                   int v_pub,
-                  void* c_1_new,    void* c_2_new){
+                  void* cnew1,    void* cnew2){
     PourTransaction *p;
     merkle_authentication_path witness_1(default_tree_depth);
     merkle_authentication_path witness_2(default_tree_depth);
@@ -194,8 +195,8 @@ void*    CPourGen(void* params,
     merkleTree.getRootValue(root_bv);
     vector<unsigned char> rt(root_size);
     convertVectorToBytesVector(root_bv, rt);
-    merkleTree.getWitness(convertIntToVector((uint64_t)cidx1), witness_1);
-    merkleTree.getWitness(convertIntToVector((uint64_t)cidx2), witness_2);
+    merkleTree.getWitness(ConvertIntToVector((uint64_t)cidx1), witness_1);
+    merkleTree.getWitness(ConvertIntToVector((uint64_t)cidx2), witness_2);
     vector<unsigned char> pubkeyHash(sig_pk_size, 'a');
     p = new PourTransaction(1, *(ZerocashParams*)params, rt,
                             *(Coin*)coin1, *(Coin*)coin2,
@@ -213,7 +214,7 @@ char*    CPourStr(void* pour){
     return data2str( stream );
 }
 void*    CStrPour(char* cstr){
-    CDataStream stream = str2data( cstr )
+    CDataStream stream = str2data( cstr );
     PourTransaction *p = new PourTransaction;
     stream >> *p;
     return (void*)p;
@@ -228,13 +229,13 @@ bool     CPourVerify(void* params, void* pour, void* tree){
     merkleTree.getRootValue(root_bv);
     vector<unsigned char> rt(root_size);
     libzerocash::convertVectorToBytesVector(root_bv, rt);
-    return (PourTransaction*)pour.verify(
+    return ((PourTransaction*)pour)->verify(
                         *(ZerocashParams*)params, pubkeyHash, rt);
 }
 
 
 bool TutorialTest() {
-    size_t tree_depth = default_tree_depth
+    size_t tree_depth = default_tree_depth;
     cout << "\nSIMPLE TRANSACTION TEST\n" << endl;
     
     //libzerocash::timer_start("Param Generation");
@@ -281,7 +282,7 @@ bool TutorialTest() {
     
     cout << "Creating Witness 1...\n" << endl;
     merkle_authentication_path witness_1(tree_depth);
-    if (merkleTree.getWitness(convertIntToVector(1), witness_1) == false) {
+    if (merkleTree.getWitness(ConvertIntToVector(1), witness_1) == false) {
         cout << "Could not get witness" << endl;
         return false;
     }
@@ -289,7 +290,7 @@ bool TutorialTest() {
     
     cout << "Creating Witness 2...\n" << endl;
     merkle_authentication_path witness_2(tree_depth);
-    if (merkleTree.getWitness(convertIntToVector(3), witness_2) == false) {
+    if (merkleTree.getWitness(ConvertIntToVector(3), witness_2) == false) {
         cout << "Could not get witness" << endl;
     }
     cout << "Successfully created Witness 2.\n" << endl;

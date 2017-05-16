@@ -37,6 +37,16 @@ public:
     const zerocash_pour_verification_key<zerocash_pp>& getVerificationKey(const int version);
     ~ZerocashParams();
 
+    /*
+    IMPLEMENT_SERIALIZE
+    (
+        READWRITE(kp_v1);
+        READWRITE(params_pk_v1);
+        READWRITE(params_vk_v1);
+        READWRITE(treeDepth);
+    )
+    */
+
 private:
     void initV1Params();
     zerocash_pour_keypair<zerocash_pp>* kp_v1;

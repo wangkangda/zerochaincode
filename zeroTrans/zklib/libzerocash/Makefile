@@ -1,5 +1,6 @@
 OPTFLAGS = -march=native -mtune=native -O2
-CXXFLAGS += -g -Wall -Wextra -Werror -Wfatal-errors -Wno-unused-parameter -std=c++11 -fPIC -Wno-unused-variable
+#CXXFLAGS += -g -Wall -Wextra -Werror -Wfatal-errors -Wno-unused-parameter -std=c++11 -fPIC -Wno-unused-variable
+CXXFLAGS += -g -Wno-unused-parameter -std=c++11 -fPIC -Wno-unused-variable
 LDFLAGS += -flto
 
 ifeq ($(CURVE),)
@@ -14,7 +15,7 @@ LIBZEROCASH=libzerocash
 UTILS=$(LIBZEROCASH)/utils
 TESTUTILS=tests
 LDLIBS += -L $(DEPINST)/lib -Wl,-rpath $(DEPINST)/lib -L . -lsnark -lgmpxx -lgmp
-LDLIBS += -lboost_system -lcrypto -lcryptopp -lz -ldl
+LDLIBS += -lboost_system -lcrypto -lcryptopp -lz -ldl -pthread
 CXXFLAGS += -I $(DEPINST)/include -I $(DEPINST)/include/libsnark -I . -DUSE_ASM -DCURVE_$(CURVE)
 
 LIBPATH = /usr/local/lib
@@ -31,6 +32,7 @@ SRCS= \
 	$(LIBZEROCASH)/MintTransaction.cpp \
 	$(LIBZEROCASH)/PourTransaction.cpp \
 	$(LIBZEROCASH)/ZerocashParams.cpp \
+    $(LIBZEROCASH)/Goapi.cpp \
 	$(TESTUTILS)/timer.cpp
 
 EXECUTABLES= \
@@ -73,7 +75,7 @@ ifeq ($(MULTICORE),1)
 	CXXFLAGS += -static -fopenmp -DMULTICORE
 endif
 
-all: $(EXECUTABLES) libzerocash.a
+all: $(EXECUTABLES) libzerocash.a libzerocash.so
 
 cppdebug: CXXFLAGS += -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC
 cppdebug: debug
@@ -93,14 +95,14 @@ $(OBJS) ${patsubst %,%.o,${EXECUTABLES}}: %.o: %.cpp
 $(EXECUTABLES): %: %.o $(OBJS)
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS) $(LDLIBS)
 
-libzerocash: $(OBJS) $(USER_OBJS)
+libzerocash.so: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross G++ Linker'
 	$(CXX) -shared -o "libzerocash.so" $(OBJS) $(CXXFLAGS) $(LDFLAGS) $(LDLIBS)
 	@echo 'Finished building target: $@'
 	@echo 'Copying libzerocash.so'
-	sudo cp libzerocash.so $(LIBPATH)/libzerocash.so
-	sudo ldconfig
+	#sudo cp libzerocash.so $(LIBPATH)/libzerocash.so
+	#sudo ldconfig
 	@echo 'Finished copying libzerocash.so'
 	@echo ' '
 

@@ -45,7 +45,7 @@ bool testCompactRep(IncrementalMerkleTree &inTree)
 	if (inTree.getCompactRepresentation(compact) == false)
     {
 		cout << "Unable to generate compact representation." << endl;
-		return false;
+		//return false;
 	}
 
 	IncrementalMerkleTree newTree(compact);

@@ -606,7 +606,7 @@ int main(int argc, char **argv)
     //bool pourTxResult = PourTxTest(tree_depth);
     //bool simpleTxResult = SimpleTxTest(tree_depth);
     //bool paramTxResult = ParamFilesTest(tree_depth, "newpk", "newvk");
-    //bool goapiTxResult = TutorialTest();
+    bool goapiTxResult = TutorialTest();
 
     cout << "\n" << endl;
     //std::cout << "\nAddressTest result => " << addressResult << std::endl;
@@ -616,5 +616,5 @@ int main(int argc, char **argv)
     //std::cout << "\nPourTxTest result => " << pourTxResult << std::endl;
     //std::cout << "\nSimpleTxTest result => " << simpleTxResult << std::endl;
     //std::cout << "\nParamTxTest result => " << paramTxResult << std::endl;
-    //std::cout<<"\nGoapiTxTest result => " <<goapiTxResult <<endl;
+    std::cout<<"\nGoapiTxTest result => " <<goapiTxResult <<endl;
 }

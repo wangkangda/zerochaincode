@@ -67,5 +67,6 @@ namespace libzerocash {
 };
 
 #include "libzerocash/utils/util.h"
+#include "libzerocash/Goapi.h"
 
 #endif /* ZEROCASH_H_ */

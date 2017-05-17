@@ -43,7 +43,7 @@ func (a *Address) FromString( s string ){
 type Coin struct{
     Ptr     unsafe.Pointer
 }
-func (c *Coin) GenCoin( a Address, value int ){
+func (c *Coin) GetCoin( a Address, value int ){
     c.Ptr = C.CCoinGen(a.Ptr, C.int(value))
 }
 func (c *Coin) DelCoin(){
@@ -62,13 +62,16 @@ func (c *Coin) FromString( s string){
 }
 func (c *Coin) GetCommit( )string{
     p := C.CCoinCommit( c.Ptr )
-    return C.CCommitStr( p )
+    cstr :=  C.CCommitStr( p )
+    defer C.free(unsafe.Pointer(cstr))
+    res := C.GoString(cstr)
+    return res
 }
 
 type Merkle struct{
     Ptr     unsafe.Pointer
 }
-func (m *Merkle) GenMerkle(){
+func (m *Merkle) GetMerkle(){
     m.Ptr = C.CMerkleGen()
 }
 func (m *Merkle) DelMerkle(){
@@ -83,13 +86,13 @@ func (m *Merkle) String()string{
 func (m *Merkle) FromString( s string){
     p := C.CString(s)
     defer C.free(unsafe.Pointer(p))
-    m.Ptr = CStrMerkle(p)
+    m.Ptr = C.CStrMerkle(p)
 }
 func (m *Merkle) Insert( s string, idx int ){
     cstr := C.CString( s )
     defer C.free(unsafe.Pointer(cstr))
-    p := CStrCommit( cstr )
-    defer CCommitDel( p )
-    m.Ptr = C.CMerkleInsert( m.Ptr, p, idx )
+    p := C.CStrCommit( cstr )
+    defer C.CCommitDel( p )
+    m.Ptr = C.CMerkleInsert( m.Ptr, p, C.int(idx) )
 }
 

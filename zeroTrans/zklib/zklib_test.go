@@ -45,14 +45,17 @@ func TestAddress(t *testing.T){
     m.Insert(cc1, 1)
     m.Insert(cc2, 2)
     n1 := m.String()
+    fmt.Println("Original Merkle:", old)
+    fmt.Println("Inserted Merkle:", n1)
     ok = old != n1
     fmt.Println("insert different :", ok)
     var m1 Merkle
     m1.FromString(old)
     defer m1.DelMerkle()
     m1.Insert(cc1, 1)
-    m2.Insert(cc2, 2)
+    m1.Insert(cc2, 2)
     n2 := m.String()
+    fmt.Println("Another Merkle:", n2)
     ok = n1==n2
     fmt.Println("merkle ok :", ok)
 }

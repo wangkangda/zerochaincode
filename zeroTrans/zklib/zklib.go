@@ -10,11 +10,30 @@ import "unsafe"
 type Params struct{
     Ptr     unsafe.Pointer
 }
-
 func (p *Params) GetParams( fclient int ){
     p.Ptr = C.CParamsGen( C.int( fclient ) )
 }
-
 func (p *Params) DelParams(){
     C.CParamsDel( p.Ptr )
 }
+
+func Address struct{
+    Ptr     unsafe.Pointer
+}
+func (a *Address) GetAddress(){
+    a.Ptr = C.CAddressGen( )
+}
+func (a *Address) DelAddress(){
+    C.CAddressDel( a.Ptr )
+}
+func (a *Address) String()string{
+    return C.GoString( C.CAddressStr( a.Ptr ) )
+}
+func (a *Address) FromString( s string ){
+    p := C.CString( s )
+    defer func(){
+        C.free(unsafe.Pointer(cstr)) 
+    }
+    a.Ptr = C.CStrAddress( p )
+}
+

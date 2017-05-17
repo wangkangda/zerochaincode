@@ -21,7 +21,13 @@ extern "C"{
     extern char*    CCoinStr(void*);
     extern void*    CStrCoin(char*);
     extern void     CCoinDel(void*);
+    extern void*    CCoinCommit(void*);
     
+    //Commit
+    extern char*    CCommitStr(void*);
+    extern void*    CStrCommit(char*);
+    extern void     CCommitDel(void*);
+
     //Merkle
     extern void*    CMerkleGen();
     extern char*    CMerkleStr(void*);

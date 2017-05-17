@@ -115,6 +115,26 @@ void*    CStrCoin(char* cstr){
 void     CCoinDel(void *p){
     delete (Coin*)p;
 }
+void*   CCoinCommit(void *p){
+    Coin *c = (Coin*)p;
+    return (void*) &( c->getCoinCommitment() );
+}
+
+//Commit
+char*    CCommitStr(void *p){
+    CDataStream stream(SER_NETWORK, 7002);
+    stream << *(CoinCommit*)p;
+    return data2str( stream );
+}
+void*    CStrCommit(char* cstr){
+    CDataStream stream = str2data( cstr );
+    CoinCommit *p = new CoinCommit;
+    stream >> *p;
+    return (void*)p;
+}
+void     CCommitDel(void *p){
+    delete (CoinCommit*)p;
+}
 
 //Merkle
 void*   CMerkleGen(){
@@ -144,10 +164,10 @@ void*   CStrMerkle(char* cstr){
 void    CMerkleDel(void* p){
     delete (IncrementalMerkleTree*)p;
 }
-void*   CMerkleInsert(void* p, void* coin, int nowidx){
+void*   CMerkleInsert(void* p, void* commit, int nowidx){
     IncrementalMerkleTree *merkle = (IncrementalMerkleTree*)p;
     vector<bool> temp_comVal(cm_size*8);
-    convertBytesVectorToVector((*(Coin*)coin).getCoinCommitment().getCommitmentValue(), temp_comVal);
+    convertBytesVectorToVector((*(CoinCommit*)commit).getCommitmentValue(), temp_comVal);
     vector<bool> index = ConvertIntToVector((uint64_t)nowidx);
     merkle->insertElement(temp_comVal, index);
     return (void*)merkle;

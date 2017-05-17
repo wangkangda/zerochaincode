@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <iostream>
-#include <sstream>
 
 #include "libzerocash/Zerocash.h"
 #include "libzerocash/Address.h"
@@ -59,9 +58,12 @@ CDataStream str2data( char *s ){
 
 //Params
 void*    CParamsGen(){
-    ZerocashParams *p = new ZerocashParams(default_tree_depth,
-                                "ccproving", "ccverify");
-    p->getProvingKey(1);
+    //For Client: import proving key
+    //ZerocashParams *p = new ZerocashParams(default_tree_depth, "ccproving", "ccverify");
+    //For Chaincode: only import verify key
+    ZerocashParams *p = new ZerocashParams(default_tree_depth, "", "ccverify");
+
+    //p->getProvingKey(1);
     return (void*)p;
 }
 

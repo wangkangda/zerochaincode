@@ -8,6 +8,7 @@ package zklib
 */
 import "C"
 import "unsafe"
+import "fmt"
 
 type Params struct{
     Ptr     unsafe.Pointer
@@ -104,12 +105,12 @@ func (m *Merkle) Insert( s string, idx int ){
 type Pour struct{
     Ptr     unsafe.Pointer
 }
-func (p *Pour) GetPour(params Params, co1 Coin, co2, Coin,
+func (p *Pour) GetPour(params Params, co1 Coin, co2 Coin,
                             m Merkle, vpub int, cn1 Coin, cn2 Coin){
-    p.Ptr = C.CMintGen( params.Ptr,
+    p.Ptr = C.CPourGen( params.Ptr,
                         co1.Ptr,    co2.Ptr,
                         co1.Addr.Ptr, co2.Addr.Ptr,
-                        co1.Index,  co2.Index,
+                        C.int(co1.Index),  C.int(co2.Index),
                         m.Ptr,
                         cn1.Ptr,    cn2.Ptr,
                         C.int( vpub ),
@@ -125,11 +126,16 @@ func (p *Pour) String()string{
     return res
 }
 func (p *Pour) FromString( s string){
-    p := C.CString(s)
-    defer C.free(unsafe.Pointer(p))
-    p.Ptr = C.CStrPour(p)
+    cstr := C.CString(s)
+    defer C.free(unsafe.Pointer(cstr))
+    p.Ptr = C.CStrPour(cstr)
 }
 func (p *Pour) Verify( params Params, m Merkle )bool{
     res := int( C.CPourVerify(params.Ptr, p.Ptr, m.Ptr) )
     return res != 0
+}
+
+func TutorialTest(){
+    res := C.TutorialTest()
+    fmt.Println("Get :", res)
 }

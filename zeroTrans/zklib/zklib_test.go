@@ -61,34 +61,40 @@ func TestAddress(t *testing.T){
 }
 
 func TestPour(t *testing.T){
+    TutorialTest()
+/*
     var p Params
-    p.GetParams( 0 )
+    p.GetParams( 1 )
     defer p.DelParams()
 
-    addrs := make([]*Address, 5)
-    coins := make([]*Coin, 5)
+    addrs := make([]Address, 5)
+    coins := make([]Coin, 5)
     var merkle Merkle
     merkle.GetMerkle()
-    int CoinNum = 1;
     for i := 0; i<5; i++{
-        addrs[i] = new(Address)
+        addrs[i] = Address{}
         addrs[i].GetAddress()
-        coins[i] = new(Coin)
-        coins[i].GetCoin( addrs[i], (i+3)*3 )
-        merkle.Insert( coins[i].GetCommit(), CoinNum )
-        coins[i].Index = CoinNum
-        CoinNum += 1
+        coins[i] = Coin{}
+        coins[i].GetCoin( addrs[i], i )
+        merkle.Insert( coins[i].GetCommit(), i )
+        coins[i].Index = i
     }
     defer func(){
         for i:= 0; i<5; i++{
             addrs[i].DelAddress()
             coins[i].DelCoin()
         }
-    }
+    }()
     fmt.Println("Get Five Address and Coin")
 
     pour := Pour{}
-    pour.GetPour( p, coins[3], coins[4], merkle, 1, coins[1], coins[2] )
-    pour.Verify( p, merkle )
+    acoin := Coin{}
+    bcoin := Coin{}
+    acoin.GetCoin( addrs[4], 2 )
+    bcoin.GetCoin( addrs[4], 2 )
+    pour.GetPour( p, coins[1], coins[3], merkle, 0, acoin, bcoin )
+    fmt.Println("Get zero knowledge proof")
+    //pour.Verify( p, merkle )
+ */   
 }
 

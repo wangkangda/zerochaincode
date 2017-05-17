@@ -256,108 +256,54 @@ int TutorialTest() {
     size_t tree_depth = default_tree_depth;
     cout << "\nSIMPLE TRANSACTION TEST\n" << endl;
     
-    //libzerocash::timer_start("Param Generation");
-    libzerocash::ZerocashParams p(tree_depth);
-    p.getProvingKey(1); // Strangely enough, this is how we trigger parameter generation.
-    //libzerocash::timer_stop("Param Generation");
+    libzerocash::ZerocashParams &p = *(libzerocash::ZerocashParams*)CParamsGen(1);
+    cout <<"Get Params From File"<<endl;
     
-    vector<libzerocash::Coin> coins(5);
-    vector<libzerocash::Address> addrs(5);
+    vector<libzerocash::Coin*> pcoins(5);
+    vector<libzerocash::Address*> paddrs(5);
     
-    cout << "Creating Addresses and Coins...\n" << endl;
-    for(size_t i = 0; i < coins.size(); i++) {
-        addrs.at(i) = libzerocash::Address();
-        coins.at(i) = libzerocash::Coin(addrs.at(i).getPublicAddress(), i);
+    for(size_t i = 0; i < pcoins.size(); i++) {
+        paddrs.at(i) = (Address*)CAddressGen();
+        pcoins.at(i) = (Coin*)CCoinGen((void*)(paddrs.at(i)), i );
     }
     cout << "Successfully created address and coins.\n" << endl;
-    
-    cout << "Creating a Mint Transaction...\n" << endl;
-    libzerocash::MintTransaction minttx(coins.at(0));
-    cout << "Successfully created a Mint Transaction.\n" << endl;
-    
-    cout << "Serializing a mint transaction...\n" << endl;
-    CDataStream serializedMintTx(SER_NETWORK, 7002);
-    serializedMintTx << minttx;
-    cout << "Successfully serialized a mint transaction.\n" << endl;
-    
-    libzerocash::MintTransaction minttxNew;
-    serializedMintTx >> minttxNew;
-    cout << "Successfully deserialized a mint transaction.\n" << endl;
-    
-    cout << "Verifying a Mint Transaction...\n" << endl;
-    bool minttx_res = minttxNew.verify();
-    
-    vector<std::vector<bool>> coinValues(5);
-    vector<bool> temp_comVal(cm_size * 8);
-    for(size_t i = 0; i < coinValues.size(); i++) {
-        libzerocash::convertBytesVectorToVector(coins.at(i).getCoinCommitment().getCommitmentValue(), temp_comVal);
-        coinValues.at(i) = temp_comVal;
+
+    IncrementalMerkleTree *pmerkle=(IncrementalMerkleTree*)CMerkleGen();
+    for(size_t i = 1; i < pcoins.size(); i++) {
+        int nowidx = i;
+        CMerkleInsert((void*)pmerkle, (void*)&(pcoins.at(i)->getCoinCommitment()),nowidx );
     }
-    
-    cout << "Creating Merkle Tree...\n" << endl;
-    libzerocash::IncrementalMerkleTree merkleTree(coinValues, tree_depth);
     cout << "Successfully created Merkle Tree.\n" << endl;
+
+    Address *paddr3 = (Address*)CAddressGen();
+    Address *paddr4 = (Address*)CAddressGen();
+    Coin *pc1 = (Coin*)CCoinGen( (void*)paddr3, 2);
+    Coin *pc2 = (Coin*)CCoinGen( (void*)paddr4, 2);
+    cout << "Successfully created coins to pour.\n" << endl;
     
-    cout << "Creating Witness 1...\n" << endl;
-    merkle_authentication_path witness_1(tree_depth);
-    if (merkleTree.getWitness(ConvertIntToVector(1), witness_1) == false) {
-        cout << "Could not get witness" << endl;
-        return false;
-    }
-    cout << "Successfully created Witness 1.\n" << endl;
-    
-    cout << "Creating Witness 2...\n" << endl;
-    merkle_authentication_path witness_2(tree_depth);
-    if (merkleTree.getWitness(ConvertIntToVector(3), witness_2) == false) {
-        cout << "Could not get witness" << endl;
-    }
-    cout << "Successfully created Witness 2.\n" << endl;
-    
-    cout << "Creating coins to spend...\n" << endl;
-    libzerocash::Address newAddress3;
-    libzerocash::PublicAddress pubAddress3 = newAddress3.getPublicAddress();
-    
-    libzerocash::Address newAddress4;
-    libzerocash::PublicAddress pubAddress4 = newAddress4.getPublicAddress();
-    
-    libzerocash::Coin c_1_new(pubAddress3, 2);
-    libzerocash::Coin c_2_new(pubAddress4, 2);
-    cout << "Successfully created coins to spend.\n" << endl;
-    
-    vector<bool> root_bv(root_size * 8);
-    merkleTree.getRootValue(root_bv);
-    vector<unsigned char> rt(root_size);
-    libzerocash::convertVectorToBytesVector(root_bv, rt);
-    
-    
-    vector<unsigned char> as(sig_pk_size, 'a');
-    
-    cout << "Creating a pour transaction...\n" << endl;
-    libzerocash::PourTransaction pourtx(1, p,
-                                        rt,
-                                        coins.at(1), coins.at(3),
-                                        addrs.at(1), addrs.at(3),
-                                        1, 3,
-                                        witness_1, witness_2,
-                                        pubAddress3, pubAddress4,
-                                        0,
-                                        as,
-                                        c_1_new, c_2_new);
+    PourTransaction *ppourtx = (PourTransaction*)CPourGen(&p,
+                            (void*)pcoins.at(1), (void*)pcoins.at(3),
+                            (void*)paddrs.at(1), (void*)paddrs.at(3),
+                            1, 3,
+                            (void*)pmerkle,
+                            (void*)paddr3, (void*)paddr4,
+                            0, (void*)pc1, (void*)pc2);
+
     cout << "Successfully created a pour transaction.\n" << endl;
-    
-    cout << "Serializing a pour transaction...\n" << endl;
-    CDataStream serializedPourTx(SER_NETWORK, 7002);
-    serializedPourTx << pourtx;
-    cout << "Successfully serialized a pour transaction.\n" << endl;
-    
-    libzerocash::PourTransaction pourtxNew;
-    serializedPourTx >> pourtxNew;
-    cout << "Successfully deserialized a pour transaction.\n" << endl;
-    
-    std::vector<unsigned char> pubkeyHash(sig_pk_size, 'a');
-    
     cout << "Verifying a pour transaction...\n" << endl;
-    bool pourtx_res = pourtxNew.verify(p, pubkeyHash, rt);
-    
-    return (int)(minttx_res && pourtx_res);
+    int pourtx_res = CPourVerify( (void*)&p, (void*)ppourtx, (void*)pmerkle);
+
+    delete &p;
+    for(size_t i = 0; i < pcoins.size(); i++){
+        CAddressDel( (void*)paddrs.at(i) );
+        CCoinDel( (void*)pcoins.at(i) );
+    }
+    CCoinDel( (void*)pc1 );
+    CCoinDel( (void*)pc2 );
+    CAddressDel( (void*)paddr3 );
+    CAddressDel( (void*)paddr4 );
+    CPourDel( (void*)ppourtx );
+    CMerkleDel((void*)pmerkle);
+    return pourtx_res;
+    return 0;
 }

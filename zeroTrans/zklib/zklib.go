@@ -42,9 +42,14 @@ func (a *Address) FromString( s string ){
 
 type Coin struct{
     Ptr     unsafe.Pointer
+    Addr    Address
+    Value   int
+    Index   int
 }
 func (c *Coin) GetCoin( a Address, value int ){
     c.Ptr = C.CCoinGen(a.Ptr, C.int(value))
+    c.Addr = a
+    c.Value = value
 }
 func (c *Coin) DelCoin(){
     C.CCoinDel( c.Ptr )
@@ -96,3 +101,35 @@ func (m *Merkle) Insert( s string, idx int ){
     m.Ptr = C.CMerkleInsert( m.Ptr, p, C.int(idx) )
 }
 
+type Pour struct{
+    Ptr     unsafe.Pointer
+}
+func (p *Pour) GetPour(params Params, co1 Coin, co2, Coin,
+                            m Merkle, vpub int, cn1 Coin, cn2 Coin){
+    p.Ptr = C.CMintGen( params.Ptr,
+                        co1.Ptr,    co2.Ptr,
+                        co1.Addr.Ptr, co2.Addr.Ptr,
+                        co1.Index,  co2.Index,
+                        m.Ptr,
+                        cn1.Ptr,    cn2.Ptr,
+                        C.int( vpub ),
+                        cn1.Ptr,    cn2.Ptr)
+}
+func (p *Pour) DelCoin(){
+    C.CPourDel( p.Ptr )
+}
+func (p *Pour) String()string{
+    cstr := C.CPourStr( p.Ptr )
+    defer C.free(unsafe.Pointer(cstr))
+    res := C.GoString( cstr )
+    return res
+}
+func (p *Pour) FromString( s string){
+    p := C.CString(s)
+    defer C.free(unsafe.Pointer(p))
+    p.Ptr = C.CStrPour(p)
+}
+func (p *Pour) Verify( params Params, m Merkle )bool{
+    res := int( C.CPourVerify(params.Ptr, p.Ptr, m.Ptr) )
+    return res != 0
+}

@@ -60,3 +60,35 @@ func TestAddress(t *testing.T){
     fmt.Println("merkle ok :", ok)
 }
 
+func TestPour(t *testing.T){
+    var p Params
+    p.GetParams( 0 )
+    defer p.DelParams()
+
+    addrs := make([]*Address, 5)
+    coins := make([]*Coin, 5)
+    var merkle Merkle
+    merkle.GetMerkle()
+    int CoinNum = 1;
+    for i := 0; i<5; i++{
+        addrs[i] = new(Address)
+        addrs[i].GetAddress()
+        coins[i] = new(Coin)
+        coins[i].GetCoin( addrs[i], (i+3)*3 )
+        merkle.Insert( coins[i].GetCommit(), CoinNum )
+        coins[i].Index = CoinNum
+        CoinNum += 1
+    }
+    defer func(){
+        for i:= 0; i<5; i++{
+            addrs[i].DelAddress()
+            coins[i].DelCoin()
+        }
+    }
+    fmt.Println("Get Five Address and Coin")
+
+    pour := Pour{}
+    pour.GetPour( p, coins[3], coins[4], merkle, 1, coins[1], coins[2] )
+    pour.Verify( p, merkle )
+}
+

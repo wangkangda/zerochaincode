@@ -61,8 +61,8 @@ func TestAddress(t *testing.T){
 }
 
 func TestPour(t *testing.T){
-    TutorialTest()
-/*
+    //TutorialTest()
+
     var p Params
     p.GetParams( 1 )
     defer p.DelParams()
@@ -71,7 +71,7 @@ func TestPour(t *testing.T){
     coins := make([]Coin, 5)
     var merkle Merkle
     merkle.GetMerkle()
-    for i := 0; i<5; i++{
+    for i := 1; i<5; i++{
         addrs[i] = Address{}
         addrs[i].GetAddress()
         coins[i] = Coin{}
@@ -95,6 +95,6 @@ func TestPour(t *testing.T){
     pour.GetPour( p, coins[1], coins[3], merkle, 0, acoin, bcoin )
     fmt.Println("Get zero knowledge proof")
     //pour.Verify( p, merkle )
- */   
+    
 }
 

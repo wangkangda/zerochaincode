@@ -3,11 +3,7 @@ package main
 import (
     "fmt"
     "log"
-    //"errors"
-    //"strconv"
     "github.com/hyperledger/fabric/core/chaincode/shim"
-
-    "github.com/wangkangda/zerochaincode/zeroTrans/zklib/transaction"
     "github.com/wangkangda/zerochaincode/zeroTrans/chaincode/method"
 )
 
@@ -15,14 +11,14 @@ type ZeroChaincode struct {
 }
 
 func (t *ZeroChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string)([]byte, error){
-    //初始化参数
-    return nil, nil
+    log.Printf( "Init Chaincode" )
+    h := method.NewInitmethod( stub )
+    return h.Execute()
 }
 
 func (t *ZeroChaincode) Invoke(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error){
     log.Printf( "Invoke %v\n", function )
-    inputs, outputs := transaction.GetTransaction( stub, args )
-    h := method.NewTransaction(stub, inputs, outputs)
+    h := method.NewTransaction(stub, args)
     return h.Execute()
 }
 

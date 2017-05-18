@@ -37,7 +37,7 @@ func (a *Address) String()string{
 }
 func (a *Address) FromString( s string ){
     p := C.CString( s )
-    defer C.free(unsafe.Pointer(p)) 
+    defer C.free(unsafe.Pointer(p))
     a.Ptr = C.CStrAddress( p )
 }
 

@@ -64,7 +64,7 @@ void*    CParamsGen(int type=0){
         p = new ZerocashParams(default_tree_depth, "newpk", "newvk");
     }else{
         //For Chaincode: only import verify key
-        p = new ZerocashParams(default_tree_depth, "", "newvk");
+        p = new ZerocashParams(default_tree_depth, "", "/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/zeroTrans/zklib/newvk");
     }
 
     //p->getProvingKey(1);

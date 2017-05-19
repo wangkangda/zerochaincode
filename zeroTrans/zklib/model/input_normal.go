@@ -1,31 +1,35 @@
 package model
 
-import (
-    "github.com/hyperledger/fabric/core/chaincode/shim"
+import(
+    "fmt"
+    "strconv"
+    "strings"
+    "github.com/wangkangda/zerochaincode/zeroTrans/zklib"
 )
 
 type NormalInput struct{
-    sender      Address
+    sender      zklib.Address
     value       int
     signed      string
 }
 
-func (i *NormalInput)GetType(){
+func (i *NormalInput)GetType()int{
     return NormalTransaction
 }
 
 func (i *NormalInput)Prepare(ctx Context){
-    ctx.AddAmount( sender )
+    ctx.AddAmount( i.sender.String() )
 }
 
 func (i *NormalInput)Verify(ctx Context)bool{
     //之后可加入签名验证?
-    //verify(signed, sender, ctx.signedContent)
-    return ctx.amount[sender]>=i.value
+    //verify(signed, i.sender, ctx.signedContent)
+    return ctx.amount[i.sender.String()]>=i.value
 }
 
 func (i *NormalInput)Execute(ctx Context)error{
-    ctx.amount[sender]-=i.value
+    ctx.amount[i.sender.String()]-=i.value
+    return nil
 }
 
 func (i *NormalInput)String()(string){
@@ -33,14 +37,13 @@ func (i *NormalInput)String()(string){
 }
 
 func (i *NormalInput)FromString(istr string)error{
-    ostr := SplitN(istr, "\n")
-    err := i.sender.FromString( ostr[0] )
-    if err != nil{
-        return err
-    }
+    ostr := strings.Split(istr, "\n")
+    i.sender.FromString( ostr[0] )
+    var err error
     i.value, err = strconv.Atoi( ostr[1] )
     if err != nil{
         return err
     }
     i.signed = ostr[2]
+    return nil
 }

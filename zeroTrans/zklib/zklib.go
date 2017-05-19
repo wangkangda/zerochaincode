@@ -1,7 +1,7 @@
 package zklib
 /*
 #cgo CFLAGS: -g -Wno-unused-parameter -fPIC -Wno-unused-variable -I libzerocash/libzerocash
-#cgo LDFLAGS: -L libzerocash -Wl,-rpath,./libzerocash -lzerocash -flto -DUSE_ASM -DCURVE_ALT_BN128 -L libzerocash/depinst/lib -Wl,-rpath,libzerocash/depinst/lib -L . -lsnark -lgmpxx -lgmp -lboost_system -lcrypto -lcryptopp -lz -ldl -pthread -lboost_program_options -lprocps
+#cgo LDFLAGS: -L /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/zeroTrans/zklib/libzerocash -Wl,-rpath,/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/zeroTrans/zklib/libzerocash -lzerocash -flto -DUSE_ASM -DCURVE_ALT_BN128 -L /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/zeroTrans/zklib/libzerocash/depinst/lib -Wl,-rpath,/home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/zeroTrans/zklib/libzerocash/depinst/lib -L /home/wkdisee/golang/work/src/github.com/wangkangda/zerochaincode/zeroTrans/zklib -lsnark -lgmpxx -lgmp -lboost_system -lcrypto -lcryptopp -lz -ldl -pthread -lboost_program_options -lprocps
 #include <stdio.h>
 #include <stdlib.h>
 #include "Goapi.h"
@@ -130,7 +130,7 @@ func (p *Pour) FromString( s string){
     defer C.free(unsafe.Pointer(cstr))
     p.Ptr = C.CStrPour(cstr)
 }
-func (p *Pour) Verify( params Params, m Merkle )bool{
+func (p *Pour) Verify( params *Params, m *Merkle )bool{
     res := int( C.CPourVerify(params.Ptr, p.Ptr, m.Ptr) )
     return res != 0
 }

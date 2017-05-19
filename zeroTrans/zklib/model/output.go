@@ -1,9 +1,5 @@
 package model
 
-import (
-    "github.com/hyperledger/fabric/core/chaincode/shim"
-)
-
 type Output interface{
     GetType() int
     Prepare(Context)

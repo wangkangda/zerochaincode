@@ -1,26 +1,30 @@
 package model
 
 import (
+    "fmt"
     "strconv"
     "github.com/hyperledger/fabric/core/chaincode/shim"
+    "github.com/wangkangda/zerochaincode/zeroTrans/zklib"
 )
 
-type Context interface{
+type Context struct{
     stub        shim.ChaincodeStubInterface
     amount      map[string]int
-    merkle      *Merkle
-    params      *Params
+    merkle      *zklib.Merkle
+    params      *zklib.Params
     commitnum   int
 }
 
 func (ctx *Context)InitContext()error{
-    ctx.merkle = new(Merkle)
+    ctx.merkle = new(zklib.Merkle)
     ctx.merkle.GetMerkle()
     ctx.commitnum = 1
+    return nil
 }
 
 func (ctx *Context)GetMerkle( )(string, error){
-    return ctx.stub.GetState("merkle")
+    res, err := ctx.stub.GetState("merkle")
+    return string(res), err
 }
 func (ctx *Context)GetMerkleSize( addr string )(int, error){
     commitnum, err := ctx.stub.GetState("commitnum")
@@ -38,11 +42,11 @@ func (ctx *Context)GetAmount( addr string )(int, error){
     return strconv.Atoi(string(value))
 }
 
-func (ctx *Contest)AddAmount( addr string ){
+func (ctx *Context)AddAmount( addr string ){
     if ctx.amount == nil{
         ctx.amount = make(map[string]int)
     }
-    ctx[addr] = 0
+    ctx.amount[addr] = 0
 }
 func (ctx *Context)GetContext()error{
     if ctx.params == nil{
@@ -62,16 +66,23 @@ func (ctx *Context)GetContext()error{
     }
     if ctx.merkle == nil{
         merkle, err := ctx.stub.GetState("merkle")
+        if err != nil{
+            return err
+        }
         ctx.merkle.FromString( string(merkle) )
     }
     if ctx.commitnum == 0{
         commitnum, err := ctx.stub.GetState("commitnum")
-        ctx.conmmitnum , _ := strconv.Atoi(string(commitnum))
+        if err != nil{
+            return err
+        }
+        ctx.commitnum , _ = strconv.Atoi(string(commitnum))
     }
+    return nil
 }
 
 func (ctx *Context)SaveContext()error{
-    if params != nil {
+    if ctx.params != nil {
         ctx.params.DelParams()
     }
     if ctx.amount != nil{
@@ -84,7 +95,7 @@ func (ctx *Context)SaveContext()error{
         }
     }
     if ctx.merkle != nil{
-        err := ctx.stub.PutState("merkle", ctx.merkle.String())
+        err := ctx.stub.PutState("merkle", []byte(ctx.merkle.String()))
         ctx.merkle.DelMerkle()
         if err != nil{
             return err
@@ -96,4 +107,5 @@ func (ctx *Context)SaveContext()error{
             return err
         }
     }
+    return nil
 }

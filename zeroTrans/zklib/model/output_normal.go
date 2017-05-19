@@ -1,16 +1,23 @@
 package model
 
+import(
+    "fmt"
+    "strconv"
+    "strings"
+    "github.com/wangkangda/zerochaincode/zeroTrans/zklib"
+)
+
 type NormalOutput struct{
-    receiver    Address
+    receiver    zklib.Address
     amount      int
 }
 
-func (o *NormalOutput)GetType(){
+func (o *NormalOutput)GetType()int{
     return NormalTransaction
 }
 
 func (o *NormalOutput)Prepare(ctx Context){
-    ctx.AddAmount( o.receiver )
+    ctx.AddAmount( o.receiver.String() )
 }
 
 func (o *NormalOutput)Verify(context Context )bool{
@@ -18,7 +25,8 @@ func (o *NormalOutput)Verify(context Context )bool{
 }
 
 func (o *NormalOutput)Execute(context Context)error{
-    context.amount[ o.receiver ] += amount
+    context.amount[ o.receiver.String() ] += o.amount
+    return nil
 }
 
 func (o *NormalOutput)String()string{
@@ -26,11 +34,9 @@ func (o *NormalOutput)String()string{
 }
 
 func (o *NormalOutput)FromString(istr string)error{
-    ostr := SplitN(istr, "\n")
-    err := o.receiver.FromString(ostr[0])
-    if err != nil{
-        return err
-    }
+    ostr := strings.Split(istr, "\n")
+    o.receiver.FromString(ostr[0])
+    var err error
     o.amount, err = strconv.Atoi(ostr[1])
     return err
 }

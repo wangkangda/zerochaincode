@@ -5,7 +5,6 @@ import (
     "fmt"
 )
 
-
 func TestParams(t * testing.T){
     var p Params
     p.GetParams( 0 )
@@ -59,7 +58,7 @@ func TestAddress(t *testing.T){
     ok = n1==n2
     fmt.Println("merkle ok :", ok)
 }
-
+/*
 func TestPour(t *testing.T){
     //TutorialTest()
 
@@ -96,5 +95,4 @@ func TestPour(t *testing.T){
     fmt.Println("Get zero knowledge proof")
     //pour.Verify( p, merkle )
     
-}
-
+}*/

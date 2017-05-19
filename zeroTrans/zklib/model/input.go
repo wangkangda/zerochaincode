@@ -1,9 +1,5 @@
 package model
 
-import (
-    "github.com/hyperledger/fabric/core/chaincode/shim"
-)
-
 const(
     NormalTransaction = 0
     PrivacyTransaction = 1

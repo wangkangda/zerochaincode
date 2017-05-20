@@ -1,20 +1,18 @@
 package storage
 
 import(
-    "github.com/wangkangda/zerochaincode/zeroTrans/client/cmd"
-    "github.com/wangkangda/zerochaincode/zeroTrans/zklib/model"
+    "github.com/wangkangda/zerochaincode/zeroTrans/zklib"
 )
 
 var(
-    Paramlist      model.Params
-    Keylist    []model.KeyPair
-    Commlist     []model.Commit
-    Amounts     map[model.Address]int
+    AddresList      map[string]model.Address
 )
 
+type Storage struct{
+    addressList     map[string]string       `json:"address_list"`
+}
+
 func GetStorage() error{
-    initf := false
-    var input string
     f, err := os.Open(cmd.Datapath)
     if err != nil {
         f, err = os.Create(cmd.Datapath)
@@ -26,14 +24,13 @@ func GetStorage() error{
     }
     defer f.Close()
     buf := bufio.NewReader(f)
-    input = GetLines( buf, initf )
-    Paramlist = model.GetParams( input, initf )
-    input = GetLines( buf, initf )
-    Keylist = model.GetKeyPairs( input, initf )
-    input = GetLines( buf, initf )
-    Commlist = model.GetCommits( input, initf )
-    input = GetLines( buf, initf )
-    Amounts = model.GetAmounts( input, initf )
+    var allStorage Storage
+    json.Unmarshal( []byte(GetLines(buf, false)), &allStorage )
+    AddressList = make(map[string]string)
+    for addr, obj := allStorage.addressList{
+        AddressList[addr] = zklib.Address{}
+        AddressList[addr].FromString( obj )
+    }
 }
 
 func SaveStorage(){
@@ -43,17 +40,20 @@ func SaveStorage(){
         return
     }
     defer f.Close()
-    f.WriteString( model.StrParams( Paramlist ) )
-    f.WriteString( model.StrKeyPairs( Keylist) )
-    f.WriteString( model.StrCommits( Commlist ) )
-    f.WriteString( model.StrAmounts( Amounts ) )
+    var allStorage Storage
+    allStorage.addressList = make(map[string]string)
+    for addr, obj := range AddressList{
+        allStorage.addressList[ addr ] = obj.String()
+    }
+    f.WriteString( string(json.Marshal( allStorage ) ) )
+    f.WriteString( "\n" )
     log.Println("Write All Storage")
 }
 
 func GetLines( buf bufio.Reader, empty bool )string{
     var res string
     if !empty{
-        res, err = buf.ReadString('\n')
+        res, err = buf.ReadString("\n")
         if err != nil{
             log.Printf("Error in creating file:%v", err.Error())
             panic( err )

@@ -6,12 +6,12 @@ import(
     "bufio"
     "strings"
     //"github/wangkangda/zerochaincode/zeroTrans/client/onchain"
-    //"github/wangkangda/zerochaincode/zeroTrans/client/storage"
+    "github/wangkangda/zerochaincode/zeroTrans/client/storage"
 )
 
 func main(){
-    //storage.GetStorage()
-    //defer storage.SaveStorage()
+    storage.GetStorage()
+    defer storage.SaveStorage()
 
     reader := bufio.NewReader( os.Stdin )
     for true {
@@ -29,7 +29,14 @@ func main(){
         fmt.Println("Get cmd:", function)
         switch function{
         case "init":
+            //部署chaincode
             continue
+        case "address":
+            //新建/重命名地址，生成公私钥对
+            err = method.CmdAddress( cmd )
+            if err != nil{
+                fmt.Printf("Get %v while execute Address cmd\n", err)
+            }
         case "quit":
             fmt.Println("Get quit command")
             return

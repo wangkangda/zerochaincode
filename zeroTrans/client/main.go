@@ -5,8 +5,8 @@ import(
     "fmt"
     "bufio"
     "strings"
-    //"github/wangkangda/zerochaincode/zeroTrans/client/onchain"
-    "github/wangkangda/zerochaincode/zeroTrans/client/storage"
+    "github.com/wangkangda/zerochaincode/zeroTrans/client/method"
+    "github.com/wangkangda/zerochaincode/zeroTrans/client/storage"
 )
 
 func main(){

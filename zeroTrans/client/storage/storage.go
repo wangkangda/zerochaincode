@@ -1,21 +1,31 @@
 package storage
 
 import(
+    "os"
+    "bufio"
+    "log"
+    "encoding/json"
     "github.com/wangkangda/zerochaincode/zeroTrans/zklib"
 )
 
-var(
-    AddresList      map[string]model.Address
+const(
+    datapath = "storage.dat"
+    backpath = "backup.dat"
 )
 
-type Storage struct{
-    addressList     map[string]string       `json:"address_list"`
+var(
+    AddressList      map[string]*zklib.Address
+)
+
+type PackedData struct{
+    AddressList     map[string]string   `json:"address_list"`
 }
 
 func GetStorage() error{
-    f, err := os.Open(cmd.Datapath)
+    initf := false
+    f, err := os.Open(datapath)
     if err != nil {
-        f, err = os.Create(cmd.Datapath)
+        f, err = os.Create(datapath)
         if err != nil{
             log.Printf("Error in creating file:%v", err.Error())
             return err
@@ -24,36 +34,57 @@ func GetStorage() error{
     }
     defer f.Close()
     buf := bufio.NewReader(f)
-    var allStorage Storage
-    json.Unmarshal( []byte(GetLines(buf, false)), &allStorage )
-    AddressList = make(map[string]string)
-    for addr, obj := allStorage.addressList{
-        AddressList[addr] = zklib.Address{}
+    var allStorage PackedData
+    json.Unmarshal( []byte(GetLines(buf, initf)), &allStorage )
+    AddressList = make(map[string]*zklib.Address)
+    for addr, obj := range allStorage.AddressList{
+        AddressList[addr] = &zklib.Address{}
         AddressList[addr].FromString( obj )
     }
+    return nil
 }
 
-func SaveStorage(){
-    f, err = os.Create(cmd.Datapath)
+func SaveStorage()error{
+    fdone := false
+    f, err := os.Create(backpath)
     if err != nil{
-        log.Printf("Error in creating file:%v", err.Error())
-        return
+        log.Printf("Error in creating file:%v", err)
+        return err
     }
-    defer f.Close()
-    var allStorage Storage
-    allStorage.addressList = make(map[string]string)
+    defer func(){
+        f.Close()
+        if fdone {
+            err := os.Rename(backpath, datapath)
+            if err != nil{
+                log.Printf("Error while save data: %v\n", err)
+            }
+        }
+    }()
+    var allStorage PackedData
+    allStorage.AddressList = make( map[string]string )
     for addr, obj := range AddressList{
-        allStorage.addressList[ addr ] = obj.String()
+        //log.Printf("Save %v: %v\n", addr, obj)
+        if obj != nil{
+            allStorage.AddressList[addr] = obj.String()
+        }
     }
-    f.WriteString( string(json.Marshal( allStorage ) ) )
+    resbyte, err := json.Marshal(allStorage)
+    if err != nil{
+        return err
+    }
+    log.Printf("Get Json %v len\n", len(resbyte))
+    f.WriteString( string( resbyte ) )
     f.WriteString( "\n" )
     log.Println("Write All Storage")
+    fdone = true
+    return nil
 }
 
-func GetLines( buf bufio.Reader, empty bool )string{
+func GetLines( buf *bufio.Reader, empty bool )string{
     var res string
+    var err error
     if !empty{
-        res, err = buf.ReadString("\n")
+        res, err = buf.ReadString('\n')
         if err != nil{
             log.Printf("Error in creating file:%v", err.Error())
             panic( err )

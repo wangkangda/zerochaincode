@@ -1,32 +1,35 @@
 package method
 
 import(
+    "fmt"
     "errors"
-    _ "github.com/wangkangda/zerochaincode/zeroTrans/client/storage"
+    "github.com/wangkangda/zerochaincode/zeroTrans/client/storage"
+    "github.com/wangkangda/zerochaincode/zeroTrans/zklib"
 )
 
-func CmdAddress( cmd ){
-    newname, oldname := "", ""
+func CmdAddress( cmd []string )error{
+    name, newname := "", ""
     if len(cmd)==1 || len(cmd)>3{
         return errors.New("Error for parameter number")
     }else if len(cmd)==3{
-        oldname = cmd[2]
+        newname = cmd[2]
     }
-    newname = cmd[1]
-    address, exist := storage.AddressList[ newname ]
+    name = cmd[1]
+    _, exist := storage.AddressList[ name ]
     if exist {
-        if oldname == ""{
-            fmt.Printf("Address [%v] exist:\n", newname)
+        if newname == ""{
+            fmt.Printf("Address [%v] exist:\n", name)
         }else{
-            storage.AddressList[ newname ] = storage.AddressList[ oldname ]
-            delete( storage.AddressList, oldname )
-            fmt.Printf("Rename Address [%v] to [%v]:\n", oldname, newname)
+            storage.AddressList[ newname ] = storage.AddressList[ name ]
+            delete( storage.AddressList, name )
+            fmt.Printf("Rename Address [%v] to [%v]:\n", name, newname)
+            name = newname
         }
     }else{
-        storage.AddressList[ newname ] = Address{}
-        storage.AddressList[ newname ].GetAddress()
-        fmt.Printf("Get New Address [%v]:", newname)
+        storage.AddressList[ name ] = &zklib.Address{}
+        storage.AddressList[ name ].GetAddress()
+        fmt.Printf("Get New Address [%v]:", name)
     }
-    fmt.Println(storage.AddressList[newname].String())
+    fmt.Println(storage.AddressList[name].String())
     return nil
 }

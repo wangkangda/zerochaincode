@@ -37,6 +37,11 @@ func main(){
             if err != nil{
                 fmt.Printf("Get %v while execute Address cmd\n", err)
             }
+        case "coin":
+            err = method.CmdCoin( cmd )
+            if err != nil{
+                fmt.Printf("Get %v while execute Coin cmd\n", err)
+            }
         case "quit":
             fmt.Println("Get quit command")
             return

@@ -22,6 +22,8 @@ func CmdAddress( cmd []string )error{
         }else{
             storage.AddressList[ newname ] = storage.AddressList[ name ]
             delete( storage.AddressList, name )
+            storage.CoinList[ newname ] = storage.CoinList[ name ]
+            delete( storage.CoinList, name )
             fmt.Printf("Rename Address [%v] to [%v]:\n", name, newname)
             name = newname
         }

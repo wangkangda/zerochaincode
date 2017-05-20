@@ -14,11 +14,13 @@ const(
 )
 
 var(
-    AddressList      map[string]*zklib.Address
+    AddressList     map[string]*zklib.Address
+    CoinList        map[string][]*Coin
 )
 
 type PackedData struct{
     AddressList     map[string]string   `json:"address_list"`
+    CoinList        map[string][]string `json:"coin_list"`
 }
 
 func GetStorage() error{
@@ -37,9 +39,16 @@ func GetStorage() error{
     var allStorage PackedData
     json.Unmarshal( []byte(GetLines(buf, initf)), &allStorage )
     AddressList = make(map[string]*zklib.Address)
+    CoinList = make(map[string][]*Coin
     for addr, obj := range allStorage.AddressList{
         AddressList[addr] = &zklib.Address{}
         AddressList[addr].FromString( obj )
+        CoinList[addr] = make([]*Coin, 0)
+        for _, cstr := range allStorage.CoinList[addr]{
+            c := &Coin{}
+            c.coin.FromString(cstr)
+            CoinList[addr] = append(CoinList[addr], c)
+        }
     }
     return nil
 }
@@ -62,10 +71,15 @@ func SaveStorage()error{
     }()
     var allStorage PackedData
     allStorage.AddressList = make( map[string]string )
+    allStorage.CoinList = make( map[string][]string )
     for addr, obj := range AddressList{
         //log.Printf("Save %v: %v\n", addr, obj)
         if obj != nil{
             allStorage.AddressList[addr] = obj.String()
+            allStorage.CoinList[addr] = make([]string, 0)
+            for _, coin := range CoinList[addr]{
+                allStorage.CoinList[addr] = append(allStorage.CoinList[addr], coin.String())
+            }
         }
     }
     resbyte, err := json.Marshal(allStorage)

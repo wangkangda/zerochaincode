@@ -30,7 +30,10 @@ func main(){
         switch function{
         case "init":
             //部署chaincode
-            continue
+            err = method.CmdInit()
+            if err != nil{
+                fmt.Printf("Get %v while execute Init cmd\n", err)
+            }
         case "address":
             //新建/重命名地址，生成公私钥对
             err = method.CmdAddress( cmd )

@@ -5,21 +5,54 @@ import(
     "net/http"
 )
 
-const JsonTemplate = `{
+const DeployTemplate = `{
     "jsonrpc": "2.0",
-    "method": "%s",
+    "method": "deploy",
     "params":{
         "type": 1,
         "chaincodeID": {
-            %s
+            "path":"%s"
         },
         "ctorMsg":{
-            "function": "%s",
-            "args": [%s]
+            "function": "init",
+            "args": []
         }   
     },
     "id": 1
 }`
+const TransTemplate = `{
+    "jsonrpc": "2.0",
+    "method": "invoke",
+    "params":{
+        "type": 1,
+        "chaincodeID": {
+            "name":"%s"
+        },
+        "ctorMsg":{
+            "function": "transaction",
+            "args": ["%s"]
+        }   
+    },
+    "id": 1
+}`
+const QueryTemplate = `{
+    "jsonrpc": "2.0",
+    "method": "query",
+    "params":{
+        "type": 1,
+        "chaincodeID": {
+            "name":"%s"
+        },
+        "ctorMsg":{
+            "function": "%s",
+            "args": ["%s"]
+        }   
+    },
+    "id": 1
+}`
+
+
+
 
 const ChainUrl = "http://localhost:7050/chaincode"
 

@@ -16,11 +16,13 @@ const(
 var(
     AddressList     map[string]*zklib.Address
     CoinList        map[string][]*MyCoin
+    ChaincodeId     string
 )
 
 type PackedData struct{
     AddressList     map[string]string   `json:"address_list"`
     CoinList        map[string][]string `json:"coin_list"`
+    ChaincodeId     string              `json:"chaincode_id"`
 }
 
 func GetStorage() error{
@@ -50,6 +52,7 @@ func GetStorage() error{
             CoinList[addr] = append(CoinList[addr], c)
         }
     }
+    ChaincodeId = allStorage.Chaincodeid
     return nil
 }
 
@@ -72,6 +75,7 @@ func SaveStorage()error{
     var allStorage PackedData
     allStorage.AddressList = make( map[string]string )
     allStorage.CoinList = make( map[string][]string )
+    allStorage.ChaincodeId = ChaincodeId
     for addr, obj := range AddressList{
         //log.Printf("Save %v: %v\n", addr, obj)
         if obj != nil{

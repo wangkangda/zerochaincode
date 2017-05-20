@@ -1,8 +1,21 @@
 package method
 
-func Init()(string, error){
-    //args := make([]string)
-    //deploy := chain.NewDeploy( common.ChaincodePath, args )
-    //return deploy.execute()
-    return "", nil
+import(
+    "github.com/wangkangda/zerochaincode/zeroTrans/client/rpc"
+    "github.com/wangkangda/zerochaincode/zeroTrans/client/storage"
+)
+
+const(
+    ChaincodePath = "github/wangkangda/zerochaincode/zeroTrans/chaincode"
+)
+
+func CmdInit()(error){
+    args := make([]string)
+    req := fmt.Sprintf( rpc.DeployTemplate, ChaincodePath )
+    log.Printf("Get Deploy Request:%v\n", req)
+    res, err := rpc.JsonSend( []byte(req) )
+    if err != nil{
+        return err
+    }
+    storage.ChaincodeId = string(res)
 }

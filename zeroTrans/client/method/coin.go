@@ -2,14 +2,11 @@ package method
 
 import (
     "log"
+    "errors"
+    "strconv"
+    "github.com/wangkangda/zerochaincode/zeroTrans/client/storage"
     "github.com/wangkangda/zerochaincode/zeroTrans/zklib"
 )
-
-type Coin struct{
-    coin        zklib.Coin
-    commitid    int
-    value       int
-}
 
 func CmdCoin( cmd []string)error{
     name, value := "", 0
@@ -17,19 +14,24 @@ func CmdCoin( cmd []string)error{
         return errors.New("Error for parameter number")
     }
     name = cmd[1]
-    value = cmd[2]
+    value, err := strconv.Atoi(cmd[2])
+    if err != nil{
+        return errors.New("Error for parameter value")
+    }
     addr, exist := storage.AddressList[ name ]
     if !exist {
         return errors.New("No such Address Name. Please Generate Address First.")
     }
-    _, exist := storage.CoinList[ name ]
+    _, exist = storage.CoinList[ name ]
     if !exist {
-        storage.CoinList[name] = make([]*Coin, 0)
+        storage.CoinList[name] = make([]*storage.MyCoin, 0)
     }
-    c := &Coin{}
-    c.GetCoin( addr, value )
-    c.value = value
-    c.commitid = len(storage.CoinList[name])
+    c := &storage.MyCoin{}
+    c.Coin = &zklib.Coin{}
+    c.Coin.GetCoin( *addr, value )
+    c.Value = value
+    c.Commitid = len(storage.CoinList[name])
     storage.CoinList[name] = append(storage.CoinList[name], c)
-    log.Printf("Get a new coin No.%v for user [%v]", c.commitid, addr)
+    log.Printf("Get a new coin No.%v for user [%v]", c.Commitid, addr)
+    return nil
 }

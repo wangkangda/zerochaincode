@@ -15,7 +15,7 @@ const(
 
 var(
     AddressList     map[string]*zklib.Address
-    CoinList        map[string][]*Coin
+    CoinList        map[string][]*MyCoin
 )
 
 type PackedData struct{
@@ -39,14 +39,14 @@ func GetStorage() error{
     var allStorage PackedData
     json.Unmarshal( []byte(GetLines(buf, initf)), &allStorage )
     AddressList = make(map[string]*zklib.Address)
-    CoinList = make(map[string][]*Coin
+    CoinList = make(map[string][]*MyCoin)
     for addr, obj := range allStorage.AddressList{
         AddressList[addr] = &zklib.Address{}
         AddressList[addr].FromString( obj )
-        CoinList[addr] = make([]*Coin, 0)
+        CoinList[addr] = make([]*MyCoin, 0)
         for _, cstr := range allStorage.CoinList[addr]{
-            c := &Coin{}
-            c.coin.FromString(cstr)
+            c := &MyCoin{}
+            c.FromString(cstr)
             CoinList[addr] = append(CoinList[addr], c)
         }
     }

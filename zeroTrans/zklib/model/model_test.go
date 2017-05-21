@@ -42,18 +42,18 @@ func TestModel(t *testing.T){
     c1 := zklib.Coin{}
     c2 := zklib.Coin{}
     c3 := zklib.Coin{}
-    c1.GetCoin( no.receiver, 3 )
+    c1.GetCoin( no.receiver, 4 )
     c2.GetCoin( no.receiver, 3 )
     c3.GetCoin( no.receiver, 2 )
     merkle.Insert( c1.GetCommit(), 2 )
     c1.Index = 2
-    pi.pour.GetPour(params, po.coin, c1, merkle, 0, c2, c3 )
+    pi.pour.GetPour(params, po.coin, c1, merkle, 1, c2, c3 )
     //fmt.Println("Get Pravicy Input:\n", pi.String())
     n = &PrivacyInput{}
     n.FromString( pi.String() )
     //fmt.Println("After Serialized\n", n.String())
     c := Context{}
-    c.merkle = &merkle
-    c.params = &params
+    c.Merkle = &merkle
+    c.Params = &params
     fmt.Println("Verify Result:", n.(*PrivacyInput).Verify(c))
 }

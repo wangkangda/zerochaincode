@@ -9,9 +9,9 @@ type InitMethod struct{
     ctx     model.Context
 }
 
-func NewInitmethod( s shim.ChaincodeStubInterface ) *InitMethod{
-    t := new( Initmethod )
-    t.ctx.stub = s
+func NewInitMethod( s shim.ChaincodeStubInterface ) *InitMethod{
+    t := new( InitMethod )
+    t.ctx.Stub = s
     t.ctx.InitContext()
     return t
 }

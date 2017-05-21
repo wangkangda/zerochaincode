@@ -25,7 +25,7 @@ func (o *NormalOutput)Verify(context Context )bool{
 }
 
 func (o *NormalOutput)Execute(context Context)error{
-    context.amount[ o.receiver.String() ] += o.amount
+    context.Amount[ o.receiver.String() ] += o.amount
     return nil
 }
 

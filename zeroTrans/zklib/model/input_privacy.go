@@ -20,7 +20,7 @@ func (i *PrivacyInput)Prepare(ctx Context){
 
 func (i *PrivacyInput)Verify(ctx Context)bool{
     //if snset.contains( i.sn ) return false
-    return i.pour.Verify(ctx.params, ctx.merkle)
+    return i.pour.Verify(ctx.Params, ctx.Merkle)
 }
 
 func (i *PrivacyInput)Execute(ctx Context)error{

@@ -52,7 +52,7 @@ func GetStorage() error{
             CoinList[addr] = append(CoinList[addr], c)
         }
     }
-    ChaincodeId = allStorage.Chaincodeid
+    ChaincodeId = allStorage.ChaincodeId
     return nil
 }
 

@@ -1,6 +1,7 @@
 package method
 
 import(
+    "errors"
     "github.com/hyperledger/fabric/core/chaincode/shim"
     "github.com/wangkangda/zerochaincode/zeroTrans/zklib/model"
 )
@@ -8,15 +9,16 @@ import(
 type Transaction struct{
     stub    shim.ChaincodeStubInterface
     ctx     model.Context
-    inputs  []*model.Input
-    outputs []*model.Output
+    inputs  []model.Input
+    outputs []model.Output
 }
 
 func NewTransaction( s shim.ChaincodeStubInterface, args []string ) *Transaction{
+    /*
     t := new( Transaction )
     t.inputs = make([]*model.Input, 2)
     t.outputs = make([]*model.Output, 2)
-    for i=0; i<2; i++{
+    for i:=0; i<2; i++{
         t.inputs[i] = new(model.Input)
         t.inputs[i].FromString( args[i] )
         t.inputs[i].Prepare(t.ctx)
@@ -26,34 +28,29 @@ func NewTransaction( s shim.ChaincodeStubInterface, args []string ) *Transaction
     }
     t.ctx.GetContext()
     return t
+    */
+    return nil
 }
 
 func (t *Transaction) Execute()([]byte, error){
-    for i=0; i<2; i++{
+    for i:=0; i<2; i++{
         if !t.inputs[i].Verify(t.ctx) {
-            return errors.New("Input %v Error", i)
+            return nil, errors.New("Input Error")
         }
         if !t.outputs[i].Verify(t.ctx) {
-            return errors.New("Output %v Error", i)
+            return nil, errors.New("Output Error")
         }
     }
-    for i=0; i<2; i++{
-        _, err := t.inputs[i].Execute(t.ctx)
+    for i:=0; i<2; i++{
+        err := t.inputs[i].Execute(t.ctx)
         if err != nil {
-            return err
+            return nil, err
         }
-        _, err := t.outputs[i].Execute(t.ctx)
+        err = t.outputs[i].Execute(t.ctx)
         if err != nil {
-            return err
+            return nil, err
         }
     }
     return nil, nil
 }
 
-
-    var err error
-    for _, o := range t.outputs {
-        o.Execute()
-    }
-    return nil, nil
-}

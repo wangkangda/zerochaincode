@@ -1,7 +1,10 @@
 package rpc
 
 import(
-    "io/ioutil"
+    //"fmt"
+    "errors"
+    "bytes"
+    //"io/ioutil"
     "net/http"
 )
 
@@ -56,10 +59,14 @@ const QueryTemplate = `{
 
 const ChainUrl = "http://localhost:7050/chaincode"
 
-func JsonSend( req []byte )([]byte, error){
-    req, err := http.NewRequest("POST", ChainUrl, bytes.NewBuffer(req))
+func JsonSend( jsonreq []byte )([]byte, error){
+    req, err := http.NewRequest("POST", ChainUrl, bytes.NewBuffer(jsonreq))
+    if err != nil{
+        return nil, err
+    }
     req.Header.Set("X-Custom-Header", "myvalue")
     req.Header.Set("Content-Type", "application/json")
+    /*
     client := &http.Client{}
     resp, err := client.Do(req)
     if err != nil {
@@ -67,5 +74,7 @@ func JsonSend( req []byte )([]byte, error){
     }
     defer resp.Body.Close()
     body, _ := ioutil.ReadAll(resp.Body)
-    return body
+    */
+    //fmt.Printf("Request: %v\n", req)
+    return nil, errors.New("Not Implement")
 }

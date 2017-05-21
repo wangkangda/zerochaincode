@@ -24,11 +24,11 @@ func (i *NormalInput)Prepare(ctx Context){
 func (i *NormalInput)Verify(ctx Context)bool{
     //之后可加入签名验证?
     //verify(signed, i.sender, ctx.signedContent)
-    return ctx.amount[i.sender.String()]>=i.value
+    return ctx.Amount[i.sender.String()]>=i.value
 }
 
 func (i *NormalInput)Execute(ctx Context)error{
-    ctx.amount[i.sender.String()]-=i.value
+    ctx.Amount[i.sender.String()]-=i.value
     return nil
 }
 

@@ -12,7 +12,7 @@ type ZeroChaincode struct {
 
 func (t *ZeroChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string)([]byte, error){
     log.Printf( "Init Chaincode" )
-    h := method.NewInitmethod( stub )
+    h := method.NewInitMethod( stub )
     return h.Execute()
 }
 

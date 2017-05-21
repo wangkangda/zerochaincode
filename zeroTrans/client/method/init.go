@@ -1,6 +1,8 @@
 package method
 
 import(
+    "fmt"
+    "log"
     "github.com/wangkangda/zerochaincode/zeroTrans/client/rpc"
     "github.com/wangkangda/zerochaincode/zeroTrans/client/storage"
 )
@@ -10,7 +12,6 @@ const(
 )
 
 func CmdInit()(error){
-    args := make([]string)
     req := fmt.Sprintf( rpc.DeployTemplate, ChaincodePath )
     log.Printf("Get Deploy Request:%v\n", req)
     res, err := rpc.JsonSend( []byte(req) )
@@ -18,4 +19,5 @@ func CmdInit()(error){
         return err
     }
     storage.ChaincodeId = string(res)
+    return nil
 }

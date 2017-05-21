@@ -21,8 +21,8 @@ func (o *PrivacyOutput)Verify(ctx Context)bool{
 }
 
 func (o *PrivacyOutput)Execute(ctx Context)error{
-    ctx.merkle.Insert( o.coin.GetCommit(), ctx.commitnum )
-    ctx.commitnum ++
+    ctx.Merkle.Insert( o.coin.GetCommit(), ctx.Commitnum )
+    ctx.Commitnum ++
     return nil
 }
 

@@ -1,13 +1,12 @@
 package method
 
 import(
-    "fmt"
-    "log"
+    //"log"
     "errors"
     "strconv"
     "github.com/hyperledger/fabric/core/chaincode/shim"
     //"github.com/wangkangda/zerochaincode/zeroTrans/zklib/transaction"
-    "github.com/wangkangda/zerochaincode/zeroTrans/zklib/common"
+    "github.com/wangkangda/zerochaincode/zeroTrans/zklib/model"
 )
 
 type Query struct{
@@ -26,16 +25,22 @@ func NewQuery(stub shim.ChaincodeStubInterface, function string, args []string)*
     return q
 }
 
-func (q *Query) Execute()([]byte, error)
+func (q *Query) Execute()([]byte, error){
     var res []byte
     var err error
     switch q.function{
     case model.ConstAmount:
-        res, err = q.ctx.GetAmount( q.key )
+        var amount int
+        amount, err = q.ctx.GetAmount( q.key )
+        res = []byte(strconv.Itoa(amount))
     case model.ConstMerkle:
-        res, err = q.ctx.GetMerkle()
+        var m string
+        m, err = q.ctx.GetMerkle()
+        res = []byte(m)
     case model.ConstMerkleSize:
-        res, err = q.ctx.GetMerkleSize()
+        var ms int
+        ms, err = q.ctx.GetMerkleSize()
+        res = []byte(strconv.Itoa(ms))
     default:
         err = errors.New("Not Such Query Object")
     }

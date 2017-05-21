@@ -8,7 +8,7 @@ import(
 )
 
 const(
-    ChaincodePath = "github/wangkangda/zerochaincode/zeroTrans/chaincode"
+    ChaincodePath = "github.com/wangkangda/zerochaincode/zeroTrans/chaincode"
 )
 
 func CmdInit()(error){

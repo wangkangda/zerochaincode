@@ -4,7 +4,7 @@ import(
     //"fmt"
     "errors"
     "bytes"
-    //"io/ioutil"
+    "io/ioutil"
     "net/http"
 )
 
@@ -66,15 +66,16 @@ func JsonSend( jsonreq []byte )([]byte, error){
     }
     req.Header.Set("X-Custom-Header", "myvalue")
     req.Header.Set("Content-Type", "application/json")
-    /*
+    
     client := &http.Client{}
     resp, err := client.Do(req)
     if err != nil {
         return nil, err
     }
     defer resp.Body.Close()
-    body, _ := ioutil.ReadAll(resp.Body)
-    */
+    body, err := ioutil.ReadAll(resp.Body)
+    return body, err
+    
     //fmt.Printf("Request: %v\n", req)
     return nil, errors.New("Not Implement")
 }

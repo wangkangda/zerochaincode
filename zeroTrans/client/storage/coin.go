@@ -3,7 +3,7 @@ package storage
 import(
     "log"
     "encoding/json"
-    "github.com/wangkangda/zerochaincode/zeroTrans/zklib"
+    "github.com/wangkangda/zerochaincode/zeroTrans/chaincode/zklib"
 )
 
 type MyCoin struct{

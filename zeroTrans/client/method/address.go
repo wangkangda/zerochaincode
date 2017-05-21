@@ -4,7 +4,7 @@ import(
     "fmt"
     "errors"
     "github.com/wangkangda/zerochaincode/zeroTrans/client/storage"
-    "github.com/wangkangda/zerochaincode/zeroTrans/zklib"
+    "github.com/wangkangda/zerochaincode/zeroTrans/chaincode/zklib"
 )
 
 func CmdAddress( cmd []string )error{

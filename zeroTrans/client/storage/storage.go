@@ -5,7 +5,7 @@ import(
     "bufio"
     "log"
     "encoding/json"
-    "github.com/wangkangda/zerochaincode/zeroTrans/zklib"
+    "github.com/wangkangda/zerochaincode/zeroTrans/chaincode/zklib"
 )
 
 const(

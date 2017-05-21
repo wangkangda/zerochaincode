@@ -5,8 +5,7 @@ import(
     "errors"
     "strconv"
     "github.com/hyperledger/fabric/core/chaincode/shim"
-    //"github.com/wangkangda/zerochaincode/zeroTrans/zklib/transaction"
-    "github.com/wangkangda/zerochaincode/zeroTrans/zklib/model"
+    "github.com/wangkangda/zerochaincode/zeroTrans/chaincode/zklib/model"
 )
 
 type Query struct{

@@ -1,1 +1,0 @@
-g++ mytest/test.cpp -o test -g -Wno-unused-parameter -std=c++11 -fPIC -Wno-unused-variable -I libzerocash/libzerocash -L libzerocash -Wl,-rpath libzerocash -lzerocash -flto -DUSE_ASM -DCURVE_ALT_BN128 -L libzerocash/depinst/lib -Wl,-rpath libzerocash/depinst/lib -L . -lsnark -lgmpxx -lgmp -lboost_system -lcrypto -lcryptopp -lz -ldl -pthread -lboost_program_options -lprocps
